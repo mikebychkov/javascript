@@ -13,6 +13,10 @@ console.log(str.substring(6));
 console.log(str.substring(6, 9));
 console.log(str.substring(7, 3));
 
+console.log(str.split('').reverse().join('')); // REVERSE STRING
+
+
+
 // NUMBER METHODS
 
 const num1 = 12.3;

@@ -124,3 +124,13 @@ function f4() {
 }
 f3(f4);
 // 'F3 -> F4' ORDER IS OK
+
+//-SPREAD-OPERATOR-----------------------------------------------------
+
+function abc(a, b, c) {
+    console.log(a);
+    console.log(b);
+    console.log(c);
+}
+const params = [3,2,1,0,-1]; // SPARE VALUES IGNORED
+abc(...params);
