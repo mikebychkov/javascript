@@ -14,6 +14,7 @@ delete obj.name;
 
 console.log(obj);
 
+
 // LOOP THROUGH OBJECT
 
 const obj2 = {
@@ -41,6 +42,7 @@ for (let key in obj2) {
     }
 }
 
+
 // OBJECT KEYS
 
 const obj3 = {
@@ -56,6 +58,7 @@ const obj3 = {
 console.log(Object.keys(obj3));
 console.log(Object.keys(obj3).length);
 
+
 // STORING FUNCS
 
 const obj4 = {
@@ -70,6 +73,7 @@ const obj4 = {
 };
 console.log(obj4.getSize());
 
+
 // DESTRUCTURIZING
 
 const obj5 = {
@@ -82,6 +86,7 @@ const obj5 = {
 const {border, bg} = obj5.colors; // KEYS MUST BE THE SAME
 console.log(border);
 console.log(bg);
+
 
 // OBJECT.ASSIGN - JOIN AND SHALOW COPY OBJECTS
 
@@ -101,7 +106,29 @@ console.log(obj11 === obj11Ref);
 const obj111 = Object.assign({}, obj11);
 console.log(obj11 === obj111);
 
+
 // SPREAD OPERATOR
 
 const combinedObj = {...obj11, ...obj12};
 console.log(combinedObj);
+
+
+// PROTOTYPES
+
+const bird = {    
+    canFly: true
+};
+const duck = {
+    canSweem: true
+};
+// duck.__proto__ = bird; // OLD WAY
+Object.setPrototypeOf(duck, bird);
+console.log(duck.canFly);
+
+const eagle = Object.create(bird);
+eagle.canSweem = false;
+eagle.isPredator = true;
+console.log(eagle.canFly);
+console.log(eagle.canSweem);
+console.log(eagle.isPredator);
+

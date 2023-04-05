@@ -5,9 +5,28 @@ const personalMovieDB = {
     movies: {},
     actors: {},
     genres: [],
-    isPrivate: false
+    isPrivate: false,
+    numberOfMovies: () => {
+        this.count = numberOfMovies();
+    },
+    detectPersonalLevel: () => {
+        detectPersonalLevel(this.count);
+    },
+    rememberMyMovies: () => {
+        this.movies = rememberMyMovies();
+    },
+    writeYourGenres: () => {
+        this.genres = writeYourGenres();
+    },
+    showMyDB: () => {
+        showMyDB(this, this.isPrivate);        
+    },
+    toggleVisibleMyDB: () => {
+        this.isPrivate = !this.isPrivate;
+    }
 };
 
+/*
 personalMovieDB.count = numberOfMovies();
 
 detectPersonalLevel(personalMovieDB.count);
@@ -17,6 +36,21 @@ personalMovieDB.movies = rememberMyMovies();
 personalMovieDB.genres = writeYourGenres();
 
 showMyDB(personalMovieDB, personalMovieDB.isPrivate);
+*/
+
+personalMovieDB.numberOfMovies();
+personalMovieDB.detectPersonalLevel();
+personalMovieDB.rememberMyMovies();
+personalMovieDB.writeYourGenres();
+personalMovieDB.showMyDB();
+
+console.log('Toggle visibility and try to show:');
+personalMovieDB.toggleVisibleMyDB();
+personalMovieDB.showMyDB();
+
+console.log('Toggle visibility again and try to show:');
+personalMovieDB.toggleVisibleMyDB();
+personalMovieDB.showMyDB();
 
 
 //-------------------------------------------------------------------------------
@@ -50,11 +84,11 @@ function rememberMyMovies() {
 function detectPersonalLevel(count) {
 
     if (count <= 10) {
-        console.log('It is not much');
+        console.log(`${count} is not much`);
     } else if (count > 10 && count <= 30) {
-        console.log('It is OK');
+        console.log(`${count} is OK`);
     } else if (count > 30) {
-        console.log('It is a lot of movies');
+        console.log(`${count} is a lot of movies`);
     } else {
         console.log('Something went wrong!');
     }
@@ -62,7 +96,10 @@ function detectPersonalLevel(count) {
 
 function showMyDB(DB, dbIsPrivate) {
 
-    if (dbIsPrivate) return;
+    if (dbIsPrivate) {
+        console.log('DB is set to be private.');
+        return;
+    }
     console.log(DB);
 }
 
@@ -77,9 +114,11 @@ function writeYourGenres() {
         rsl[idx] = response.trim();
         questionCount--;
     }
+    rsl.forEach((item, idx) => {
+        console.log(`Favorite movie genre #${idx + 1} is ${item}`);
+    });
     return rsl;
 }
-
 
 
 
