@@ -104,7 +104,9 @@ console.log('5.5 - ' + fib(5.5)); // ''
 //-CALLBACK------------------------------------------------------
 
 function f1() {
-    setTimeout(() => console.log("F1"), 500);
+    setTimeout(() => {
+        console.log("F1");
+    }, 500);
 }
 function f2() {
     console.log("F2");
@@ -134,3 +136,96 @@ function abc(a, b, c) {
 }
 const params = [3,2,1,0,-1]; // SPARE VALUES IGNORED
 abc(...params);
+
+// EXERCISE------------------------------------------------------------
+
+const shoppingMallData = {
+    shops: [
+        {
+            width: 10,
+            length: 5
+        },
+        {
+            width: 15,
+            length: 7
+        },
+        {
+            width: 20,
+            length: 5
+        },
+        {
+            width: 8,
+            length: 10
+        }
+    ],
+    height: 5,
+    moneyPer1m3: 30,
+    budget: 50000
+};
+
+function isBudgetEnough(data) {
+    
+    const totalVol = data.shops.map((s) => {
+        return s.width * s.length * data.height;
+    }).reduce((a, b) => a + b);
+
+    console.log(`Total vol: ${totalVol}`);
+
+    const totalMoney = totalVol * data.moneyPer1m3;
+
+    console.log(`Total money: ${totalMoney}`);
+
+    return data.budget >= totalMoney;    
+}
+
+console.log(isBudgetEnough(shoppingMallData));
+
+//
+
+const students = ['Peter', 'Andrew', 'Ann', 'Mark', 'Josh', 'Sandra', 'Cris', 'Bernard', 'Takesi', 'Sam'];
+
+function takeFirst3(arr) {
+    const rsl = [];
+    for (let i = 0; i < 3; i++) {
+        rsl.push(arr.shift());
+    }
+    return rsl;
+}
+
+function sortStudentsByGroups(arr) {
+
+    console.log(arr);
+
+    const newArr = arr.slice();
+
+    newArr.sort();
+
+    const gr1 = takeFirst3(newArr);
+    const gr2 = takeFirst3(newArr);
+    const gr3 = takeFirst3(newArr);
+
+    let leftStud = 'Оставшиеся студенты: ';
+    if (newArr.length == 0) {
+        leftStud += '-';
+    } else {
+        leftStud += newArr.join(', ');
+    }
+
+    return [gr1, gr2, gr3, leftStud];
+}
+
+console.log(sortStudentsByGroups(students));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
