@@ -1,0 +1,14 @@
+{
+  "name": "06-navigation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "recursion.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.37.0"
+  }
+}

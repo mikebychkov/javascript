@@ -3,14 +3,14 @@
 //-------------------------------------------------------
 
 const logger = function() {
-    console.log("logging my logs");
+    console.log('logging my logs');
 };
 logger();
 
 //-------------------------------------------------------
 
 const ff = () => {
-    console.log("ffffffffffffff");
+    console.log('ffffffffffffff');
 };
 ff();
 
@@ -45,17 +45,17 @@ console.log(getMathResult(10, -5));
 
 function hourString(n) {
     switch(n) {
-        case 1: return 'час'; 
-        case 2:
-        case 3:
-        case 4: return 'часа'; 
-        case 5: 
-        case 6: 
-        case 7: 
-        case 8: 
-        case 9: 
-        case 0: return 'часов';
-        default: return '';
+    case 1: return 'час'; 
+    case 2:
+    case 3:
+    case 4: return 'часа'; 
+    case 5: 
+    case 6: 
+    case 7: 
+    case 8: 
+    case 9: 
+    case 0: return 'часов';
+    default: return '';
     }
 }
 
@@ -105,11 +105,11 @@ console.log('5.5 - ' + fib(5.5)); // ''
 
 function f1() {
     setTimeout(() => {
-        console.log("F1");
+        console.log('F1');
     }, 500);
 }
 function f2() {
-    console.log("F2");
+    console.log('F2');
 }
 f1();
 f2();
@@ -117,12 +117,12 @@ f2();
 
 function f3(callbackFunc) {
     setTimeout(() => {
-        console.log("F3"); 
+        console.log('F3'); 
         callbackFunc();
     }, 500);    
 }
 function f4() {
-    console.log("F4");
+    console.log('F4');
 }
 f3(f4);
 // 'F3 -> F4' ORDER IS OK

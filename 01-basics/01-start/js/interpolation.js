@@ -1,5 +1,5 @@
-"use strict";
+'use strict';
 
-const category = "toys";
+const category = 'toys';
 
 console.log(`http://market.com/${category}/5`);

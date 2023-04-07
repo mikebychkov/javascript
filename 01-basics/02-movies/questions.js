@@ -45,13 +45,13 @@ console.log(2 || 3); // = 2
 console.log(3 || 2); // = 3
 
 // Что выведет этот код: alert( +"Infinity" ); ?
-console.log(+"Infinity"); // = Infinity
+console.log(+'Infinity'); // = Infinity
 
 // Верно ли сравнение: "Ёжик" > "яблоко"?
-console.log("Ёжик" > "яблоко"); // = false
+console.log('Ёжик' > 'яблоко'); // = false
 
-// Чему равно 0 || "" || 2 || undefined || true || false ?
-console.log(0 || "" || 2 || undefined || true || false); // = 2
+// Чему равно 0 || '' || 2 || undefined || true || false ?
+console.log(0 || '' || 2 || undefined || true || false); // = 2
 
 
 

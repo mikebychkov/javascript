@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-console.log(4 + " hello");
-console.log(4 + +" 5");
+console.log(4 + ' hello');
+console.log(4 + +' 5');
 
 let inc = 10, dec = 10;
 inc++;
