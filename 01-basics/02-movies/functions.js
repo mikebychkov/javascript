@@ -137,6 +137,14 @@ function abc(a, b, c) {
 const params = [3,2,1,0,-1]; // SPARE VALUES IGNORED
 abc(...params);
 
+// REST OPERATOR ------------------------------------------------------
+
+function cde(c, d, ...e) {  // 'e' IS ARRAY
+    console.log(c, d, e);
+}
+cde(55,44,33,22,11);
+
+
 // EXERCISE------------------------------------------------------------
 
 const shoppingMallData = {
