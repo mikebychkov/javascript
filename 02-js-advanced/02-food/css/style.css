@@ -3,3 +3,15 @@
 .show{display:block}
 .hide{display:none}
 .fade{animation-name: fade; animation-duration: 1.5s;}@keyframes fade{from{opacity: 0.1;}to{opacity: 1;}}
+.alertMessage {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    width: 100%;
+    font-size: 20px;
+    border-radius: 5px;
+    box-shadow: rgb(0 0 0 / 25%) 0px 5px 10px 2px;
+    text-align: center;
+    padding: 0 20px;
+}

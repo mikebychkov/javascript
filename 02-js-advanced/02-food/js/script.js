@@ -258,4 +258,58 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
+    // FORMS ------------------------------------------------------------------
+
+    const callMeForms = document.querySelectorAll('form');
+    
+    const message = {
+        loading: 'Загрузка',
+        success: 'Спасибо! Скоро мы с вами свяжемся',
+        failure: 'Что-то пошло не так...'
+    };
+
+    callMeForms.forEach(form => {
+
+        function initUserMessage(text) {
+            const messageElem = document.createElement('div');
+            messageElem.classList.add('alertMessage');
+            messageElem.textContent = text;
+            form.append(messageElem);
+            return messageElem;
+        }
+
+        form.addEventListener('submit', event => {
+
+            event.preventDefault();
+
+            const messageOutput = initUserMessage(message.loading);
+
+            const body = Object.fromEntries(new FormData(form).entries());
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'http://127.0.0.1:8080/food/call-me');
+            request.setRequestHeader('Content-Type', 'Application/json');
+            request.send(JSON.stringify(body));
+
+            request.addEventListener('load', () => {
+                if (request.status === 200) {
+                    messageOutput.textContent = message.success;
+                    console.log('Request OK!');
+                } else {
+                    messageOutput.textContent = message.failure;
+                    console.log('Something went wrong...');
+                }
+            });
+            request.addEventListener('error', () => {
+                messageOutput.textContent = message.failure;
+                console.log('Request error...');
+            });
+
+            setTimeout(() => {
+                form.reset();
+                messageOutput.remove();
+            }, 2000);
+        });
+    });
+
 });
