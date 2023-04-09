@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const modalContactUs = document.querySelector('.modal');
     const modalContactUsOpenBtns = document.querySelectorAll('[data-modal]');
-    const modalContactUsCloseBtn = document.querySelector('[data-close]');
+    // const modalContactUsCloseBtn = document.querySelector('[data-close]');
 
     function openContactUs() {
         modalContactUs.classList.add('show');
@@ -142,17 +142,19 @@ document.addEventListener('DOMContentLoaded', () => {
         b.addEventListener('click', openContactUs);
     });
 
-    modalContactUsCloseBtn.addEventListener('click', closeContactUs);
+    // modalContactUsCloseBtn.addEventListener('click', closeContactUs);
 
     
     // MODAL WINDOW CLOSE EVENTS
 
+    // OUTSIDE AREA CLICK (+ CLOSE X BUTTON)
     modalContactUs.addEventListener('click', event => {
-        if (event.target == modalContactUs) {
+        if (event.target == modalContactUs || event.target.getAttribute('data-close') == '') {
             closeContactUs();
         }
     });
 
+    // ESC KEY 
     document.addEventListener('keydown', event => {
         if (event.code === 'Escape' && modalContactUs.classList.contains('show')) {
             closeContactUs();
@@ -162,7 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // MODAL WINDOW AUTO OPEN BY TIMEOUT
 
-    const modalTimerId = setTimeout(openContactUs, 5000);
+    const modalTimerId = setTimeout(openContactUs, 50000);
 
 
     // MODAL WINDOW AUTO OPEN BY SCROLL TO THE END
@@ -261,28 +263,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // FORMS ------------------------------------------------------------------
 
     const callMeForms = document.querySelectorAll('form');
-    
-    const message = {
-        loading: 'Загрузка',
-        success: 'Спасибо! Скоро мы с вами свяжемся',
-        failure: 'Что-то пошло не так...'
-    };
+    callMeForms.forEach(form => postForm(form));
 
-    callMeForms.forEach(form => {
+    function postForm(form) {
 
-        function initUserMessage(text) {
-            const messageElem = document.createElement('div');
-            messageElem.classList.add('alertMessage');
-            messageElem.textContent = text;
-            form.append(messageElem);
-            return messageElem;
+        const message = {
+            loading: 'img/form/spinner.svg',
+            success: 'Спасибо! Скоро мы с вами свяжемся',
+            failure: 'Что-то пошло не так...'
+        };
+
+        function loadingMessage(text) {
+            const elem = document.createElement('img');
+            elem.src = text;
+            elem.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;
+            //form.append(elem);
+            form.insertAdjacentElement('afterend', elem);
+            return elem;
         }
 
         form.addEventListener('submit', event => {
 
             event.preventDefault();
 
-            const messageOutput = initUserMessage(message.loading);
+            const loadingOutput = loadingMessage(message.loading);
 
             const body = Object.fromEntries(new FormData(form).entries());
 
@@ -293,23 +300,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
             request.addEventListener('load', () => {
                 if (request.status === 200) {
-                    messageOutput.textContent = message.success;
-                    console.log('Request OK!');
+                    showThanksModal(message.success);
+                    form.reset();                    
                 } else {
-                    messageOutput.textContent = message.failure;
-                    console.log('Something went wrong...');
+                    showThanksModal(message.failure);
                 }
+                loadingOutput.remove();
             });
             request.addEventListener('error', () => {
-                messageOutput.textContent = message.failure;
-                console.log('Request error...');
-            });
-
-            setTimeout(() => {
-                form.reset();
-                messageOutput.remove();
-            }, 2000);
+                showThanksModal(message.failure);
+                if (loadingOutput) {
+                    loadingOutput.remove();
+                }
+            });            
         });
-    });
+    }
+
+    function showThanksModal(message) {
+
+        const origModal = document.querySelector('.modal__dialog');
+        origModal.classList.add('hide');
+        openContactUs();
+
+        const thanksModal = document.createElement('div');
+        thanksModal.classList.add('modal__dialog');
+        thanksModal.innerHTML = `
+            <div class="modal__content">
+                <div data-close class="modal__close">&times;</div>
+                <div class="modal__title">${message}</div>
+            </div>
+        `;
+
+        document.querySelector('.modal').append(thanksModal);
+
+        setTimeout(() => {
+            closeContactUs();
+            thanksModal.remove();
+            origModal.classList.remove('hide');
+        }, 2000);
+    }
+
+
+
+
+
+
+
+
+
 
 });

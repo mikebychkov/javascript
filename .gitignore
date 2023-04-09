@@ -3,3 +3,4 @@
 *.code-workspace
 /*/target/
 /*/.idea/
+/nginx/site/
