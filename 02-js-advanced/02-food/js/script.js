@@ -293,26 +293,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const body = Object.fromEntries(new FormData(form).entries());
 
-            const request = new XMLHttpRequest();
-            request.open('POST', 'http://127.0.0.1:8080/food/call-me');
-            request.setRequestHeader('Content-Type', 'Application/json');
-            request.send(JSON.stringify(body));
+            // const request = new XMLHttpRequest();
+            // request.open('POST', 'http://127.0.0.1:8080/food/call-me');
+            // request.setRequestHeader('Content-Type', 'Application/json');
+            // request.send(JSON.stringify(body));
 
-            request.addEventListener('load', () => {
-                if (request.status === 200) {
-                    showThanksModal(message.success);
-                    form.reset();                    
-                } else {
-                    showThanksModal(message.failure);
-                }
+            // request.addEventListener('load', () => {
+            //     if (request.status === 200) {
+            //         showThanksModal(message.success);
+            //         form.reset();                    
+            //     } else {
+            //         showThanksModal(message.failure);
+            //     }
+            //     loadingOutput.remove();
+            // });
+            // request.addEventListener('error', () => {
+            //     showThanksModal(message.failure);
+            //     if (loadingOutput) {
+            //         loadingOutput.remove();
+            //     }
+            // });            
+
+            fetch('http://127.0.0.1:8080/food/call-me', {
+                method: 'POST',
+                headers: {'Content-Type': 'Application/json'},
+                body: JSON.stringify(body)
+            }).then(() => {
+                showThanksModal(message.success);
+            }).catch(() => {
+                showThanksModal(message.failure);
+            }).finally(() => {
+                form.reset();
                 loadingOutput.remove();
             });
-            request.addEventListener('error', () => {
-                showThanksModal(message.failure);
-                if (loadingOutput) {
-                    loadingOutput.remove();
-                }
-            });            
         });
     }
 
