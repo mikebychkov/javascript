@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  nginx:
+    image: nginx:1.21
+    ports:
+    - 8888:80
+    volumes:
+    - ./conf.d/:/etc/nginx/conf.d/
+    - ./site/:/site/
