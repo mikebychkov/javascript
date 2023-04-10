@@ -193,6 +193,21 @@ document.addEventListener('DOMContentLoaded', () => {
             this.img = img;
             this.imgAltDesc = imgAltDesc;
         }
+
+        render() {
+            return `
+            <div class="menu__item">
+                <img src="${this.img}" alt="${this.imgAltDesc}">
+                <h3 class="menu__item-subtitle">${this.title}</h3>
+                <div class="menu__item-descr">${this.description}</div>
+                <div class="menu__item-divider"></div>
+                <div class="menu__item-price">
+                    <div class="menu__item-cost">Цена:</div>
+                    <div class="menu__item-total"><span>${this.price}</span> грн/день</div>
+                </div>
+            </div>
+            `;
+        }
     }
 
     const menuContainer = document.querySelector('.menu__field .container');
@@ -205,18 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
             arr
                 .map(({title, description, price, img, imgAltDesc}) => new MenuItem(title, description, price, img, imgAltDesc))
                 .forEach(item => {
-                    menuContainer.innerHTML += `
-                    <div class="menu__item">
-                        <img src="${item.img}" alt="${item.imgAltDesc}">
-                        <h3 class="menu__item-subtitle">${item.title}</h3>
-                        <div class="menu__item-descr">${item.description}</div>
-                        <div class="menu__item-divider"></div>
-                        <div class="menu__item-price">
-                            <div class="menu__item-cost">Цена:</div>
-                            <div class="menu__item-total"><span>${item.price}</span> грн/день</div>
-                        </div>
-                    </div>
-                    `;
+                    menuContainer.innerHTML += item.render();
                 });
         });
 
@@ -315,9 +319,83 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    // SLIDES -----------------------------------------------------------------
 
+    const slideArr = [
+        {
+            src: 'img/slider/food-12.jpg',
+            alt: 'food-12'
+        },
+        {
+            src: 'img/slider/olive-oil.jpg',
+            alt: 'olive-oil'
+        },
+        {
+            src: 'img/slider/paprika.jpg',
+            alt: 'paprika'
+        },
+        {
+            src: 'img/slider/pepper.jpg',
+            alt: 'pepper'
+        },
+    ];
 
+    function slider(data) {
 
+        function renderSlides(data) {
+
+            const slideWrapper = document.querySelector('.offer__slider-wrapper');
+            slideWrapper.innerHTML = '';
+            data.forEach(item => {
+                slideWrapper.innerHTML += `
+                    <div class="offer__slide hide">
+                        <img src="${item.src}" alt="${item.alt}">
+                    </div>
+                `;
+            });
+            return slideWrapper.querySelectorAll('.offer__slide');
+    
+        }
+
+        const slides = renderSlides(data);
+
+        const slidePrev = document.querySelector('.offer__slider-prev'); 
+        const slideNext = document.querySelector('.offer__slider-next'); 
+        const slideNumCurrent = document.querySelector('.offer__slider-counter #current'); 
+        const slideNumTotal = document.querySelector('.offer__slider-counter #total'); 
+
+        const total = slides.length;
+        let current = 1;
+
+        slideNumTotal.textContent = numStr(total);
+
+        function counterSet() {
+            if (current > total) current = 1;
+            if (current < 1) current = total;
+            slideNumCurrent.textContent = numStr(current);
+            slides.forEach(item => item.style.display = 'none');
+            slides[current-1].style.display = 'block';
+        }
+        counterSet();
+
+        function next() {
+            current++;
+            counterSet();
+        }
+
+        function prev() {
+            current--;
+            counterSet();
+        }
+
+        function numStr(n) {
+            return `00${n}`.slice(-2);
+        }
+
+        slidePrev.addEventListener('click', prev);
+        slideNext.addEventListener('click', next);
+    }
+    slider(slideArr);
 
 
 
