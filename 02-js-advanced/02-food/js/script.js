@@ -400,6 +400,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function coolSlider(data) {
 
+        // ALL DOTS PREREQUISITE
+
+        const slideOuter = document.querySelector('.offer__slider');
+        slideOuter.style.position = 'relative';
+
+        const dots = document.createElement('ol');
+        dots.classList.add('carousel-indicators');
+
+        slideOuter.append(dots);
+
+        data.forEach((item,idx) => {
+            const dot = document.createElement('li');
+            dot.classList.add('dot');
+            dot.setAttribute('data-slide-to', idx + 1);
+            dots.append(dot);
+        });
+        const dotArr = slideOuter.querySelectorAll('[data-slide-to]');
+
+        //
+
         const slidePrev = document.querySelector('.offer__slider-prev'); 
         const slideNext = document.querySelector('.offer__slider-next'); 
         const slideNumCurrent = document.querySelector('.offer__slider-counter #current'); 
@@ -443,6 +463,9 @@ document.addEventListener('DOMContentLoaded', () => {
             // SLIDING HERE
             const offset = (current - 1) * parseInt(width);
             slideInner.style.transform = `translateX(-${offset}px)`;
+            // DOTS
+            dotArr.forEach(item => item.style.opacity = 0.5);
+            dotArr[current-1].style.opacity = 1;
         }
         counterSet();
 
@@ -462,9 +485,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         slidePrev.addEventListener('click', prev);
         slideNext.addEventListener('click', next);
+
+        // ON DOT CLICK
+        dotArr.forEach(item => {
+            item.addEventListener('click', () => {
+                current = item.getAttribute('data-slide-to');
+                counterSet();
+            });
+        });
     }
     coolSlider(slideArr);
 
+
+
+    
 
 
 
