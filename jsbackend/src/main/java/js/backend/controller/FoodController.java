@@ -38,7 +38,7 @@ public class FoodController {
     @PostMapping("/menu")
     public ResponseEntity<MenuItemDTO> postMenuItem(@RequestBody MenuItemDTO body) {
 
-        log.info("GET MENU ALL REQUEST: {} {}", body, LocalDateTime.now());
+        log.info("POST MENU ALL REQUEST: {} {}", body, LocalDateTime.now());
         return ResponseEntity.ok(menuItemService.save(body));
     }
 }

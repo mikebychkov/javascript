@@ -195,8 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const menuElem = document.querySelector('.menu__field');
-    const menuContainer = menuElem.querySelector('.container');
+    const menuContainer = document.querySelector('.menu__field .container');
 
     menuContainer.innerHTML = '';
 
