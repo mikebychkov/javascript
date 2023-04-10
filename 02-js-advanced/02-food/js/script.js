@@ -184,8 +184,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // MENU CARDS -------------------------------------------------------------
 
-    const menuDB = [];
-
     class MenuItem {
 
         constructor(title, description, price, img, imgAltDesc) {
@@ -197,67 +195,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    menuDB.push(new MenuItem(
-        'Меню "Фитнес"',
-        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
-        229,
-        'img/tabs/vegy.jpg',
-        'vegy'
-    ));
-
-    menuDB.push(new MenuItem(
-        'Меню “Премиум”',
-        'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
-        550,
-        'img/tabs/elite.jpg',
-        'elite'
-    )); 
-
-    menuDB.push(new MenuItem(
-        'Меню "Постное"',
-        'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
-        430,
-        'img/tabs/post.jpg',
-        'post'
-    )); 
-
-    menuDB.push(new MenuItem(
-        'Меню "Бургер"',
-        'Меню "Бургер" - тожи узбекская национальная бургери не блекстар и не максдолнадс ванучий.',
-        200,
-        'img/tabs/hamburger.jpg',
-        'hamburger'
-    )); 
-
-    menuDB.push(new MenuItem(
-        'Меню "Плов"',
-        'Меню "Плов" - хароший чотки узбекски ош-палов настаяший 100% гарантия бор.',
-        549,
-        'img/tabs/plov.jpg',
-        'plov'
-    )); 
-
-    
     const menuElem = document.querySelector('.menu__field');
     const menuContainer = menuElem.querySelector('.container');
 
     menuContainer.innerHTML = '';
 
-    menuDB.forEach(item => {
-
-        menuContainer.innerHTML += `
-        <div class="menu__item">
-            <img src="${item.img}" alt="${item.imgAltDesc}">
-            <h3 class="menu__item-subtitle">${item.title}</h3>
-            <div class="menu__item-descr">${item.description}</div>
-            <div class="menu__item-divider"></div>
-            <div class="menu__item-price">
-                <div class="menu__item-cost">Цена:</div>
-                <div class="menu__item-total"><span>${item.price}</span> грн/день</div>
-            </div>
-        </div>
-        `;
-    });
+    fetch('http://127.0.0.1:8080/food/menu')
+        .then(request => request.json())
+        .then(arr => {
+            arr
+                .map(({title, description, price, img, imgAltDesc}) => new MenuItem(title, description, price, img, imgAltDesc))
+                .forEach(item => {
+                    menuContainer.innerHTML += `
+                    <div class="menu__item">
+                        <img src="${item.img}" alt="${item.imgAltDesc}">
+                        <h3 class="menu__item-subtitle">${item.title}</h3>
+                        <div class="menu__item-descr">${item.description}</div>
+                        <div class="menu__item-divider"></div>
+                        <div class="menu__item-price">
+                            <div class="menu__item-cost">Цена:</div>
+                            <div class="menu__item-total"><span>${item.price}</span> грн/день</div>
+                        </div>
+                    </div>
+                    `;
+                });
+        });
 
 
     // FORMS ------------------------------------------------------------------

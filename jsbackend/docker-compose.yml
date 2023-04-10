@@ -1,7 +1,19 @@
 version: "2.1"
 services:
+  mongodb:
+    container_name: forum-mongodb
+    image: mongo:6.0.4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - '27017:27017'
+    volumes:
+      - ./mongodb_data:/data/db
   app:
     image: openjdk:17-jdk
+    depends_on:
+      - mongodb
     mem_limit: 4G
     volumes:
       - ./target/backend-1.jar:/app/service.jar
