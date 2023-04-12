@@ -121,4 +121,5 @@ function slides() {
     }
     coolSlider(slideArr);
 }
-module.exports = slides;
+// module.exports = slides;
+export default slides;

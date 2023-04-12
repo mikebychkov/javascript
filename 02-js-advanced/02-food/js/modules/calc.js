@@ -152,4 +152,5 @@ function calc() {
     }
     calculator();
 }
-module.exports = calc;
+// module.exports = calc;
+export default calc;

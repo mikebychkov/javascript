@@ -1,3 +1,5 @@
+import { openContactUs, closeContactUs } from './modal';
+
 function forms() {
 
     // FORMS ------------------------------------------------------------------
@@ -71,9 +73,10 @@ function forms() {
 
     function showThanksModal(message) {
 
+        const modalContactUs = document.querySelector('.modal');
         const origModal = document.querySelector('.modal__dialog');
         origModal.classList.add('hide');
-        openContactUs();
+        openContactUs(modalContactUs);
 
         const thanksModal = document.createElement('div');
         thanksModal.classList.add('modal__dialog');
@@ -84,13 +87,14 @@ function forms() {
             </div>
         `;
 
-        document.querySelector('.modal').append(thanksModal);
+        modalContactUs.append(thanksModal);
 
         setTimeout(() => {
-            closeContactUs();
+            closeContactUs(modalContactUs);
             thanksModal.remove();
             origModal.classList.remove('hide');
         }, 2000);
     }
 }
-module.exports = forms;
+// module.exports = forms;
+export default forms;

@@ -74,4 +74,5 @@ function timer() {
     initTimer();    
 }
 
-module.exports = timer;
+// module.exports = timer;
+export default timer;
