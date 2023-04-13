@@ -48,6 +48,18 @@ function Btn2() {
 }
 
 
+
+function WhoAmI(props) {
+  return (
+    <div>
+      <h1>My name is {props.name.firstName}, surname {props.surname}</h1>
+      <a href={props.link}>My profile</a>
+    </div>
+  );
+}
+
+
+
 function App() {
   return (
     <div className="App">
@@ -56,6 +68,9 @@ function App() {
       </StrictMode>
       <Field/>
       <Btn/>
+      <WhoAmI name={{firstName: "John"}} surname="Smith" link="facebook.com"/>
+      <WhoAmI name={{firstName: "Steph"}} surname="Solthern" link="facebook.com"/>
+
     </div>
   );
 }

@@ -2,13 +2,16 @@ import './employees-list.css';
 
 import EmployeesListItem from '../employees-list-item/employees-list-item';
 
-function EmployeesList() {
+function EmployeesList({data}) {
 
     return (
         <ul className="app-list list-group">
-            <EmployeesListItem/>
-            <EmployeesListItem/>
-            <EmployeesListItem/>
+            {
+                data.map(item => {
+                    //return <EmployeesListItem name={item.name} salary={item.salary}/>;
+                    return <EmployeesListItem {...item}/>;
+                })
+            }
         </ul>
     );
 }
