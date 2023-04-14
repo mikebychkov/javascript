@@ -65,7 +65,8 @@ class WhoAmIByClass extends Component {
     super(props);
     this.state = {
       years: 27,
-      text: '+++'
+      text: '+++',
+      job: ''
     };
   }
   nextYear = () => {
@@ -73,15 +74,27 @@ class WhoAmIByClass extends Component {
       years: state.years + 1
     }));
   }
+  commitInputChanges = (e, color) => {
+    console.log(color);
+    this.setState({job: e.target.value});
+  }
   render() {
     const {name, surname, link} = this.props;
+    const {years, job} = this.state;
     return (
       <div>
         <button onClick={this.nextYear}>{this.state.text}</button>
         {/* <h1>My name is {this.props.name.firstName}, surname {this.props.surname}</h1>
         <a href={this.props.link}>My profile</a> */}
-        <h1>My name is {name.firstName}, surname {surname}, age: {this.state.years}</h1>
+        <h1>My name is {name.firstName}, 
+            surname {surname}, 
+            age: {years}, 
+            job: {job}</h1>
         <a href={link}>My profile</a>
+        <form action="">
+          <span>Enter person job</span>
+          <input type="text" onChange={(e) => this.commitInputChanges(e, 'some color')} />
+        </form>
       </div>
     );
   }  
