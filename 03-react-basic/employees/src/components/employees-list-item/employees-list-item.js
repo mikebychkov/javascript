@@ -26,7 +26,7 @@ import './employees-list-item.css';
 //     );
 // }
 
-import {Component} from 'react';
+import { Component } from 'react';
 
 class EmployeesListItem extends Component {
 
