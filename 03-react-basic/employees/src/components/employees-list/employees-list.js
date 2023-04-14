@@ -9,7 +9,7 @@ function EmployeesList({data}) {
             {
                 data.map(item => {
                     //return <EmployeesListItem name={item.name} salary={item.salary}/>;
-                    return <EmployeesListItem {...item}/>;
+                    return <EmployeesListItem key={item.id} {...item}/>;
                 })
             }
         </ul>
