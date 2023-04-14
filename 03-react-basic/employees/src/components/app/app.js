@@ -37,9 +37,9 @@ class App extends Component {
     constructor(props) {
         super(props);
         const data = [
-            {name: 'John W.', salary: 126000, increase: true, id: 1},
-            {name: 'Smith A.', salary: 221000, increase: false, id: 2},
-            {name: 'Jesica S.', salary: 175000, increase: false, id: 3},
+            {name: 'John W.', salary: 126000, increase: true, like: false, id: 1},
+            {name: 'Smith A.', salary: 221000, increase: false, like: false, id: 2},
+            {name: 'Jesica S.', salary: 175000, increase: false, like: false, id: 3},
         ];
         this.state = {
             data: data
@@ -49,7 +49,7 @@ class App extends Component {
     deleteById = (id) => {
         this.setState(state => {
             const newData = state.data.filter(item => item.id !== id);
-            return ({data: newData});             
+            return ({data: newData});
         });        
     }
 
@@ -63,8 +63,18 @@ class App extends Component {
                 increase: false,
                 id: newId
             });
-            return ({data: newData});             
+            return ({data: newData});
         });        
+    }
+
+    toggleById = (id, prop) => {
+        this.setState(state => ({data: state.data.map(it => {
+                if (it.id === id) {
+                    return {...it, [prop]: !it[prop]};
+                }
+                return it;
+            })
+        }));
     }
 
     render() {
@@ -73,7 +83,7 @@ class App extends Component {
 
         return (
             <div className="app">
-                <AppInfo/>
+                <AppInfo total={data.length} bonus={data.filter(it => it.increase).length}/>
     
                 <div className="search-panel">
                     <SearchPanel/>
@@ -81,7 +91,7 @@ class App extends Component {
                 </div>
     
                 {/* PROPERTY DRILL - CHECK ON-DELETE */}
-                <EmployeesList data={data} onDelete={this.deleteById}/> 
+                <EmployeesList data={data} onDelete={this.deleteById} onToggle={this.toggleById}/> 
                 <EmployeesAddForm onAdd={this.addEmployee}/>
             </div>
         );
