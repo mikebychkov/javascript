@@ -42,17 +42,25 @@ class EmployeesAddForm extends Component {
     salaryChange = (e) => {
         this.setState({salary: parseFloat(e.target.value)});
     }
+    addEmployee = (e) => {
+        e.preventDefault();
+        const {onAdd} = this.props;
+        onAdd({
+            name: this.state.name,
+            salary: this.state.salary
+        });
+    }
     render() {
 
         const {name, salary} = this.state;
-
+        
         return (
             <div className="app-add-form">
                 <h3>Add new employee</h3>
                 <form action="" className="add-form d-flex">
                     <input onChange={this.nameChange} value={name} type="text" className="form-control new-post-label" placeholder="Name" />
                     <input onChange={this.salaryChange} value={salary} type="text" className="form-control new-post-label" placeholder="Salary" />
-                    <button type="submit" className="btn btn-outline-light">Add</button>
+                    <button onClick={this.addEmployee} type="submit" className="btn btn-outline-light">Add</button>
                 </form>
             </div>
         );
