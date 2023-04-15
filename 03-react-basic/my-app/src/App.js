@@ -2,7 +2,7 @@ import './App.css';
 import logo from './logo.svg';
 
 import React from 'react';
-import {Component, StrictMode} from 'react';
+import {Component, Fragment, StrictMode} from 'react';
 import ComponentState from './component-state/component-state';
 
 const Header = () => {
@@ -53,10 +53,10 @@ function Btn2() {
 
 function WhoAmI(props) {
   return (
-    <div>
+    <Fragment>
       <h1>My name is {props.name.firstName}, surname {props.surname}</h1>
       <a href={props.link}>My profile</a>
-    </div>
+    </Fragment>
   );
 }
 

@@ -42,8 +42,31 @@ class App extends Component {
             {name: 'Jesica S.', salary: 175000, increase: false, like: false, id: 3},
         ];
         this.state = {
-            data: data
+            data: data,
+            term: '',
+            filter: '0'
         }
+    }
+
+    termUpdate = (term) => {
+        this.setState({term: term});
+    }
+
+    filterUpdate = (filter) => {
+        this.setState({filter: filter});
+    }
+
+    searchEmployees = (arr, term) => {
+        return arr.filter(it => it.name.toLowerCase().indexOf(term.toLowerCase()) > -1);
+    }
+
+    filterEmployees = (arr, filter) => {
+        switch (filter) {
+            case '1': return arr.filter(it => it.like);
+            case '2': return arr.filter(it => it.salary > 100000);
+            default:
+        }
+        return arr;
     }
 
     deleteById = (id) => {
@@ -79,19 +102,21 @@ class App extends Component {
 
     render() {
 
-        const {data} = this.state;
+        const {data, term, filter} = this.state;
+        const visibleData = this.searchEmployees(data, term);
+        const filteredData = this.filterEmployees(visibleData, filter);
 
         return (
             <div className="app">
                 <AppInfo total={data.length} bonus={data.filter(it => it.increase).length}/>
     
                 <div className="search-panel">
-                    <SearchPanel/>
-                    <AppFilter/>
+                    <SearchPanel termUpdate={this.termUpdate}/>
+                    <AppFilter filterUpdate={this.filterUpdate}/>
                 </div>
     
                 {/* PROPERTY DRILL - CHECK ON-DELETE */}
-                <EmployeesList data={data} onDelete={this.deleteById} onToggle={this.toggleById}/> 
+                <EmployeesList data={filteredData} onDelete={this.deleteById} onToggle={this.toggleById}/> 
                 <EmployeesAddForm onAdd={this.addEmployee}/>
             </div>
         );
