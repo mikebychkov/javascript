@@ -3,9 +3,9 @@ import charimg from '../../img/abyss.jpg';
 const CharListItem = () => {
 
     return (
-        <li class="char__item">
+        <li className="char__item">
             <img src={charimg} alt="abyss"/>
-            <div class="char__name">Abyss</div>
+            <div className="char__name">Abyss</div>
         </li>
     );
 };

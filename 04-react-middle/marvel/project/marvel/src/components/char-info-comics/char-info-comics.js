@@ -5,8 +5,8 @@ const CharInfoComics = () => {
 
     return (
         <Fragment>
-            <div class="char__comics">Comics:</div>
-            <ul class="char__comics-list">
+            <div className="char__comics">Comics:</div>
+            <ul className="char__comics-list">
                 <CharInfoComicsItem/>
                 <CharInfoComicsItem/>
                 <CharInfoComicsItem/>

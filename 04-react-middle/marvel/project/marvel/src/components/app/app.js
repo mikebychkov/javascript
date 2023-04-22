@@ -17,7 +17,7 @@ const App = () => {
                     <CharInfo/>
                 </div>
 
-                <img class="bg-decoration" src={decoration} alt="vision"/>
+                <img className="bg-decoration" src={decoration} alt="vision"/>
             </div>
         </div>
     );

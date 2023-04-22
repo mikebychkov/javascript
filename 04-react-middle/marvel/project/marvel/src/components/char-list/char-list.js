@@ -16,8 +16,8 @@ const CharList = () => {
                 <CharListItem/>
                 <CharListItem/>
             </ul>
-            <button class="button button__main button__long">
-                <div class="inner">load more</div>
+            <button className="button button__main button__long">
+                <div className="inner">load more</div>
             </button>
         </div>
     );
