@@ -1,13 +1,27 @@
-import charimg from '../../img/abyss.jpg';
+import { Component } from 'react';
 
-const CharListItem = () => {
+class CharListItem extends Component {
 
-    return (
-        <li className="char__item">
-            <img src={charimg} alt="abyss"/>
-            <div className="char__name">Abyss</div>
-        </li>
-    );
+    onSelect = () => {
+        this.props.onSetActive(this.props.char);
+    }
+
+    render() {
+        
+        const {char, isActive} = this.props;
+
+        let classString = 'char__item';
+        if (isActive) {
+            classString += ' char__item_selected';
+        }
+
+        return (
+            <li className={classString} onClick={this.onSelect}>
+                <img src={char.thumbnail} alt={char.name}/>
+                <div className="char__name">{char.name}</div>
+            </li>
+        );
+    }
 };
 
 export default CharListItem;

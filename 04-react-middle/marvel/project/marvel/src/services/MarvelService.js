@@ -35,40 +35,56 @@ class MarvelService {
         return await rsl.json();
     }
 
-    getCharacters = (limit = 9, offset = 270) => {
+    getCharacters = async (limit = 9, offset = 270) => {
 
         const finalLimit = Math.min(limit, 100);
 
-        return this.get(this._domain + `/characters?limit=${finalLimit}&offset=${offset}`)
+        return await this.get(this._domain + `/characters?limit=${finalLimit}&offset=${offset}`)
                 .then(json => {
                     return json.data.results.map(it => this._getCharObject(it));
                 });
     }
 
-    getCharacter = (id) => {
+    getCharacter = async (id) => {
 
-        return this.get(this._domain + `/characters/${id}`)
+        return await this.get(this._domain + `/characters/${id}`)
                 .then(json => {
                     return this._getCharObject(json.data.results[0]);
                 });
     }
 
-    getRandomCharacter = () => {
+    getRandomCharacter = async () => {
         const randomOffset = Math.floor(Math.random() * 20) + 1;
         const randomIdx = Math.floor(Math.random() * 100);
-        return this.getCharacters(100, randomOffset * 100)
+        return await this.getCharacters(100, randomOffset * 100)
                     .then(arr => arr[randomIdx]);
     }
 
     _getCharObject = (responseObject) => {
         return ({
             id: responseObject.id,
-            name: responseObject.name,
+            name: responseObject.name.length > 20 ? responseObject.name.slice(0, 20) + '...' : responseObject.name,
             description: responseObject.description ? responseObject.description.slice(0, 210) + '...' : 'No description available...',
             thumbnail: responseObject.thumbnail.path + '.' + responseObject.thumbnail.extension,
             homepage: responseObject.urls.filter(u => u.type === 'detail').map(it => it.url),
             wiki: responseObject.urls.filter(u => u.type === 'wiki').map(it => it.url)
         })
+    }
+
+    _getComicObject = (responseObject) => {
+        return ({
+            id: responseObject.id,
+            title: responseObject.title,
+            description: responseObject.description
+        });
+    }
+
+    getComics = async (charId) => {
+
+        return await this.get(this._domain + `/characters/${charId}/comics`)
+            .then(json => {
+                return json.data.results.map(this._getComicObject);
+            });
     }
 }
 

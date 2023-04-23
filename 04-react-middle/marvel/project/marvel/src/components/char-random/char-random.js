@@ -60,7 +60,7 @@ class CharRandom extends Component {
                     <p className="randomchar__title">
                         Or choose another one
                     </p>
-                    <button className="button button__main">
+                    <button className="button button__main" onClick={this.updateChar}>
                         <div className="inner">try it</div>
                     </button>
                     <img src={randomchardecor} alt="mjolnir" className="randomchar__decoration"/>
