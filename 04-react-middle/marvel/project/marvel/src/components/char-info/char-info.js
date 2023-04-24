@@ -2,12 +2,17 @@ import { Component } from 'react';
 
 import CharInfoComics from '../char-info-comics/char-info-comics';
 import CharInfoSkeleton from '../char-info-skeleton/char-info-skeleton';
+import MySpinner from '../spinner/my-spinner';
 
 class CharInfo extends Component {
 
     render() {
 
         const {id, name, description, thumbnail, homepage, wiki} = this.props.char;
+
+        if (!id) {
+            return <MySpinner/>
+        }
 
         return (
             <div className="char__info">

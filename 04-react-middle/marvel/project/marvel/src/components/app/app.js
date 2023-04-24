@@ -22,6 +22,10 @@ class App extends Component {
 
     onCharActive = (char) => {
 
+        this.setState({infoChar: {}, comics: []});
+
+        if (!char) return;
+
         this.marvelService.getComics(char.id)
         .then(arr => {
             this.setState({infoChar: char, comics: arr});

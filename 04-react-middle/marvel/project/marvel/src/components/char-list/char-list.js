@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import MarvelService from '../../services/MarvelService';
-
 import CharListItem from "../char-list-item/char-list-item";
+import MySpinner from '../spinner/my-spinner';
 
 class CharList extends Component {
 
@@ -19,6 +19,8 @@ class CharList extends Component {
 
     onSetActive = (char) => {
 
+        if (!char) return;
+
         this.setState({activeChar: char});
         this.props.onCharActive(char);
     }
@@ -34,6 +36,8 @@ class CharList extends Component {
                     this.props.onCharActive(rsl[0]);
                     return ({chars: rsl, activeChar: rsl[0]});
                 });
+            }).catch(() => {
+                console.error('ERROR FETCHING CHARACTERS');
             });
     }
 
@@ -44,6 +48,10 @@ class CharList extends Component {
         let content = chars.map(it => {
             return <CharListItem key={it.id} char={it} onSetActive={this.onSetActive} isActive={it.id === activeChar.id}/>;
         });
+
+        if (chars.length === 0) {
+            content = <MySpinner/>;
+        }
 
         return (
             <div className="char__list">
