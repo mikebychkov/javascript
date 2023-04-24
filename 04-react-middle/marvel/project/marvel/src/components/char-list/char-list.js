@@ -13,11 +13,26 @@ class CharList extends Component {
             activeChar: {},
             chars: [],
             initOffset: Math.floor(Math.random() * 20) * 100
-        };
+        };     
+        console.debug('CHAR-LIST CONSTRUCTOR');
+    }
+
+    componentDidMount() {
+        console.debug('CHAR-LIST MOUNTED');
         this.loadChars();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        console.debug('CHAR-LIST UPDATED');
+    }
+
+    componentWillUnmount() {
+        console.debug('CHAR-LIST UNMOUNT');
+    }
+
     onSetActive = (char) => {
+
+        console.debug('CHAR-LIST ON-SET-ACTIVE');
 
         if (!char) return;
 
@@ -26,6 +41,8 @@ class CharList extends Component {
     }
 
     loadChars = () => {
+
+        console.debug('CHAR-LIST LOAD-CHARS');
 
         const resentOffset = this.state.initOffset + this.state.chars.length;
 
@@ -36,12 +53,14 @@ class CharList extends Component {
                     this.props.onCharActive(rsl[0]);
                     return ({chars: rsl, activeChar: rsl[0]});
                 });
-            }).catch(() => {
-                console.error('ERROR FETCHING CHARACTERS');
+            }).catch((e) => {
+                console.error('ERROR FETCHING CHARACTERS', e);
             });
     }
 
     render() {
+
+        console.debug('CHAR-RANDOM RENDER');
 
         const {chars, activeChar} = this.state;
 

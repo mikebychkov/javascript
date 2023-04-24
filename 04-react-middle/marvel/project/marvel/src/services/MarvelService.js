@@ -36,17 +36,19 @@ class MarvelService {
     }
 
     getCharacters = async (limit = 9, offset = 270) => {
-
+        console.debug('GET-CHARS');
         const finalLimit = Math.min(limit, 100);
-
         return await this.get(this._domain + `/characters?limit=${finalLimit}&offset=${offset}`)
                 .then(json => {
                     return json.data.results.map(it => this._getCharObject(it));
+                })
+                .catch((e) => {
+                    console.error('GET-CHARS ERROR', e);
                 });
     }
 
     getCharacter = async (id) => {
-
+        console.debug('GET-CHAR');
         return await this.get(this._domain + `/characters/${id}`)
                 .then(json => {
                     return this._getCharObject(json.data.results[0]);
@@ -54,9 +56,10 @@ class MarvelService {
     }
 
     getRandomCharacter = async () => {
+        console.debug('GET-RANDOM-CHAR');
         const randomOffset = Math.floor(Math.random() * 20) + 1;
-        const randomIdx = Math.floor(Math.random() * 100);
-        return await this.getCharacters(100, randomOffset * 100)
+        const randomIdx = Math.floor(Math.random() * 10);
+        return await this.getCharacters(10, randomOffset * 100)
                     .then(arr => arr[randomIdx]);
     }
 
@@ -79,9 +82,9 @@ class MarvelService {
         });
     }
 
-    getComics = async (charId) => {
-
-        return await this.get(this._domain + `/characters/${charId}/comics`)
+    getComics = async (charId, limit = 10) => {
+        console.debug('GET-COMICS');
+        return await this.get(this._domain + `/characters/${charId}/comics?limit=${limit}`)
             .then(json => {
                 return json.data.results.map(this._getComicObject);
             });

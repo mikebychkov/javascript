@@ -18,9 +18,24 @@ class App extends Component {
             infoChar: {},
             comics: []
         };
+        console.debug('APP CONSTRUCTOR');
+    }
+
+    componentDidMount() {
+        console.debug('APP MOUNTED');
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        console.debug('APP UPDATED');
+    }
+
+    componentWillUnmount() {
+        console.debug('APP UNMOUNT');
     }
 
     onCharActive = (char) => {
+
+        console.debug('APP ON-CHAR-ACTIVE');
 
         this.setState({infoChar: {}, comics: []});
 

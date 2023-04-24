@@ -11,13 +11,16 @@ class CharInfo extends Component {
         const {id, name, description, thumbnail, homepage, wiki} = this.props.char;
 
         if (!id) {
-            return <MySpinner/>
+            // return <CharInfoSkeleton/>;
+            return <MySpinner/>;
         }
+
+        const imgStyle = thumbnail.indexOf('not_available') > -1 ? { objectFit: "contain" } : {};
 
         return (
             <div className="char__info">
                 <div className="char__basics">
-                    <img src={thumbnail} alt={name}/>
+                    <img src={thumbnail} alt={name} style={imgStyle}/>
                     <div>
                         <div className="char__info-name">{name}</div>
                         <div className="char__btns">
@@ -33,8 +36,7 @@ class CharInfo extends Component {
                 <div className="char__descr">
                     {description}
                 </div>
-                <CharInfoComics charId={id} comics={this.props.comics}/>
-                <CharInfoSkeleton/>
+                <CharInfoComics charId={id} comics={this.props.comics}/>                
             </div>
         )
     }

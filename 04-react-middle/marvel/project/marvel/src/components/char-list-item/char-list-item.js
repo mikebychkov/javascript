@@ -15,9 +15,11 @@ class CharListItem extends Component {
             classString += ' char__item_selected';
         }
 
+        const imgStyle = char.thumbnail.indexOf('not_available') > -1 ? { objectFit: "unset" } : {};
+
         return (
             <li className={classString} onClick={this.onSelect}>
-                <img src={char.thumbnail} alt={char.name}/>
+                <img src={char.thumbnail} alt={char.name} style={imgStyle}/>
                 <div className="char__name">{char.name}</div>
             </li>
         );

@@ -7,6 +7,8 @@ import randomchardecor from '../../img/mjolnir.png';
 
 class CharRandom extends Component {
 
+    marvelService = new MarvelService();
+
     constructor(props) {
         super(props);
         this.state = {
@@ -18,25 +20,40 @@ class CharRandom extends Component {
                 wiki: null,
             },
             loading: true
-        };    
+        };        
+        console.debug('CHAR-RANDOM CONSTRUCTOR');
+    }
+
+    componentDidMount() {
+        console.debug('CHAR-RANDOM MOUNTED');
         this.updateChar();
     }
 
-    marvelService = new MarvelService();
+    componentDidUpdate(prevProps, prevState) {
+        console.debug('CHAR-RANDOM UPDATED');
+    }
+
+    componentWillUnmount() {
+        console.debug('CHAR-RANDOM UNMOUNT');
+    }
 
     updateChar = () => {
+
+        console.debug('CHAR-RANDOM UPDATE');
 
         this.setState({loading: true});
 
         this.marvelService.getRandomCharacter()
             .then(json => {
                 this.setState(state => ({char: json, loading: false}));
-            }).catch(() => {
-                console.error('ERROR FETCHING CHAR');
+            }).catch((e) => {
+                console.error('ERROR FETCHING CHAR', e);
             });
     }
 
     render() {
+
+        console.debug('CHAR-RANDOM RENDER');
 
         const {char, loading} = this.state;
 
@@ -69,9 +86,11 @@ const CharRender = ({char}) => {
 
     const {name, description, thumbnail, homepage, wiki} = char;
 
+    const imgClass = thumbnail.indexOf('not_available') > -1 ? 'randomchar__img__wide' : 'randomchar__img';
+
     return (
         <div className="randomchar__block">
-            <img src={thumbnail} alt="Random character" className="randomchar__img"/>
+            <img src={thumbnail} alt="Random character" className={imgClass}/>
             <div className="randomchar__info">
                 <p className="randomchar__name">{name}</p>
                 <p className="randomchar__descr">

@@ -8,9 +8,12 @@ class CharInfoComics extends Component {
     render() {
 
         const {comics} = this.props;
-        const content = comics.map(it => {
+        let content = comics.map(it => {
             return <CharInfoComicsItem comicName={it.title} key={it.id}/>;
         });
+        if (comics.length === 0) {
+            content = <CharInfoComicsItem comicName="No comics data available..." key={0}/>;
+        }
     
         return (
             <Fragment>
