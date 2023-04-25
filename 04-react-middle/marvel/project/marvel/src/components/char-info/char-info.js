@@ -46,7 +46,7 @@ class CharInfo extends Component {
 
 CharInfo.propTypes = {
     char: PropTypes.object,
-    comics: PropTypes.array
+    comics: PropTypes.arrayOf(PropTypes.object)
 };
 
 export default CharInfo;
