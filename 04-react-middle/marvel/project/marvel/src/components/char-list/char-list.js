@@ -12,7 +12,9 @@ class CharList extends Component {
         this.state = {
             activeChar: {},
             chars: [],
-            initOffset: Math.floor(Math.random() * 20) * 100
+            initOffset: Math.floor(Math.random() * 20) * 100,
+            loading: true,
+            charEnded: false
         };     
         console.debug('CHAR-LIST CONSTRUCTOR');
     }
@@ -44,6 +46,8 @@ class CharList extends Component {
 
         console.debug('CHAR-LIST LOAD-CHARS');
 
+        this.setState({loading: true});
+        
         const resentOffset = this.state.initOffset + this.state.chars.length;
 
         this.marvelService.getCharacters(9, resentOffset)
@@ -51,7 +55,7 @@ class CharList extends Component {
                 this.setState(state => {
                     const rsl = [...state.chars, ...newChars];
                     this.props.onCharActive(rsl[0]);
-                    return ({chars: rsl, activeChar: rsl[0]});
+                    return ({chars: rsl, activeChar: rsl[0], loading: false, charEnded: newChars.length < 9});
                 });
             }).catch((e) => {
                 console.error('ERROR FETCHING CHARACTERS', e);
@@ -62,22 +66,22 @@ class CharList extends Component {
 
         console.debug('CHAR-RANDOM RENDER');
 
-        const {chars, activeChar} = this.state;
+        const {chars, activeChar, loading, charEnded} = this.state;
 
-        let content = chars.map(it => {
+        const content = chars.map(it => {
             return <CharListItem key={it.id} char={it} onSetActive={this.onSetActive} isActive={it.id === activeChar.id}/>;
         });
 
-        if (chars.length === 0) {
-            content = <MySpinner/>;
-        }
+        const spinner = loading ? <MySpinner/> : null;
+        const btnStyle = charEnded ? {display: 'none'} : {display: 'block'};
 
         return (
             <div className="char__list">
                 <ul className="char__grid">
                     {content}
+                    {spinner}
                 </ul>
-                <button className="button button__main button__long" onClick={this.loadChars}>
+                <button className="button button__main button__long" onClick={this.loadChars} disabled={loading} style={btnStyle}>
                     <div className="inner">load more</div>
                 </button>
             </div>

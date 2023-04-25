@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import {Fragment} from 'react';
+import PropTypes from 'prop-types';
 import CharInfoComicsItem from '../char-info-comics-item/char-info-comics-item';
 
 
@@ -24,6 +25,13 @@ class CharInfoComics extends Component {
             </Fragment>
         );
     }
+};
+
+CharInfoComics.propTypes = {
+    comics: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string,
+        id: PropTypes.number
+    }))
 };
 
 export default CharInfoComics;

@@ -40,10 +40,12 @@ class MarvelService {
         const finalLimit = Math.min(limit, 100);
         return await this.get(this._domain + `/characters?limit=${finalLimit}&offset=${offset}`)
                 .then(json => {
+                    // console.log(json);
                     return json.data.results.map(it => this._getCharObject(it));
                 })
                 .catch((e) => {
                     console.error('GET-CHARS ERROR', e);
+                    return [];
                 });
     }
 
@@ -52,6 +54,10 @@ class MarvelService {
         return await this.get(this._domain + `/characters/${id}`)
                 .then(json => {
                     return this._getCharObject(json.data.results[0]);
+                })
+                .catch((e) => {
+                    console.error('GET-CHAR ERROR', e);
+                    return {};
                 });
     }
 

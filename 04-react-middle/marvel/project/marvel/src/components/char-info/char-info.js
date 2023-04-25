@@ -1,5 +1,5 @@
 import { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import CharInfoComics from '../char-info-comics/char-info-comics';
 import CharInfoSkeleton from '../char-info-skeleton/char-info-skeleton';
 import MySpinner from '../spinner/my-spinner';
@@ -7,6 +7,8 @@ import MySpinner from '../spinner/my-spinner';
 class CharInfo extends Component {
 
     render() {
+
+        // this.pr.pr.data = []; // ERROR TO TEST ERROR-WRAPPER
 
         const {id, name, description, thumbnail, homepage, wiki} = this.props.char;
 
@@ -40,6 +42,11 @@ class CharInfo extends Component {
             </div>
         )
     }
+};
+
+CharInfo.propTypes = {
+    char: PropTypes.object,
+    comics: PropTypes.array
 };
 
 export default CharInfo;

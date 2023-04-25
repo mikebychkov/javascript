@@ -5,7 +5,7 @@ import AppHeader from "../app-header/app-header";
 import CharRandom from '../char-random/char-random';
 import CharList from '../char-list/char-list';
 import CharInfo from '../char-info/char-info';
-
+import ErrorWrapper from '../error-wrapper/error-wrapper';
 import MarvelService from '../../services/MarvelService';
 
 class App extends Component {
@@ -59,7 +59,9 @@ class App extends Component {
     
                     <div className="char__content">
                         <CharList onCharActive={this.onCharActive}/>
-                        <CharInfo char={infoChar} comics={comics}/>
+                        <ErrorWrapper>
+                            <CharInfo char={infoChar} comics={comics}/>
+                        </ErrorWrapper>                        
                     </div>
     
                     <img className="bg-decoration" src={decoration} alt="vision"/>
