@@ -157,6 +157,10 @@ const FSlider2 = (props) => {
 
         console.log('IMAGE REQUEST');
 
+        if (slide === 0) {
+            return ['https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg'];
+        }
+
         return [
             'https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg',
             'https://www.agoda.com/wp-content/uploads/2020/07/Statue-of-Liberty-things-to-do-in-new-york-USA.jpg'
