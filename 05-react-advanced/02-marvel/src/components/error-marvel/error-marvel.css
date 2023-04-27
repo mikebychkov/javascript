@@ -1,0 +1,9 @@
+.error__img {
+    display: block;
+    width: auto;
+    height: 180px;
+    object-fit: cover;
+    background-color: transparent;
+    object-fit: contain;
+    margin: 0 auto;
+}
