@@ -1,5 +1,6 @@
 import {Component, useState, useEffect, useMemo, useCallback, useRef} from 'react';
 import {Container} from 'react-bootstrap';
+import CustomHooks from './CustomHooks';
 import './App.css';
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -226,6 +227,9 @@ function App() {
 
     return (
     <>
+        <Msg msg="Custom hooks:"/>
+        <CustomHooks/>
+        <hr/>
         <div className="row">
             <div className="col">
                 <Msg msg="Class type Component:"/>
@@ -239,7 +243,8 @@ function App() {
         </div>
         <hr/>
         <div className="row">
-            <div className="col"/>
+            <div className="col">                
+            </div>
             <div className="col">
                 <FSlider2/>
             </div>
