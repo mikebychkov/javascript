@@ -1,10 +1,10 @@
 import md5 from 'md5';
 
-class MarvelService {
+const MarvelService = () => {
 
-    _domain = 'https://gateway.marvel.com:443/v1/public';
+    const _domain = 'https://gateway.marvel.com:443/v1/public';
 
-    authParams = (url) => {
+    const authParams = (url) => {
 
         const privateKey = 'b9ff906e379c5f0d214e80bc109902c85b52c104';
         const publicKey = '7fb8d2a24b166a64397aa136f6a1f538';
@@ -22,9 +22,9 @@ class MarvelService {
         return `${startSymbol}apikey=${publicKey}&hash=${hash}&ts=${ts}`;
     }
 
-    get = async (url) => {
+    const get = async (url) => {
 
-        const param = this.authParams(url);
+        const param = authParams(url);
 
         let rsl = await fetch(url + param);
 
@@ -35,41 +35,41 @@ class MarvelService {
         return await rsl.json();
     }
 
-    getCharacters = async (limit = 9, offset = 270) => {
-        console.debug('GET-CHARS');
+    const getChars = async (limit = 9, offset = 270) => {
+
         const finalLimit = Math.min(limit, 100);
-        return await this.get(this._domain + `/characters?limit=${finalLimit}&offset=${offset}`)
+        return await get(`${_domain}/characters?limit=${finalLimit}&offset=${offset}`)
                 .then(json => {
-                    // console.log(json);
-                    return json.data.results.map(it => this._getCharObject(it));
+                    return json.data.results.map(it => _getCharObject(it));
                 })
                 .catch((e) => {
-                    console.error('GET-CHARS ERROR', e);
+                    console.error('ERROR FETCHING CHARACTERS', e);
                     return [];
                 });
     }
 
-    getCharacter = async (id) => {
-        console.debug('GET-CHAR');
-        return await this.get(this._domain + `/characters/${id}`)
+    const getChar = async (id) => {
+
+        return await get(`${_domain}/characters/${id}`)
                 .then(json => {
-                    return this._getCharObject(json.data.results[0]);
+                    return _getCharObject(json.data.results[0]);
                 })
                 .catch((e) => {
-                    console.error('GET-CHAR ERROR', e);
+                    console.error('ERROR FETCHING CHAR', e);
                     return {};
                 });
     }
 
-    getRandomCharacter = async () => {
-        console.debug('GET-RANDOM-CHAR');
+    const getRandomChar = async () => {
+
         const randomOffset = Math.floor(Math.random() * 20) + 1;
         const randomIdx = Math.floor(Math.random() * 10);
-        return await this.getCharacters(10, randomOffset * 100)
+        return await getChars(10, randomOffset * 100)
                     .then(arr => arr[randomIdx]);
     }
 
-    _getCharObject = (responseObject) => {
+    const _getCharObject = (responseObject) => {
+
         return ({
             id: responseObject.id,
             name: responseObject.name.length > 20 ? responseObject.name.slice(0, 20) + '...' : responseObject.name,
@@ -80,21 +80,39 @@ class MarvelService {
         })
     }
 
-    _getComicObject = (responseObject) => {
+    const _getComicObject = (responseObject) => {
+
         return ({
             id: responseObject.id,
             title: responseObject.title,
-            description: responseObject.description
+            description: responseObject.description,
+            thumbnail: responseObject.thumbnail.path + '.' + responseObject.thumbnail.extension,
+            pages: responseObject.pageCount,
+            price: responseObject.prices.filter(p => p.type === 'printPrice').map(p => p.price),
         });
     }
 
-    getComics = async (charId, limit = 10) => {
-        console.debug('GET-COMICS');
-        return await this.get(this._domain + `/characters/${charId}/comics?limit=${limit}`)
+    const getCharComics = async (charId, limit = 10) => {
+
+        return await get(`${_domain}/characters/${charId}/comics?limit=${limit}`)
             .then(json => {
-                return json.data.results.map(this._getComicObject);
+                return json.data.results.map(_getComicObject);
+            }).catch(() => {
+                throw new Error('ERROR FETCHING CHARACTER COMICS');
             });
     }
+
+    const getComics = async (limit = 8, offset = 0) => {
+
+        return await get(`${_domain}/comics?limit=${limit}&offset=${offset}`)
+            .then(json => {
+                return json.data.results.map(_getComicObject);
+            }).catch(() => {
+                throw new Error('ERROR FETCHING COMICS');
+            });
+    }
+
+    return {getChar, getChars, getRandomChar, getCharComics, getComics};
 }
 
 export default MarvelService;

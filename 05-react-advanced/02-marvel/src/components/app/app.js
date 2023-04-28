@@ -1,34 +1,38 @@
 import { useState } from 'react';
-import decoration from '../../img/vision.png';
 import AppHeader from "../app-header/app-header";
-import CharRandom from '../char-random/char-random';
-import CharList from '../char-list/char-list';
-import CharInfo from '../char-info/char-info';
-import ErrorWrapper from '../error-wrapper/error-wrapper';
+import MainChars from '../main/main-chars';
+import MainComics from '../main/main-comics';
+import MainComic from '../main/main-comic';
 
 const App = () => {
 
-    const [infoChar, setInfoChar] = useState({});
+    const [activePage, setActivePage] = useState(0);
+    const [comicListOpened, setComicListOpened] = useState(false);
+    const [selectedComic, setSelectedComic] = useState({});
 
-    const onCharActive = (char) => {
+    const onPageChange = (pageId) => {
+        if (pageId > 0) {
+            setComicListOpened(true);
+        }
+        setActivePage(pageId);
+    };
 
-        setInfoChar(char);
-    } 
+    const onComicSelect = (comic) => {
+        setSelectedComic(comic);
+    }
+
+    const comicListContent = (
+        <>
+        <MainComics visible={activePage === 1} onComicSelect={onComicSelect} onPageChange={onPageChange}/>
+        <MainComic visible={activePage === 2} comic={selectedComic} onPageChange={onPageChange}/>
+        </>
+    );
 
     return (
         <div className="app">
-            <AppHeader/>
-            <br/>
-            <div className="main">
-                <CharRandom/>
-                <div className="char__content">
-                    <CharList onCharActive={onCharActive}/>
-                    <ErrorWrapper>
-                        <CharInfo char={infoChar}/>
-                    </ErrorWrapper>                        
-                </div>
-                <img className="bg-decoration" src={decoration} alt="vision"/>
-            </div>
+            <AppHeader activePage={activePage} onPageChange={onPageChange}/>
+            <MainChars visible={activePage === 0}/>
+            {comicListOpened ? comicListContent : null}
         </div>
     );
 };

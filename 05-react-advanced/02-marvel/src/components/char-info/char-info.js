@@ -6,7 +6,7 @@ import MarvelService from '../../services/MarvelService';
 
 const CharInfo = ({char}) => {
 
-    const marvelService = new MarvelService();
+    const marvelService = MarvelService();
 
     const [comics, setComics] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -17,11 +17,9 @@ const CharInfo = ({char}) => {
 
         setLoading(true);
 
-        marvelService.getComics(char.id)
+        marvelService.getCharComics(char.id)
         .then(arr => {
             setComics(arr);
-        }).catch((e) => {
-            console.error('ERROR FETCHING COMICS', e);
         }).finally(() => {
             setLoading(false);
         });        

@@ -6,7 +6,7 @@ import randomchardecor from '../../img/mjolnir.png';
 
 const CharRandom = () => {
 
-    const marvelService = new MarvelService();
+    const marvelService = MarvelService();
 
     const [char, setChar] = useState({});
     const [loading, setLoading] = useState(true)
@@ -21,11 +21,9 @@ const CharRandom = () => {
 
         setLoading(true);
 
-        marvelService.getRandomCharacter()
+        marvelService.getRandomChar()
             .then(json => {
                 setChar(json);
-            }).catch((e) => {
-                console.error('ERROR FETCHING CHAR', e);
             }).finally(() => {
                 setLoading(false);
             });

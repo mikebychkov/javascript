@@ -5,7 +5,7 @@ import MySpinner from '../spinner/my-spinner';
 
 const CharList = ({onCharActive}) => {
 
-    const marvelService = new MarvelService();
+    const marvelService = MarvelService();
 
     const [activeChar, setActiveChar] = useState({});
     const [chars, setChars] = useState([]);
@@ -38,17 +38,16 @@ const CharList = ({onCharActive}) => {
         
         const resentOffset = initOffset + chars.length;
 
-        marvelService.getCharacters(9, resentOffset)
+        marvelService.getChars(9, resentOffset)
             .then(newChars => {
 
                 setChars(chars => {
                     return [...chars, ...newChars];
-                });
-                setLoading(false);
+                });                
                 setCharEnded(newChars.length < 9);
 
-            }).catch((e) => {
-                console.error('ERROR FETCHING CHARACTERS', e);
+            }).finally(() => {
+                setLoading(false);
             });
     }
 

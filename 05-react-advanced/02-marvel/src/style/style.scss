@@ -76,6 +76,9 @@ input::-webkit-inner-spin-button {
                 }
             }
         }
+        &__active {
+            text-decoration: underline;
+        }
     }
     &__banner {
         width: 100%;
