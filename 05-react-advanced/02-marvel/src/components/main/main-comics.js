@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 import avengersDecoration from '../../img/Avengers.png';
 import avengersLogoDecoration from '../../img/Avengers_logo.png';
 import MarvelService from '../../services/MarvelService';
 import MySpinner from '../spinner/my-spinner';
 
-const MainComics = ({visible, onComicSelect, onPageChange}) => {
+const MainComics = ({onComicSelect}) => {
 
     const [comics, setComics] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -31,11 +32,10 @@ const MainComics = ({visible, onComicSelect, onPageChange}) => {
         loadComics();
     }, []);
 
-    const mainStyle = visible ? null : {display: 'none'};
     const spinner = loading ? <MySpinner/> : null;
 
     return (
-        <main style={mainStyle}>
+        <main>
             <div className="app__banner">
                 <img src={avengersDecoration} alt="Avengers"/>
                 <div className="app__banner-text">
@@ -48,7 +48,7 @@ const MainComics = ({visible, onComicSelect, onPageChange}) => {
                 <ul className="comics__grid">
                     {
                         comics.map((c, i) => {
-                            return <MainComicsItem comic={c} key={i} onComicSelect={onComicSelect} onPageChange={onPageChange}/>;
+                            return <MainComicsItem comic={c} key={i} onComicSelect={onComicSelect}/>;
                         })
                     }    
                     {spinner}                
@@ -57,19 +57,20 @@ const MainComics = ({visible, onComicSelect, onPageChange}) => {
                     <div onClick={loadComics} className="inner">load more</div>
                 </button>
             </div>
+            <Outlet/>
         </main>
     );
 };
 
-const MainComicsItem = ({comic, onComicSelect, onPageChange}) => {
+const MainComicsItem = ({comic, onComicSelect}) => {
     
     return (
         <li className="comics__item">
-            <a onClick={() => {onComicSelect(comic); onPageChange(2);}} href="#">
+            <Link to={`${comic.id}`} onClick={() => {onComicSelect(comic)}}>
                 <img src={comic.thumbnail} alt={comic.title} className="comics__item-img"/>
                 <div className="comics__item-name">{comic.title}</div>
                 <div className="comics__item-price">{comic.price}$</div>
-            </a>
+            </Link>
         </li>
     );
 }

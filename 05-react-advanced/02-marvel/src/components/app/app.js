@@ -1,39 +1,37 @@
 import { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppHeader from "../app-header/app-header";
 import MainChars from '../main/main-chars';
 import MainComics from '../main/main-comics';
 import MainComic from '../main/main-comic';
+import Page404 from '../main/404';
 
 const App = () => {
 
-    const [activePage, setActivePage] = useState(0);
-    const [comicListOpened, setComicListOpened] = useState(false);
     const [selectedComic, setSelectedComic] = useState({});
-
-    const onPageChange = (pageId) => {
-        if (pageId > 0) {
-            setComicListOpened(true);
-        }
-        setActivePage(pageId);
-    };
 
     const onComicSelect = (comic) => {
         setSelectedComic(comic);
     }
 
-    const comicListContent = (
-        <>
-        <MainComics visible={activePage === 1} onComicSelect={onComicSelect} onPageChange={onPageChange}/>
-        <MainComic visible={activePage === 2} comic={selectedComic} onPageChange={onPageChange}/>
-        </>
-    );
-
     return (
-        <div className="app">
-            <AppHeader activePage={activePage} onPageChange={onPageChange}/>
-            <MainChars visible={activePage === 0}/>
-            {comicListOpened ? comicListContent : null}
-        </div>
+        <BrowserRouter>
+            <div className="app">
+                <AppHeader/>
+                <Routes>
+                    <Route path="/" element={<MainChars/>}/>
+                    <Route path="/comics" element={<MainComics onComicSelect={onComicSelect}/>}/>
+                    <Route path="/comics/:comicId" element={<MainComic comic={selectedComic}/>}/>
+
+                    {/* NESTED ROUTE'S WORK WITH 'OUTLET' COMPONENT IN PARENT ROUTE ELEMENT ONLY */}
+                    {/* <Route path="comics" element={<MainComics onComicSelect={onComicSelect}/>}>  
+                        <Route path=":comicId" element={<MainComic comic={selectedComic}/>}/>
+                    </Route> */}
+                    
+                    <Route path="*" element={<Page404/>}/>
+                </Routes>
+            </div>
+        </BrowserRouter>
     );
 };
 

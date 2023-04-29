@@ -5,7 +5,7 @@ import CharList from '../char-list/char-list';
 import CharInfo from '../char-info/char-info';
 import ErrorWrapper from '../error-wrapper/error-wrapper';
 
-const MainChars = ({visible}) => {
+const MainChars = () => {
 
     const [infoChar, setInfoChar] = useState({});
 
@@ -14,10 +14,8 @@ const MainChars = ({visible}) => {
         setInfoChar(char);
     } 
 
-    const mainStyle = visible ? null : {display: 'none'};
-
     return (
-        <main style={mainStyle}>
+        <main>
             <ErrorWrapper>
                 <CharRandom/>
             </ErrorWrapper>

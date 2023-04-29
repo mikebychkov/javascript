@@ -1,12 +1,14 @@
+import { Link, useMatch, useParams } from 'react-router-dom';
 import avengersDecoration from '../../img/Avengers.png';
 import avengersLogoDecoration from '../../img/Avengers_logo.png';
 
-const MainComic = ({comic, visible, onPageChange}) => {
+const MainComic = ({comic}) => {
 
-    const mainStyle = visible ? null : {display: 'none'};
-    
+    const {comicId} = useParams();
+    console.log(comicId);
+
     return (
-        <main style={mainStyle}>
+        <main>
             <div className="app__banner">
                 <img src={avengersDecoration} alt="Avengers"/>
                 <div className="app__banner-text">
@@ -15,12 +17,12 @@ const MainComic = ({comic, visible, onPageChange}) => {
                 </div>
                 <img src={avengersLogoDecoration} alt="Avengers logo"/>
             </div>
-            <ComicRender comic={comic} onPageChange={onPageChange}/>
+            <ComicRender comic={comic}/>
         </main>
     );
 };
 
-const ComicRender = ({comic, onPageChange}) => {
+const ComicRender = ({comic}) => {
 
     return (
         <div className="single-comic">
@@ -32,7 +34,7 @@ const ComicRender = ({comic, onPageChange}) => {
                 {/* <p className="single-comic__descr">Language: en-us</p> */}
                 <div className="single-comic__price">{comic.price}$</div>
             </div>
-            <a onClick={() => onPageChange(1)} href="#" className="single-comic__back">Back to all</a>
+            <Link to="/comics" className="single-comic__back">Back to all</Link>
         </div>
     );
 };

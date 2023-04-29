@@ -1,26 +1,26 @@
+import { Link, NavLink } from 'react-router-dom';
 
-const AppHeader = ({activePage, onPageChange}) => {
+const AppHeader = () => {
 
-    const checkPageIsActive = (pageId) => {
-        return pageId === activePage ? 'app__menu__active' : '';
-    }
+    const activeStyle = ({isActive}) => {return isActive ? {'color' : '#9f0013'} : {}};
 
     return (
         <header className="app__header">
             <h1 className="app__title">
-                <a href="#" onClick={() => onPageChange(0)}>
+                <Link to="/">
                     <span>Marvel</span>
                     information portal
-                </a>
+                </Link>
             </h1>
             <nav className="app__menu">
                 <ul>
                     <li>
-                        <a className={checkPageIsActive(0)} href="#" onClick={() => onPageChange(0)}>Characters</a>
+                        <NavLink end style={activeStyle} to="/">Characters</NavLink>
                     </li>
                     /
                     <li>
-                        <a className={checkPageIsActive(1)} href="#" onClick={() => onPageChange(1)}>Comics</a>
+                        {/* NOT USING 'END' TO SET LINK ACTIVE EVEN ON PARTIAL URL'S */}
+                        <NavLink style={activeStyle} to="/comics">Comics</NavLink>
                     </li>
                 </ul>
             </nav>
