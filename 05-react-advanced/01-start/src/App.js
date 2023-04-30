@@ -5,6 +5,7 @@ import FSlider from './hooks/fslider';
 import FSlider2 from './hooks/fslider2';
 import CustomHooks from './custom-hooks/CustomHooks';
 import ConcurrentRender from './concurrent-render/ConcurrentRender';
+import MemoApp from './memo/memo-app';
 
 function App() {
  
@@ -17,12 +18,14 @@ function App() {
 
     return (
     <>
+        <MemoApp/>
+        {/* <hr/>
         <ConcurrentRender/>
         <hr/>
         <Msg msg="Custom hooks:"/>
         <CustomHooks/>
-        <hr/>
-        <div className="row">
+        <hr/> */}
+        {/* <div className="row">
             <div className="col">
                 <Msg msg="Class type Component:"/>
                 <Slider/>
@@ -40,7 +43,7 @@ function App() {
             <div className="col">
                 <FSlider2/>
             </div>
-        </div>
+        </div> */}
     </>
   );
 }

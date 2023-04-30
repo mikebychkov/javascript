@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import AppHeader from "../app-header/app-header";
 import MainChars from '../main/main-chars';
 import MainComics from '../main/main-comics';
 import MainComic from '../main/main-comic';
-import Page404 from '../main/404';
+import MySpinner from '../spinner/my-spinner';
+// import Page404 from '../main/404';
+
+const Page404 = lazy(() => import('../main/404')); // 'lazy()' IMPORT WORKS WITH 'Suspense' COMPONENT
 
 const App = () => {
 
@@ -18,6 +21,7 @@ const App = () => {
         <BrowserRouter>
             <div className="app">
                 <AppHeader/>
+                <Suspense fallback={<MySpinner/>}>
                 <Routes>
                     <Route path="/" element={<MainChars/>}/>
                     <Route path="/comics" element={<MainComics onComicSelect={onComicSelect}/>}/>
@@ -30,6 +34,7 @@ const App = () => {
                     
                     <Route path="*" element={<Page404/>}/>
                 </Routes>
+                </Suspense>
             </div>
         </BrowserRouter>
     );
