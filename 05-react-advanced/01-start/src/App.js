@@ -1,4 +1,4 @@
-import {Component, useState, useEffect, useMemo, useCallback, useRef} from 'react';
+import {useState} from 'react';
 import './App.css';
 import Slider from './hooks/slider';
 import FSlider from './hooks/fslider';
@@ -6,6 +6,8 @@ import FSlider2 from './hooks/fslider2';
 import CustomHooks from './custom-hooks/CustomHooks';
 import ConcurrentRender from './concurrent-render/ConcurrentRender';
 import MemoApp from './memo/memo-app';
+import ContextApp from './context/context-app';
+import UseReduceApp from './use-reduce/use-reduce-app';
 
 function App() {
  
@@ -18,7 +20,10 @@ function App() {
 
     return (
     <>
-        <MemoApp/>
+        <UseReduceApp/>
+        {/* <ContextApp/> */}
+        {/* <hr/>
+        <MemoApp/> */}
         {/* <hr/>
         <ConcurrentRender/>
         <hr/>
