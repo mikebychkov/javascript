@@ -12,7 +12,7 @@ const CharList = ({onCharActive}) => {
     const [loading, setLoading] = useState(true);
     const [charEnded, setCharEnded] = useState(false);
 
-    const initOffset = Math.floor(Math.random() * 20) * 100;
+    const initOffset = Math.floor(Math.random() * 20) * 100 + Math.floor(Math.random() * 10) * 10;
 
     useEffect(() => {
 
@@ -44,7 +44,7 @@ const CharList = ({onCharActive}) => {
                 setChars(chars => {
                     return [...chars, ...newChars];
                 });                
-                setCharEnded(newChars.length < 9);
+                setCharEnded(newChars.length > 0 && newChars.length < 9);
 
             }).finally(() => {
                 setLoading(false);
