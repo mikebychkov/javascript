@@ -3,6 +3,7 @@ import CharInfoComics from '../char-info-comics/char-info-comics';
 import MySpinner from '../spinner/my-spinner';
 import CharInfoSkeleton from '../char-info-skeleton/char-info-skeleton';
 import MarvelService from '../../services/MarvelService';
+import CharFind from '../char-find/char-find';
 
 const CharInfo = ({char}) => {
 
@@ -32,13 +33,20 @@ const CharInfo = ({char}) => {
     const skeleton = !char.id ? <CharInfoSkeleton/> : null;
 
     return (
-        <div className="char__info">
-            {skeleton}
-            <CharRender char={char} />
-            {loading ? <MySpinner/> : <CharInfoComics comics={comics}/>}
+        <div>
+            <div className="char__info">
+                {skeleton}
+                <CharRender char={char} />
+                {loading ? <MySpinner/> : <CharInfoComics comics={comics}/>}
+            </div>
+            <div>
+                <CharFind/>
+            </div>
         </div>
     )
 };
+
+
 
 const CharRender = ({char}) => {
 

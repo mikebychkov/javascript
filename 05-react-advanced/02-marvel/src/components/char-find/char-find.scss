@@ -1,0 +1,34 @@
+.find-char-input {
+    margin: 2px auto;
+    width: 100%;
+    height: 90%;
+    font-size: 18px;
+    border: none;
+    box-shadow: -1px 4px 10px rgba(0, 0, 0, 0.25);
+    padding-left: 8px
+}
+.find-char {
+    padding: 25px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
+    margin-top: 30px;
+}
+.find-char-grid {
+    grid-template-columns: 70% auto;
+    display: grid;
+}
+.find-char-col {
+    margin: 2px;
+}
+.find-char-label {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: left;
+    &__succ {
+        color: green;    
+    }
+    &__fail {
+        color: red;    
+        margin: 5px auto;
+    }
+}

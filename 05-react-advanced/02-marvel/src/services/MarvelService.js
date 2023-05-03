@@ -68,6 +68,18 @@ const MarvelService = () => {
                     .then(arr => arr[randomIdx]);
     }
 
+    const getCharByName = async (name) => {
+
+        return await get(`${_domain}/characters?name=${name}&limit=1`)
+                .then(json => {
+                    return _getCharObject(json.data.results[0]);
+                })
+                .catch((e) => {
+                    console.error('ERROR FETCHING CHAR', e);
+                    return {};
+                });
+    }
+    
     const _getCharObject = (responseObject) => {
 
         return ({
@@ -112,7 +124,7 @@ const MarvelService = () => {
             });
     }
 
-    return {getChar, getChars, getRandomChar, getCharComics, getComics};
+    return {getChar, getChars, getCharByName, getRandomChar, getCharComics, getComics};
 }
 
 export default MarvelService;

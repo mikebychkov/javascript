@@ -1,11 +1,11 @@
-import { Link, useMatch, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import avengersDecoration from '../../img/Avengers.png';
 import avengersLogoDecoration from '../../img/Avengers_logo.png';
 
 const MainComic = ({comic}) => {
 
-    const {comicId} = useParams();
-    console.log(comicId);
+    // const {comicId} = useParams();   
+    // console.log(comicId);
 
     return (
         <main>

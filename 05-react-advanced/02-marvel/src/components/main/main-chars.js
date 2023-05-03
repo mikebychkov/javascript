@@ -25,7 +25,7 @@ const MainChars = () => {
                 </ErrorWrapper>
                 <ErrorWrapper>
                     <CharInfo char={infoChar}/>
-                </ErrorWrapper>                        
+                </ErrorWrapper>    
             </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>
         </main>
