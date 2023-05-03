@@ -1,10 +1,11 @@
 import './app.scss';
-import Form from './Form';
+import HookForm from './HookForm';
+import ComponentForm from './ComponentForm';
 
 function App() {
   return (
     <div className="app">
-        <Form/>
+        <ComponentForm/>
     </div>
   );
 }
