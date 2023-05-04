@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Helmet from 'react-helmet';
 import decoration from '../../img/vision.png';
 import CharRandom from '../char-random/char-random';
 import CharList from '../char-list/char-list';
@@ -17,6 +18,10 @@ const MainChars = () => {
 
     return (
         <main>
+            <Helmet>
+                <title>Marvel comics information portal</title>
+                <meta name="description" content="Marvel comics characters"/>
+            </Helmet>
             <ErrorWrapper>
                 <CharRandom/>
             </ErrorWrapper>

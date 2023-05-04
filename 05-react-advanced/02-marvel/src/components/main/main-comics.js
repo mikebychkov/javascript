@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import Helmet from 'react-helmet';
 import avengersDecoration from '../../img/Avengers.png';
 import avengersLogoDecoration from '../../img/Avengers_logo.png';
 import MarvelService from '../../services/MarvelService';
@@ -34,6 +35,10 @@ const MainComics = () => {
 
     return (
         <main>
+            <Helmet>
+                <title>Marvel comics list</title>
+                <meta name="description" content="Marvel comics list"/>
+            </Helmet>
             <div className="app__banner">
                 <img src={avengersDecoration} alt="Avengers"/>
                 <div className="app__banner-text">
