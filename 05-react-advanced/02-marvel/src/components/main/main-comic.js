@@ -4,7 +4,7 @@ import avengersDecoration from '../../img/Avengers.png';
 import avengersLogoDecoration from '../../img/Avengers_logo.png';
 import MySpinner from '../spinner/my-spinner';
 import MarvelService from '../../services/MarvelService';
-import useItemRequest from './useItemRequest';
+import useItemRequest from '../tools/useItemRequest';
 
 const MainComic = () => {
 

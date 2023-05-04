@@ -2,6 +2,8 @@ import { Link, NavLink } from 'react-router-dom';
 
 const AppHeader = () => {
 
+    localStorage.clear();
+
     const activeStyle = ({isActive}) => {return isActive ? {'color' : '#9f0013'} : {}};
 
     return (

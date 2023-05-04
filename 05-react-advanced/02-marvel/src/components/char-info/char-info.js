@@ -3,6 +3,7 @@ import CharInfoComics from '../char-info-comics/char-info-comics';
 import MySpinner from '../spinner/my-spinner';
 import CharInfoSkeleton from '../char-info-skeleton/char-info-skeleton';
 import MarvelService from '../../services/MarvelService';
+import { cacheObject, restoreCachedArray } from '../tools/localCache';
 
 const CharInfo = ({char}) => {
 
@@ -14,6 +15,12 @@ const CharInfo = ({char}) => {
     const loadComics = () => {
 
         if (!char.id) return;
+
+        if (comics.length === 0) {
+            if (restoreCachedArray('charInfoComics', setComics, setLoading)) {
+                return;
+            }
+        }
 
         setLoading(true);
 
@@ -29,6 +36,11 @@ const CharInfo = ({char}) => {
         loadComics();
     }, [char]);
 
+    useEffect(() => {
+        if (comics.length === 0) return;
+        cacheObject('charInfoComics', comics);
+    }, [comics]);
+
     const skeleton = !char.id ? <CharInfoSkeleton/> : null;
 
     return (
@@ -41,8 +53,6 @@ const CharInfo = ({char}) => {
         </div>
     )
 };
-
-
 
 const CharRender = ({char}) => {
 

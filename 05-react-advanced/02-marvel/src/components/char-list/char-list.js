@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import MarvelService from '../../services/MarvelService';
 import CharListItem from "../char-list-item/char-list-item";
 import MySpinner from '../spinner/my-spinner';
+import { cacheObject, restoreCachedArray, restoreCachedObject } from '../tools/localCache';
 
 const CharList = ({onCharActive}) => {
 
@@ -15,24 +16,34 @@ const CharList = ({onCharActive}) => {
     const initOffset = Math.floor(Math.random() * 20) * 100 + Math.floor(Math.random() * 10) * 10;
 
     useEffect(() => {
-
         loadChars();
-
+        onSetActive();
     }, []);
 
     useEffect(() => {
-
         onCharActive(activeChar);
-
+        cacheObject('charListActiveChar', activeChar);
     }, [activeChar]);
 
-    const onSetActive = (char) => {
+    useEffect(() => {
+        cacheObject('charListChars', chars);
+    }, [chars]);
 
-        if (!char) return;
-        setActiveChar(char);        
+    const onSetActive = (char) => {
+        if (!char) {
+            restoreCachedObject('charListActiveChar', setActiveChar);
+            return;
+        };
+        setActiveChar(char);
     }
 
     const loadChars = () => {
+
+        if (chars.length === 0) {
+            if (restoreCachedArray('charListChars', setChars, setLoading)) {
+                return;
+            }
+        }
 
         setLoading(true);
         

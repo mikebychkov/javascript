@@ -5,6 +5,7 @@ import avengersDecoration from '../../img/Avengers.png';
 import avengersLogoDecoration from '../../img/Avengers_logo.png';
 import MarvelService from '../../services/MarvelService';
 import MySpinner from '../spinner/my-spinner';
+import { cacheObject, restoreCachedArray } from '../tools/localCache';
 
 const MainComics = () => {
 
@@ -15,9 +16,15 @@ const MainComics = () => {
 
     const loadComics = () => {
 
-        const initOffset = 0;
+        if (comics.length === 0) {
+            if (restoreCachedArray('comicsList', setComics, setLoading)) {
+                return;
+            }
+        }
 
         setLoading(true);
+
+        const initOffset = Math.floor(Math.random() * 50) * 1000 + Math.floor(Math.random() * 100) * 10;
 
         marvelService.getComics(8, initOffset + comics.length)
             .then(newComics => {
@@ -32,6 +39,11 @@ const MainComics = () => {
     useEffect(() => {
         loadComics();
     }, []);
+
+    useEffect(() => {
+        if (comics.length === 0) return;
+        cacheObject('comicsList', comics);
+    }, [comics]);
 
     return (
         <main>
