@@ -1,11 +1,15 @@
 import { Link, useParams } from 'react-router-dom';
 import avengersDecoration from '../../img/Avengers.png';
 import avengersLogoDecoration from '../../img/Avengers_logo.png';
+import MySpinner from '../spinner/my-spinner';
+import MarvelService from '../../services/MarvelService';
+import useItemRequest from './useItemRequest';
 
-const MainComic = ({comic}) => {
+const MainComic = () => {
 
-    // const {comicId} = useParams();   
-    // console.log(comicId);
+    const {comicId} = useParams();   
+    const {getComic} = MarvelService();
+    const {item, loading} = useItemRequest(getComic, comicId);
 
     return (
         <main>
@@ -17,12 +21,14 @@ const MainComic = ({comic}) => {
                 </div>
                 <img src={avengersLogoDecoration} alt="Avengers logo"/>
             </div>
-            <ComicRender comic={comic}/>
+            {loading ? <MySpinner/> : <ComicRender comic={item}/>}
         </main>
     );
 };
 
 const ComicRender = ({comic}) => {
+
+    if (!comic) return null;
 
     return (
         <div className="single-comic">
@@ -31,7 +37,6 @@ const ComicRender = ({comic}) => {
                 <h2 className="single-comic__name">{comic.title}</h2>
                 <p className="single-comic__descr">{comic.description}</p>
                 <p className="single-comic__descr">{comic.pages} pages</p>
-                {/* <p className="single-comic__descr">Language: en-us</p> */}
                 <div className="single-comic__price">{comic.price}$</div>
             </div>
             <Link to="/comics" className="single-comic__back">Back to all</Link>

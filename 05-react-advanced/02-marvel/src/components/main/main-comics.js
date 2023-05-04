@@ -5,7 +5,7 @@ import avengersLogoDecoration from '../../img/Avengers_logo.png';
 import MarvelService from '../../services/MarvelService';
 import MySpinner from '../spinner/my-spinner';
 
-const MainComics = ({onComicSelect}) => {
+const MainComics = () => {
 
     const [comics, setComics] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -32,8 +32,6 @@ const MainComics = ({onComicSelect}) => {
         loadComics();
     }, []);
 
-    const spinner = loading ? <MySpinner/> : null;
-
     return (
         <main>
             <div className="app__banner">
@@ -48,10 +46,10 @@ const MainComics = ({onComicSelect}) => {
                 <ul className="comics__grid">
                     {
                         comics.map((c, i) => {
-                            return <MainComicsItem comic={c} key={i} onComicSelect={onComicSelect}/>;
+                            return <MainComicsItem comic={c} key={i}/>;
                         })
                     }    
-                    {spinner}                
+                    {loading ? <MySpinner/> : null}                
                 </ul>
                 <button className="button button__main button__long">
                     <div onClick={loadComics} className="inner">load more</div>
@@ -62,11 +60,11 @@ const MainComics = ({onComicSelect}) => {
     );
 };
 
-const MainComicsItem = ({comic, onComicSelect}) => {
+const MainComicsItem = ({comic}) => {
     
     return (
         <li className="comics__item">
-            <Link to={`${comic.id}`} onClick={() => {onComicSelect(comic)}}>
+            <Link to={`${comic.id}`}>
                 <img src={comic.thumbnail} alt={comic.title} className="comics__item-img"/>
                 <div className="comics__item-name">{comic.title}</div>
                 <div className="comics__item-price">{comic.price}$</div>

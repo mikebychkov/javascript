@@ -1,11 +1,15 @@
 import { Link, useParams } from 'react-router-dom';
 import avengersDecoration from '../../img/Avengers.png';
 import avengersLogoDecoration from '../../img/Avengers_logo.png';
+import MySpinner from '../spinner/my-spinner';
+import MarvelService from '../../services/MarvelService';
+import useItemRequest from './useItemRequest';
 
-const MainChar = ({char}) => {
+const MainChar = () => {
 
-    // const {charId} = useParams();
-    // console.log('useParam', charId);
+    const {charId} = useParams();
+    const {getChar} = MarvelService();
+    const {item, loading} = useItemRequest(getChar, charId);
 
     return (
         <main>
@@ -17,7 +21,7 @@ const MainChar = ({char}) => {
                 </div>
                 <img src={avengersLogoDecoration} alt="Avengers logo"/>
             </div>
-            <CharRender char={char}/>
+            {loading ? <MySpinner/> : <CharRender char={item}/>}
         </main>
     );
 };

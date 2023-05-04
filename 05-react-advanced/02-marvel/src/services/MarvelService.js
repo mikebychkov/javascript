@@ -124,7 +124,17 @@ const MarvelService = () => {
             });
     }
 
-    return {getChar, getChars, getCharByName, getRandomChar, getCharComics, getComics};
+    const getComic = async (id) => {
+
+        return await get(`${_domain}/comics/${id}`)
+            .then(json => {
+                return _getComicObject(json.data.results[0]);
+            }).catch(() => {
+                throw new Error('ERROR FETCHING COMICS');
+            });
+    }
+
+    return {getChar, getChars, getCharByName, getRandomChar, getCharComics, getComic, getComics};
 }
 
 export default MarvelService;

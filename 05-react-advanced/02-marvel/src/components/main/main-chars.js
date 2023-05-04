@@ -4,6 +4,7 @@ import CharRandom from '../char-random/char-random';
 import CharList from '../char-list/char-list';
 import CharInfo from '../char-info/char-info';
 import ErrorWrapper from '../error-wrapper/error-wrapper';
+import CharFind from '../char-find/char-find';
 
 const MainChars = () => {
 
@@ -20,12 +21,17 @@ const MainChars = () => {
                 <CharRandom/>
             </ErrorWrapper>
             <div className="char__content">
-                <ErrorWrapper>
-                    <CharList onCharActive={onCharActive}/>
-                </ErrorWrapper>
-                <ErrorWrapper>
-                    <CharInfo char={infoChar}/>
-                </ErrorWrapper>    
+                <div>
+                    <ErrorWrapper>
+                        <CharList onCharActive={onCharActive}/>
+                    </ErrorWrapper>
+                </div>
+                <div>
+                    <ErrorWrapper>
+                        <CharInfo char={infoChar}/>
+                    </ErrorWrapper>    
+                    <CharFind/>
+                </div>
             </div>
             <img className="bg-decoration" src={decoration} alt="vision"/>
         </main>

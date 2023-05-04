@@ -1,16 +1,13 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Link } from 'react-router-dom';
 import MarvelService from '../../services/MarvelService';
-import AppContext from '../app/app-context';
 import './char-find.scss';
 
 const CharFind = () => {
 
     const [char, setChar] = useState({});
-
-    const {onCharSelect} = useContext(AppContext);
 
     const {getCharByName} = MarvelService();
 
@@ -64,7 +61,7 @@ const CharFind = () => {
                     </div>
                     {char.id ? (
                         <div className="find-char-col">
-                            <Link to={`characters/${char.id}`} onClick={() => {onCharSelect(char)}}>
+                            <Link to={`characters/${char.id}`}>
                                 <button className="button button__secondary" type="button">
                                     <div className="inner">To page</div>
                                 </button>
