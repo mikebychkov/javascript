@@ -1,0 +1,87 @@
+/*
+    The first two selectors are competing over the styling of the link's background color. The second one wins and makes the background color blue 
+    because it has an extra ID selector in the chain: its specificity is 2-0-1 vs. 1-0-1.
+
+    Selectors 3 and 4 are competing over the styling of the link's text color. The second one wins and makes the text white because although it has 
+    one less element selector, the missing selector is swapped out for a class selector, which has more weight than infinity element selectors. 
+    The winning specificity is 1-1-3 vs. 1-0-4.
+
+    Selectors 5–7 are competing over the styling of the link's border when hovered. Selector 6 clearly loses to selector 5 with a specificity 
+    of 0-2-3 vs. 0-2-4; it has one fewer element selectors in the chain. Selector 7, however, beats both selectors 5 and 6 because it has the 
+    same number of sub-selectors in the chain as selector 5, but an element has been swapped out for a class selector. So the winning specificity 
+    is 0-3-3 vs. 0-2-3 and 0-2-4.
+*/
+
+
+/* 1. specificity: 1-0-1 */
+#outer a {
+    background-color: red;
+}
+        
+/* 2. specificity: 2-0-1 */
+#outer #inner a {
+    background-color: blue;
+}
+
+/* 3. specificity: 1-0-4 */
+#outer div ul li a {
+    color: yellow;
+}
+
+/* 4. specificity: 1-1-3 */
+#outer div ul .nav a {
+    color: white;
+}
+
+/* 5. specificity: 0-2-4 */
+div div li:nth-child(2) a:hover {
+    border: 10px solid black;
+}
+
+/* 6. specificity: 0-2-3 */
+div li:nth-child(2) a:hover {
+    border: 10px dashed black;
+}
+
+/* 7. specificity: 0-3-3 */
+div div .nav:nth-child(2) a:hover {
+    border: 10px double black;
+}
+
+a {
+    display: inline-block;
+    line-height: 40px;
+    font-size: 20px;
+    text-decoration: none;
+    text-align: center;
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+}            
+    
+/*-------------------*/
+
+
+#winning {
+    background-color: red;
+    border: 4px solid black;
+}
+    
+.better {
+    background-color: gray;
+    border: none !important;
+}
+    
+p {
+    background-color: blue;
+    color: white;
+    padding: 5px;
+}           
+    
