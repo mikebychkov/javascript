@@ -1,0 +1,141 @@
+
+p[data3] {
+    color: orange;
+}
+
+p[par="second"] {
+    color: red;
+}
+
+p::first-letter {
+    font-size: xx-large;
+}
+
+.direct-child-bold > p {
+    font-weight: bolder;
+}
+
+.direct-child-bold div > p:hover {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+/* 'div:first-child' and 'div  :first-child'  -  are different things 
+
+1) div:first-child - first element of .first class
+2) div :first-child - first element inside .first class element
+3) div *:first-child - work same as (2), but less confusion in represent
+
+*/
+
+.pseudo-or-not p {
+    background-color: yellow;
+}
+
+.pseudo-or-not > div *:first-child {
+    color: blue;
+}
+
+/*-------CLASS SELECTORS-------*/
+
+.class-selectors {
+    width: 50%;
+}
+
+.notebox {
+    border: 4px solid #666;
+    padding: .5em;
+}
+
+.notebox.warning {
+    border-color: orange;
+    font-weight: bold;
+}
+
+.notebox.danger {
+    border-color: red;
+    font-weight: bold;
+}
+
+/*-------ATTRIBUTE SELECTORS-------*/
+
+[attr-first] li[class] {
+    font-size: 200%;
+}
+
+[attr-first] li[class="a"] {
+    background-color: yellow;
+}
+
+[attr-first] li[class~="a"] {
+    color: red;
+}
+
+[attr-second] li[class^="a"] {
+    font-size: 200%;
+}
+
+[attr-second] li[class$="a"] {
+    background-color: yellow;
+}
+
+[attr-second] li[class*="a"] {
+    color: red;
+}
+
+[attr-third] li[class^="a"] {
+    background-color: yellow;
+}
+
+[attr-third] li[class^="a" i] {
+    color: red;
+}
+
+/*---------PSEUDO----------*/
+
+a:link,
+a:visited {
+    color: rebeccapurple;
+    font-weight: bold;
+}
+
+a:hover {
+    color:hotpink;
+} 
+
+article p::first-line {
+    font-size: 120%;
+    font-weight: bold;
+}
+
+.box::before {
+    background-color: pink;
+    content: "This should show before the other content. ";
+} 
+
+.box::after {
+    content: " ➥";
+} 
+
+.box2::before {
+    content: "";
+    display: block;
+    width: 100px;
+    height: 100px;
+    background-color: rebeccapurple;
+    border: 1px solid black;
+}
+
+[comb1] h1 + p {
+    font-weight: bold;
+    background-color: #333;
+    color: #fff;
+    padding: .5em;
+}   
+
+[comb2] h1 ~ p {
+    font-weight: bold;
+    background-color: #333;
+    color: #fff;
+    padding: .5em;
+}

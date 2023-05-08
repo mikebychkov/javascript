@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css"/>
+</head>
+<div>    
+
+  <div class="box">
+    <p>
+        <span>This is a paragraph of text. In the text is a</span>
+        <span class="special">span element</span> and also a
+        <a href="https://example.com">link</a>.
+    </p>
+  </div>
+  
+  <hr/>
+
+  <p class="special">What color am I?</p>
+
+  <hr/>
+
+  <div class="box2">
+    <p>
+        Setting CSS properties to specific values is the primary way of defining layout and styling for a document. The CSS engine calculates which declarations apply to every single element of a page.
+    </p>
+    <p class="box2">
+        CSS properties and values are case-insensitive. The property and value in a property-value pair are separated by a colon (:).        
+    </p>
+  </div>
+
+  <hr/>
+
+  <div class="box3">
+    Look up different values of properties listed below. Write CSS rules that apply styling to different HTML elements:
+  </div>
+
+  <hr/>
+
+  <div class="outer">
+    <div class="box4">
+        The inner box is 90% - 300px.
+    </div>  
+  </div>  
+
+  <hr/>
+
+  <div class="square-container">
+    <div class="spin">
+        <div class="box5"></div>
+    </div>
+    <div class="box5 sq0"></div>
+    <div class="box5 sq1"></div>
+    <div class="box5 sq2"></div>
+    <div class="box5 sq3"></div>
+    <div class="box5 sq4"></div>
+    <div class="box5"></div>
+  </div>
+
+  <hr/>
+
+  <div class="at-rules">
+    One common @rule that you are likely to encounter is @media, which is used to create media queries. Media queries use conditional logic for applying CSS styling.
+  </div>
+
+  <hr/>
+
+  <div class="shorthands">
+
+    <img src="tree.png"/>
+
+  </div>
+
+  <script>
+
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+    const rotate = async () => {
+        const el = document.querySelector('.spin .box5');
+        while (true) {
+            for (let i = 1; i < 10; i++) {
+                await sleep(100);
+                el.style = `transform: rotate(0.${i}turn)`;
+            }
+        }
+    }
+    rotate();
+
+  </script>
+
+</body>
+</html>

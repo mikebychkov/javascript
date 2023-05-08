@@ -1,0 +1,36 @@
+a {
+    position: absolute;
+}
+
+li {
+    border: 5px solid grey;
+    padding: .5em 1em .5em 1em;
+    background-color: rgb(182, 202, 163);
+}
+
+ul {
+    background-color: rgb(243, 238, 162);
+    overflow: hidden;
+}
+
+a[title] {
+    border-color: pink;
+}
+
+a[href*=contact] {
+    border-color: orange;
+}
+
+a[href^=https] {
+    border-color: green;
+}
+
+.b-pink {
+    border-color: pink;
+}
+.b-orange {
+    border-color: orange;
+}
+.b-green {
+    border-color: green;
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css"/>
+</head>
+<body>
+    
+    <div>
+        <p data1 par="first">
+            This group of selectors includes pseudo-classes, which style certain states of an element. The
+        </p>
+        <p data2 par="second">
+            :hover pseudo-class for example selects an element only when it is being hovered over by the
+        </p>
+        <p data3 par="third">
+            mouse pointer:
+        </p>
+    </div>
+    <hr/>
+    <div class="direct-child-bold">
+        <p>
+            The final group of selectors combine other selectors in order to target elements within our 
+        </p>
+        <div>
+            <p>
+                :hover pseudo-class for example selects an element only when it is being hovered over by the
+            </p>
+        </div>
+        <p>
+            mouse pointer:
+        </p>
+    </div>
+    <hr/>
+    <div class="pseudo-or-not">
+        <div>
+            <p>However, this selector could be confused with article:first-child, which will select any article element that is the first child of another element.</p>
+            <p>To avoid this confusion, we can add the universal selector to the :first-child pseudo-class, so it is</p>
+        </div>
+        <div>
+            <p>more obvious what the selector is doing. It is selecting any element which is the first-child of an </p>
+        </div>
+        <div>
+            <p>article element, or the first-child of any descendant element of article</p>
+        </div>
+    </div>
+    <hr/>
+    <div class="class-selectors">
+        <div class="notebox">
+            This is an informational note.
+        </div>    
+        <div class="notebox warning">
+            This note shows a warning.
+        </div>    
+        <div class="notebox danger">
+            This note shows danger!
+        </div>    
+        <div class="danger">
+            This won't get styled — it also needs to have the notebox class
+        </div>
+    </div>
+    <hr/>
+    <div attr-first>
+        <h1>Attribute presence and value selectors</h1>
+        <ul>
+            <li>Item 1</li>
+            <li class="a">Item 2</li>
+            <li class="a b">Item 3</li>
+            <li class="ab">Item 4</li>
+        </ul>
+    </div>
+    <div attr-second>
+        <h1>Attribute substring matching selectors</h1>
+        <ul>
+            <li class="a">Item 1</li>
+            <li class="ab">Item 2</li>
+            <li class="bca">Item 3</li>
+            <li class="bcabc">Item 4</li>
+        </ul>
+    </div>
+    <div attr-third>
+        <h1>Case-insensitivity</h1>
+        <ul>
+            <li class="a">Item 1</li>
+            <li class="A">Item 2</li>
+            <li class="Ab">Item 3</li>
+        </ul>        
+    </div>
+    <hr/>
+    <p><a href="">Hover over me</a></p>
+    <article>
+        <p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo
+                melon azuki bean garlic.</p>
+    
+        <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard
+                greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+    </article>
+    <p class="box">Content in the box in my HTML page.</p>    
+    <p class="box2">Content in the box in my HTML page.</p>
+    <hr/>
+    <article comb1>
+        <h1>A heading</h1>
+        <p>Veggies es bonus vobis, proinde vos postulo essum magis kohlrabi welsh onion daikon amaranth tatsoi tomatillo
+                melon azuki bean garlic.</p>
+    
+        <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard
+                greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+    </article>
+    <article comb2>
+        <h1>A heading</h1>
+        <p>I am a paragraph.</p>
+        <div>I am a div</div>
+        <p>I am another paragraph.</p>
+    </article>
+
+</body>
+</html>

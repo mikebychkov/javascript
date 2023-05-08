@@ -1,0 +1,104 @@
+
+.box span:first-child {
+    color: red;
+}
+
+.special {
+    color: red;
+}
+p {
+    color: blue;
+}
+  
+.box2 {
+    font-size: 1cm;
+    color: yellow;
+    background-color: black;
+}
+
+.box3 {
+    border: 10px solid purple;
+    width: 700px;
+}
+
+.outer {
+    margin-top: 30px;
+    border: 5px solid black;
+}
+  
+.box4 {    
+    padding: 10px;
+    width: calc(90% - 300px);
+    background-color: rebeccapurple;
+    color: white;
+}
+
+.box5 {
+    margin: 30px auto;
+    width: 100px;
+    height: 100px;
+    background-color: rebeccapurple;
+    transform: rotate(0.8turn);
+}
+
+.box5.sq1 {
+    transform: translate(12px, 50%);
+}
+
+.box5.sq2 {
+    transform: skew(30deg, 20deg);
+}
+
+.box5.sq3 {
+    transform: scale(0.5) translate(-100%, -100%);
+}
+
+.box5.sq4 {
+    transform: translate(-40px,-100px);
+}
+
+
+.box5:last-child {
+    transform: scaleY(2);
+}
+ 
+.square-container {
+    margin-top: 50px;
+    display: flex;
+    background-image: linear-gradient(green, yellow, pink);
+}
+
+.spin {
+    margin: auto;
+}
+
+.at-rules {
+    margin-top: 50px;
+    background-color: pink;
+}
+
+@media (min-width: 100em) {
+    .at-rules {
+        margin-top: 50px;
+        background-color: yellow;
+    }
+}
+
+.shorthands {
+    border: solid red;
+    padding: 100px 150px 150px 400px;
+    /*
+    padding-top: 10px;
+    padding-right: 15px;
+    padding-bottom: 15px;
+    padding-left: 5px;
+    */
+    background: red url(tree.png) 10px 100px repeat-x fixed;
+    /*
+    background-color: red;
+    background-image: url(bg-graphic.png);
+    background-position: 10px 100px;
+    background-repeat: repeat-x;
+    background-attachment: fixed;
+    */
+}
