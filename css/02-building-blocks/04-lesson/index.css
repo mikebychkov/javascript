@@ -3,11 +3,114 @@ body {
     /* background-image: linear-gradient(51deg, rgba(2,0,36,1) 10%, rgba(9,9,121,1) 55%, rgba(0,212,255,1) 96%); */    
 }
 
-div {
+div.bkgrnd {
     background: url('tree.png') 0% 0% / 1000px 800px no-repeat, url('tree2.png') 100% 0% / 200px 160px no-repeat, linear-gradient(51deg, rgba(2,0,36,1) 15%, rgba(9,9,121,1) 45%, rgba(0,212,255,1) 85%);
     /* background-size: cover;     */
-    height: 800px;
-    width: 1000px;
+    height: 100vh;
+    width: 100vw;
     border-radius: 2em;
     border-bottom-right-radius: 20% 40%;
+}
+
+/*-----------------*/
+
+.wrapper {
+    display: flex;
+}
+
+.box {
+    border: 5px solid darkblue;
+    width: 200px;
+    height: 200px;
+    margin-right: 2em;
+    box-shadow: 10px 10px 10px;
+  }
+  
+  img.class2 {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .cover {
+    object-fit: cover;
+  }
+  
+  .contain {
+    object-fit: contain;
+  }
+
+  /*-----------------*/
+
+  .wrapper2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 200px 200px;
+    gap: 20px;
+  }
+  
+  .wrapper2 > div {
+    background-color: rebeccapurple;
+    border-radius: .5em;
+  }
+
+  .wrapper2 > img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
+  }
+
+  /*-------------------*/
+
+input[type="text"],
+input[type="email"] {
+  border: 2px solid #000;
+  font-size: 20px;
+  padding: 10px;
+  background: rgba(250,250,250,.7);
+  border-radius: 5px;
+}
+
+label {
+  font-weight: bold;
+  font-size: 20px;
+  padding: 15px 0 15px 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 10% auto;
+  grid-template-rows: 50px auto;
+  margin: 0 0 10px 0;
+}
+
+input[type="submit"] {
+  border: 3px solid #333;
+  background-color: #999;
+  border-radius: 5px;
+  padding: 10px 2em;
+  font-weight: bold;
+  font-size: 20px;
+  color: #fff;  
+  margin: 5px;
+}
+
+.btn-group {
+    display: flex;
+    margin: auto;
+}
+
+input[type="submit"]:hover, input[type="submit"]:focus {
+  background-color: #333;
+}
+
+form {
+  border: 4px solid blue;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 10px 10px 10px;
+  background: rgba(0,0,100,.2)
+}    
+
+.buttons {
+    display: flex;
 }
