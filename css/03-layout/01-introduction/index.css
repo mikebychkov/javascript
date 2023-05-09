@@ -1,0 +1,164 @@
+
+h2 {
+    text-transform: uppercase;
+}
+
+.box {
+    background: skyblue;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+/*----------FLEX----------*/
+
+.wrapper.ex1 {
+    display: flex;
+}
+  
+.wrapper.ex1 > div[all-space] {
+    flex: 1;
+ }
+  
+.wrapper.ex1 .box {
+    height: 30px;
+    width: 50px;
+}
+
+/*----------GRID---------*/
+
+.wrapper.ex2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 100px;
+    gap: 10px;
+}
+  
+/*-------------*/
+
+.wrapper.ex3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 100px 100px;
+    gap: 10px;
+}
+
+.wrapper.ex3 .box1 {
+    grid-column: 2 / 4;
+    grid-row: 1;
+}
+
+.wrapper.ex3 .box2 {
+    grid-column: 1;
+    grid-row: 1 / 4;
+}
+
+.wrapper.ex3 .box3 {
+    grid-column: 3;
+    grid-row: 2;
+}
+  
+/*------------FLOAT-----------*/
+
+.ex4 .box {
+    float: left;
+    width: 150px;
+    height: 150px;
+    margin-right: 30px;
+    margin-bottom: 10px;
+}
+
+/*------------POSITION-----------*/
+
+.pos hr {
+    border: 1px dashed;
+}
+  
+.pos .ex {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.pos p {
+    background-color: rgb(207, 232, 220);
+    border: 2px solid rgb(79, 185, 227);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+.pos .positioned {
+    background: pink;
+}
+
+.ex5 .positioned {
+    position: relative;
+    top: 30px;
+    left: 30px;
+}
+  
+.ex6 .positioned {
+    position: absolute;
+    top: 1400px;
+    left: 30px;
+}
+  
+.ex7 .positioned {
+    position: fixed;
+    top: 650px;
+    left: 60px;
+}
+  
+.ex8 .positioned {
+    position: sticky;
+    top: 400px;
+    left: 80px;
+}
+  
+/*-------------TABLE LAYOUT--------------*/
+
+.ex9 form {
+    display: table;
+    margin: 0 auto;
+    border: 1px solid;
+    padding: 10px;
+}
+  
+.ex9 form div {
+    display: table-row;
+}
+  
+.ex9 form label,
+.ex9 form input {
+    display: table-cell;
+    margin-bottom: 10px;
+}
+  
+.ex9 form label {
+    width: 200px;
+    padding-right: 5%;
+    text-align: right;
+}
+  
+.ex9 form input {
+    width: 300px;
+}
+  
+.ex9 form p {
+    display: table-caption;
+    caption-side: bottom;
+    width: 300px;
+    color: #999;
+    font-style: italic;
+}
+
+/*---------------MULTY COLUMN---------------*/
+
+/*
+    column-count
+    column-width
+*/
+
+.ex10 {
+    column-width: 200px;
+}
+  
