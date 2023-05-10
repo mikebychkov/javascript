@@ -153,6 +153,7 @@
     margin: 0 auto;
     width: 90%;
     max-width: 900px;    
+    height: 1500px;
 }
 
 .ex3 .container {
@@ -173,7 +174,7 @@
 @media (min-width: 500px) {
     .ex3 .container {
         grid-template-areas: 
-        "header header header"
+        "nav header header"
         "nav main main"
         "nav footer footer"
         ;
@@ -191,6 +192,10 @@
 }
 .ex3 .nav {
     grid-area: nav;
+    position: fixed;
+    top: 500px;
+    width: 80px;
+    background: yellow;
 }
 .ex3 .main {
     grid-area: main;
@@ -199,3 +204,8 @@
     grid-area: footer;
 }
 
+/* .ex3 .menu {
+    background: yellow;
+    position: fixed;
+    top: 500px;
+} */
