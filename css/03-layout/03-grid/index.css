@@ -1,0 +1,201 @@
+.ex0 {
+    width: 90%;
+    max-width: 900px;
+    margin: 2em auto;
+    font: .9em/1.2 Arial, Helvetica, sans-serif;
+}
+
+.ex0 .container > div {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgb(207,232,220);
+    border: 2px solid rgb(79,185,227);
+}
+
+.ex0 .container {
+    display: grid;
+    /* grid-template-columns: 2fr 1fr 1fr; */
+    /* grid-template-columns: repeat(3, 1fr); */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* AS MANY COLUMNS AS IT CAN FEAT */
+    grid-auto-rows: minmax(100px, auto);
+    gap: 20px;
+}
+
+/*--------------------------------------*/
+
+.ex1 {
+    width: 90%;
+    max-width: 900px;
+    margin: 2em auto;
+    font: 0.9em/1.2 Arial, Helvetica, sans-serif;
+}
+
+.ex1 .container {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: 20px;
+}
+
+.ex1 header,
+.ex1 footer {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgb(207, 232, 220);
+    border: 2px solid rgb(79, 185, 227);
+}
+
+.ex1 aside {
+    border-right: 1px solid #999;
+}
+
+/*---*/
+
+/*
+.ex1 header {
+    grid-column: 1 / 3;
+    grid-row: 1;
+}
+  
+.ex1 article {
+    grid-column: 2;
+    grid-row: 2;
+}
+  
+.ex1 aside {
+    grid-column: 1;
+    grid-row: 2;
+}
+  
+.ex1 footer {
+    grid-column: 1 / 3;
+    grid-row: 3;
+}
+*/
+  
+/*---*/
+
+.ex1 .container {
+    display: grid;
+    grid-template-areas:
+      "header header"
+      "sidebar content"
+      "footer footer";
+    grid-template-columns: 1fr 3fr;
+    gap: 20px;
+}
+  
+.ex1 header {
+    grid-area: header;
+}
+  
+.ex1 article {
+    grid-area: content;
+}
+  
+.ex1 aside {
+    grid-area: sidebar;
+}
+  
+.ex1 footer {
+    grid-area: footer;
+}
+  
+/*---------------------------------*/
+
+.ex2 {
+    width: 90%;
+    max-width: 900px;
+    margin: 2em auto;
+    font: .9em/1.2 Arial, Helvetica, sans-serif;
+}
+
+.ex2 .container {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0,1fr));
+    gap: 20px;
+}
+
+.ex2 header,
+.ex2 footer {
+    border-radius: 5px;
+    padding: 10px;
+    background-color: rgb(207,232,220);
+    border: 2px solid rgb(79,185,227);
+}
+
+.ex2 aside {
+    border-right: 1px solid #999;
+}
+
+.ex2 header {
+    grid-column: 1 / 13;
+    grid-row: 1;
+}
+  
+.ex2 article {
+    grid-column: 4 / 13;
+    grid-row: 2;
+}
+  
+.ex2 aside {
+    grid-column: 1 / 4;
+    grid-row: 2;
+}
+  
+.ex2 footer {
+    grid-column: 1 / 13;
+    grid-row: 3;
+}
+  
+/*-----------MY TRY-----------*/
+
+.ex3 {
+    margin: 0 auto;
+    width: 90%;
+    max-width: 900px;    
+}
+
+.ex3 .container {
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "nav"
+    "main"
+    "footer"
+    ;
+    grid-auto-rows: minmax(50px, auto);
+    grid-auto-columns: minmax(100px, auto);
+    gap: 10px;
+    background: red;
+    padding: 10px;
+}
+
+@media (min-width: 500px) {
+    .ex3 .container {
+        grid-template-areas: 
+        "header header header"
+        "nav main main"
+        "nav footer footer"
+        ;
+    }
+}
+
+.ex3 .header, .nav, .main, .footer {
+    background: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.ex3 .header {
+    grid-area: header;
+}
+.ex3 .nav {
+    grid-area: nav;
+}
+.ex3 .main {
+    grid-area: main;
+}
+.ex3 .footer {
+    grid-area: footer;
+}
+
