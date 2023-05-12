@@ -1,0 +1,266 @@
+
+/* COMMON ---------------------------------------------------------- */
+
+body {
+    margin: 0;
+    font-family: "Averia Serif Libre", sans-serif;
+    background: rgba(100,100,100,.1);
+}
+
+.main-container {
+    margin: 0 auto;
+    max-width: 1100px;
+    width: 90%;
+}
+
+button.btn {
+    border: 1px solid darkblue;
+    color: darkblue;
+}
+
+.nav .nav-item .nav-link {
+    color: darkblue;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.accent {
+    background: yellow;
+}
+
+
+/* HEADER DECORATION */
+.decor  {
+    height: 5px;
+    width: 50px;
+    background: green;
+}
+
+/* GRID CONTAINER ---------------------------------------------------------- */
+
+.main-container {
+    display: grid;
+    grid-template-columns: 260px 820px;
+    gap: 20px;
+}
+
+.aside {
+    background: white;
+    position: fixed; 
+    top: 0;
+    height: 100vh;
+    padding: 4px;
+    color: darkblue;
+}
+
+.main {    
+    background: white;
+    margin-top: 20px;
+    color: darkblue;
+}
+
+.main a {
+    color: darkblue;
+}
+
+/* ASIDE ---------------------------------------------------------- */
+
+.photo {
+    width: 255px;
+    height: 300px;
+    display: block;
+    overflow: hidden;
+}
+
+.photo img {
+    max-width: 100%;
+    object-fit: contain;
+} 
+
+.nav {
+    padding: 10px;
+}
+
+.nav .active {
+    font-size: 1.5em;
+}
+
+.nav .nav-link:hover {
+    text-decoration: underline;
+}
+
+.aside .buttons {    
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+}
+
+.aside .buttons .btn {    
+    margin: 5px;
+}
+
+.aside .links {
+    display: flex;
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid darkblue;
+}
+
+.aside .links > div {
+    margin: 0 auto;
+}
+
+.aside .links img {
+    max-width: 30px;
+}
+
+/* MAIN ---------------------------------------------------------- */
+
+.header-container {
+    background: url(../img/engineer.jpg) 0% 0% / 100% no-repeat;
+}
+
+.header {
+    padding: 20px 50px 50px 50px;
+    height: 100vh;
+}
+
+.main h1, .main h2 {
+    display: block;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.header h1 {
+    font-size: 3em;
+}
+
+.header h2 {
+    font-size: 2em;
+}
+
+.main p {
+    font-size: 1.5em;
+    max-width: 300px;
+} 
+
+/* MAIN - SKILLS ------------------------------------------------ */
+
+.skills {
+    padding: 20px 50px 50px 50px;
+    height: 100vh;
+    background: url(../img/skills.jpg) 0% 150%/ 100% no-repeat;
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 70px;
+    gap: 10px;
+    margin: 50px auto;
+}
+
+.skills .card {
+    padding: 10px;
+    box-shadow: 2px 2px 5px grey;
+}
+
+.skills .skill-percent {
+    display: flex; 
+    justify-content: space-between;
+}
+
+.skills .skill, .skills .percent {
+    margin: 5px;
+    display: inline;
+}
+
+.skills .bar {
+    width: 95%;
+    height: 5px;
+    background: grey;
+    margin: 5px;
+}
+
+.skills .progress {
+    background: darkblue;
+    height: inherit;
+    width: 77%;
+}
+
+/* MAIN - EXPERIENCE ------------------------------------------------ */
+
+.experience {
+    padding: 20px 50px 50px 50px;
+    height: 100vh;
+    background: url(../img/experience.png) 100% 0%/ 40% 100% no-repeat; 
+}
+
+.timeline {
+    /* background: pink; */
+    height: 85vh;
+    width: 440px;
+    margin-top: 30px;
+    border-left: 4px solid darkblue;
+    padding: 10px;
+    overflow: scroll;    
+}
+
+.position {
+    /* background: yellow; */
+    height: 150px;
+    width: 400px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;    
+}
+
+.position .desription {
+    padding-left: 10px;
+}
+
+.position h4, .position p {
+    margin: 0;
+}
+
+.position p {
+    /* background: pink; */
+    font-size: 1em;
+}
+
+.position-bind {
+    /* background: blue; */
+    border-top: 4px solid darkblue;
+    margin-top: 15px;
+    padding-left: 4px;
+    height: 50px;
+    width: 50px;
+    position: relative;
+    left: -30px;
+}
+
+
+/* MAIN - PROJECTS ------------------------------------------------ */
+
+.projects {
+    padding: 20px 50px 50px 50px;
+    height: 100vh;
+    background: url(../img/projects.png) 100% 0%/ 40% 100% no-repeat; 
+}
+
+/* MAIN - CONTACT-ME ------------------------------------------------ */
+
+.contact-me {
+    padding: 20px 50px 50px 50px;
+    height: 100vh;
+    background: url(../img/contactme.png) 100% 100%/ 40% no-repeat;  
+}
+
+.contact-me form {
+    margin-top: 30px;
+}
