@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="../public/solid-32.png" />
+    <link rel="icon" href="../public/favicon.png" />
     
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,16 +27,16 @@
                 </div>
                 <div class="links">
                     <div>
-                        <a href="#"><img src="./img/icons8-github-64.png"></a>
-                        <a href="#"><img src="./img/icons8-linkedin-64.png"></a>
+                        <a href="https://github.com/mikebychkov" target="_blank"><img src="./img/icons8-github-64.png"></a>
+                        <a href="https://www.linkedin.com/in/mihail-bychkov/" target="_blank"><img src="./img/icons8-linkedin-64.png"></a>
                     </div>
                 </div>
                 <div class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
+                        <a class="nav-link active" href="#about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="#skills">Skills</a>
+                        <a class="nav-link" href="#skills">Skills</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#experience">Experience</a>
@@ -49,8 +49,8 @@
                     </li>
                 </div>
                 <div class="buttons">
-                    <button class="btn btn-light" type="button">Download CV</button>        
-                    <button class="btn btn-light" type="button">Contact Me</button>    
+                    <a class="btn btn-light" role="button">Download CV</a>        
+                    <a class="btn btn-light" role="button" href="#contact-me">Contact Me</a>    
                 </div>
             </div>
         </div>
@@ -60,7 +60,7 @@
             <div class="header-container">
                 <div class="header">
                     <a href="#about" id="about"><h1>Hi,</h1></a>
-                    <h2>my name is,</h2>
+                    <h2>my name is</h2>
                     <h2>Bychkov Mikhail</h2>
                     <div class="decor"></div>
                     <br/><br/>
@@ -68,7 +68,7 @@
                         I'm a <span class="accent">software developer</span> with more than <span class="accent">18 years experience</span> in field located in Uzbekistan, Tashkent (UTC+5).
                     </p>
                     <br/><br/>
-                    <button class="btn btn-light" type="button">Download CV</button>    
+                    <a class="btn btn-light" role="button">Download CV</a>    
                 </div>
             </div>
 
@@ -285,6 +285,28 @@
                             <p>The following example creates a stacked form with two input fields, one checkbox, and a submit button.</p>
                         </div>
                     </div>
+                    <div class="position">
+                        <div class="position-bind">
+                            <span>2020-</span>
+                            <span>-2015</span>
+                        </div>
+                        <div class="desription">
+                            <h4>Java Developer</h4>
+                            <i>OOO Abris Distribution</i>
+                            <p>The following example creates a stacked form with two input fields, one checkbox, and a submit button.</p>
+                        </div>
+                    </div>
+                    <div class="position">
+                        <div class="position-bind">
+                            <span>2020-</span>
+                            <span>-2015</span>
+                        </div>
+                        <div class="desription">
+                            <h4>Java Developer</h4>
+                            <i>OOO Abris Distribution</i>
+                            <p>The following example creates a stacked form with two input fields, one checkbox, and a submit button.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -292,7 +314,7 @@
                 <a href="#contact-me" id="contact-me"><h2>Contact Me</h2></a>
                 <div class="decor"></div>
 
-                <form action="#">
+                <form>
 
                     <div class="form-group">
                         <input type="email" class="form-control" placeholder="Enter email" id="email" name="email"/>
@@ -313,20 +335,46 @@
 
     <script>
 
+        const navLinks = document.querySelectorAll('.nav-link');
+
         const clearActive = () => {
-            const navLinks = document.querySelectorAll('.nav-link');    
             navLinks.forEach(nav => {
                 nav.classList.remove('active');
             });
         }
 
-        const navLinks = document.querySelectorAll('.nav-link');
+        const setActive = el => {
+            clearActive();
+            el.classList.add('active');
+        };
+
         navLinks.forEach(nav => {
             nav.addEventListener('click', e => {
-                clearActive();
-                e.target.classList.add('active');
+                setActive(e.target);
             });
         });
+
+        const anchors = document.querySelectorAll('.main a[href^="#"]');
+        const magnetLinks = {};
+        const traceActiveNavLink = () => {
+            
+            anchors.forEach(el => {
+                const viewportOffset = el.getBoundingClientRect();
+                if (viewportOffset.top > -100 && viewportOffset.top < 100) {
+                    if (!magnetLinks[el.id]) {
+                        window.location.href = el;
+                        magnetLinks[el.id] = true;
+                    }
+                    const elToActivate = document.querySelector(`.nav-link[href="#${el.id}"]`);
+                    setActive(elToActivate);
+                } else {
+                    magnetLinks[el.id] = false;
+                }
+            });
+        };
+        traceActiveNavLink();
+ 
+        window.addEventListener('scroll', traceActiveNavLink);
 
     </script>
 

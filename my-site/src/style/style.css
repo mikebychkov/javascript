@@ -13,7 +13,7 @@ body {
     width: 90%;
 }
 
-button.btn {
+button.btn, a.btn {
     border: 1px solid darkblue;
     color: darkblue;
 }
@@ -32,13 +32,12 @@ button.btn {
     background: yellow;
 }
 
-
-/* HEADER DECORATION */
 .decor  {
     height: 5px;
     width: 50px;
     background: green;
 }
+
 
 /* GRID CONTAINER ---------------------------------------------------------- */
 
@@ -66,6 +65,7 @@ button.btn {
 .main a {
     color: darkblue;
 }
+
 
 /* ASIDE ---------------------------------------------------------- */
 
@@ -117,7 +117,8 @@ button.btn {
 
 .aside .links img {
     max-width: 30px;
-}
+} 
+
 
 /* MAIN ---------------------------------------------------------- */
 
@@ -148,6 +149,7 @@ button.btn {
     font-size: 1.5em;
     max-width: 300px;
 } 
+
 
 /* MAIN - SKILLS ------------------------------------------------ */
 
@@ -193,6 +195,7 @@ button.btn {
     width: 77%;
 }
 
+
 /* MAIN - EXPERIENCE ------------------------------------------------ */
 
 .experience {
@@ -202,17 +205,16 @@ button.btn {
 }
 
 .timeline {
-    /* background: pink; */
     height: 85vh;
     width: 440px;
     margin-top: 30px;
     border-left: 4px solid darkblue;
     padding: 10px;
-    overflow: scroll;    
+    overflow-x: hidden;    
+    overflow-y: auto;    /* SCROLLBAR APPEARS ONLY WHEN NEEDED */
 }
 
 .position {
-    /* background: yellow; */
     height: 150px;
     width: 400px;
     padding: 10px;
@@ -229,12 +231,10 @@ button.btn {
 }
 
 .position p {
-    /* background: pink; */
     font-size: 1em;
 }
 
 .position-bind {
-    /* background: blue; */
     border-top: 4px solid darkblue;
     margin-top: 15px;
     padding-left: 4px;
@@ -242,6 +242,10 @@ button.btn {
     width: 50px;
     position: relative;
     left: -30px;
+}
+
+.timeline span {
+    display: block;
 }
 
 
@@ -253,6 +257,7 @@ button.btn {
     background: url(../img/projects.png) 100% 0%/ 40% 100% no-repeat; 
 }
 
+
 /* MAIN - CONTACT-ME ------------------------------------------------ */
 
 .contact-me {
@@ -263,4 +268,12 @@ button.btn {
 
 .contact-me form {
     margin-top: 30px;
+}
+
+
+/* MAIN - LINKS ------------------------------------------------------*/
+
+.main a[href^="#"]:focus {
+    text-decoration: underline;
+    outline: none;
 }

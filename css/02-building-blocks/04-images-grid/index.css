@@ -101,6 +101,7 @@ input[type="submit"] {
 
 input[type="submit"]:hover, input[type="submit"]:focus {
   background-color: #333;
+  transition: .5s;
 }
 
 form {
