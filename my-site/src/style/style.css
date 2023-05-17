@@ -277,3 +277,7 @@ button.btn, a.btn {
     text-decoration: underline;
     outline: none;
 }
+
+a.btn:focus, button.btn:focus {
+    border: 1px solid green;
+}

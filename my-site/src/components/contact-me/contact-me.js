@@ -1,21 +1,27 @@
 import './contact-me.css';
 
 const ContactMe = () => {
+
+	const onSubmit = e => {
+		e.preventDefault();
+		console.log('submitting email message');
+	}
+
 	return (
-		<div class="contact-me">
+		<div className="contact-me">
 			<a href="#contact-me" id="contact-me"><h2>Contact Me</h2></a>
-			<div class="decor"></div>
+			<div className="decor"></div>
 
-			<form>
+			<form onSubmit={onSubmit}>
 
-				<div class="form-group">
-					<input type="email" class="form-control" placeholder="Enter email" id="email" name="email"/>
+				<div className="form-group">
+					<input type="email" className="form-control" placeholder="Enter email" id="email" name="email"/>
 				</div>
-				<div class="form-group">
-					<textarea rows="10" class="form-control" placeholder="Enter message" id="emailmessage" name="emailmessage">
+				<div className="form-group">
+					<textarea rows="10" className="form-control" placeholder="Enter message" id="emailmessage" name="emailmessage">
 					</textarea> 
 				</div>
-				<button type="submit" class="btn btn-light">Send Message</button>                    
+				<button type="submit" className="btn btn-light">Send Message</button>                    
 
 			</form>
 
