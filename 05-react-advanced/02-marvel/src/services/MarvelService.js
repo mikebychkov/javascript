@@ -6,8 +6,8 @@ const MarvelService = () => {
 
     const authParams = (url) => {
 
-        const privateKey = 'b9ff906e379c5f0d214e80bc109902c85b52c104';
-        const publicKey = '7fb8d2a24b166a64397aa136f6a1f538';
+        const privateKey = process.env.REACT_APP_MARVEL_PRIVATE_KEY;
+        const publicKey = process.env.REACT_APP_MARVEL_PUBLIC_KEY;
     
         const ts = +new Date();
         const hash = md5(`${ts}${privateKey}${publicKey}`);

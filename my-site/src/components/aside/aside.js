@@ -7,11 +7,12 @@ import cv from '../../files/cv.pdf';
 const Aside = ({activeNav, setActiveNav}) => {
 	    
     const navClass = (id) => {
-        return `nav-link ${activeNav === id ? 'active' : ''}`;
+        // return `nav-link ${activeNav === id ? 'active' : ''}`;
+        return 'nav-link';
     }
 
     const navOnClick = (e) => {
-        setActiveNav(e.target.id);
+        // setActiveNav(e.target.id);
     }
 
     return (

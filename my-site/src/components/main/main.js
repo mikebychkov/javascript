@@ -7,42 +7,51 @@ import Projects from '../projects/projects';
 import ContactMe from '../contact-me/contact-me';
 import { useEffect } from 'react';
 
+import DataService from '../services/data-service';
+
 const Main = ({setActiveNav}) => {
 
-	const magnetLinks = {};
-	const traceActiveNavLink = () => {
+	// const magnetLinks = {};
+	// const traceActiveNavLink = () => {
 		
-		const anchors = document.querySelectorAll('.main a[href^="#"]');
-		anchors.forEach(el => {
-			const viewportOffset = el.getBoundingClientRect();
-			if (viewportOffset.top > -100 && viewportOffset.top < 100) {
-				if (!magnetLinks[el.id]) {
-					window.location.href = el;
-					magnetLinks[el.id] = true;
-				}
-				const elToActivate = document.querySelector(`.nav-link[href="#${el.id}"]`);
-				setActiveNav(elToActivate.id);
-			} else {
-				magnetLinks[el.id] = false;
-			}
-		});
-	};
+	// 	const anchors = document.querySelectorAll('.main a[href^="#"]');
+	// 	anchors.forEach(el => {
+	// 		const viewportOffset = el.getBoundingClientRect();
+	// 		if (viewportOffset.top > -100 && viewportOffset.top < 100) {
+	// 			if (!magnetLinks[el.id]) {
+	// 				window.location.href = el;
+	// 				magnetLinks[el.id] = true;
+	// 			}
+	// 			// const elToActivate = document.querySelector(`.nav-link[href="#${el.id}"]`);
+	// 			// setActiveNav(elToActivate.id);
+	// 		} else {
+	// 			magnetLinks[el.id] = false;
+	// 		}
+	// 	});
+	// };
 	
-	useEffect(() => {
-		traceActiveNavLink();
-		window.addEventListener('scroll', traceActiveNavLink);	
-		return () => {
-			window.removeEventListener('scroll', traceActiveNavLink);
-		};
-	}, []);
+	// useEffect(() => {
+	// 	traceActiveNavLink();
+	// 	window.addEventListener('scroll', traceActiveNavLink);	
+	// 	return () => {
+	// 		window.removeEventListener('scroll', traceActiveNavLink);
+	// 	};
+	// }, []);
+
+
+	const { getToken } = DataService();
+	const token = getToken()
+		.then(json => {
+			return json.token;
+		});
 
 	return (
 		<div className="main">
 			<About/>
-			<Skills/>
-			<Experience/>
-			<Projects/>
-			<ContactMe/>
+			<Skills token={token}/>
+			<Experience token={token}/>
+			<Projects token={token}/>
+			<ContactMe token={token}/>
 		</div>
 	);
 }

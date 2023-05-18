@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import './projects.css';
 import DataService from '../services/data-service';
 
-const Projects = () => {
+const Projects = ({token}) => {
 	
-	console.log('render projects');
+	// console.debug('render projects');
 
 	const [exp, setExp] = useState([]);
 
-	const { getProjects } = DataService();
+	const { getProjects } = DataService(token);
 
 	useEffect(() => {
 		getProjects()

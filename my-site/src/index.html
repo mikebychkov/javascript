@@ -335,9 +335,8 @@
 
     <script>
 
-        const navLinks = document.querySelectorAll('.nav-link');
-
         const clearActive = () => {
+            const navLinks = document.querySelectorAll('.nav-link');
             navLinks.forEach(nav => {
                 nav.classList.remove('active');
             });
@@ -348,16 +347,23 @@
             el.classList.add('active');
         };
 
-        navLinks.forEach(nav => {
-            nav.addEventListener('click', e => {
-                setActive(e.target);
-            });
-        });
+        const activeEvent = e => {
+            setActive(e.target);
+        }
 
-        const anchors = document.querySelectorAll('.main a[href^="#"]');
+        setInterval(() => {
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(nav => {
+                nav.addEventListener('click', activeEvent);
+            });
+
+        }, 2000);
+
         const magnetLinks = {};
         const traceActiveNavLink = () => {
             
+            const anchors = document.querySelectorAll('.main a[href^="#"]');
             anchors.forEach(el => {
                 const viewportOffset = el.getBoundingClientRect();
                 if (viewportOffset.top > -100 && viewportOffset.top < 100) {

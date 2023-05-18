@@ -1,10 +1,9 @@
-package service.api.dto;
+package service.api.dao.skill;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import service.api.entity.Skill;
 
 @Data
 @AllArgsConstructor
@@ -13,9 +12,8 @@ import service.api.entity.Skill;
 public class SkillDTO {
 
     private String id;
-//    private String username;
-//    private String firstName;
-//    private String lastName;
+    private String name;
+    private Short percent;
 
     public static SkillDTO of(Skill skill) {
 
@@ -24,9 +22,19 @@ public class SkillDTO {
         SkillDTO rsl = new SkillDTO();
 
         rsl.setId(skill.getId());
-//        rsl.setUsername(skill.getUsername());
-//        rsl.setFirstName(skill.getFirstName());
-//        rsl.setLastName(skill.getLastName());
+        rsl.setName(skill.getName());
+        rsl.setPercent(skill.getPercent());
+
+        return rsl;
+    }
+
+    public Skill toEntity() {
+
+        Skill rsl = new Skill();
+
+        rsl.setId(this.id);
+        rsl.setName(this.name);
+        rsl.setPercent(this.percent);
 
         return rsl;
     }

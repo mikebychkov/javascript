@@ -1,16 +1,14 @@
-package service.api.entity;
+package service.api.dao.skill;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.Id;
 import java.util.Objects;
 
 @Document("skills")
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,19 +16,8 @@ public class Skill {
 
     @Id
     private String id;
-
-//    private String username;
-//    private String firstName;
-//    private String lastName;
-//    private String email;
-//
-//    public String getFullName() {
-//
-//        return String.format("%s %s",
-//                Optional.ofNullable(this.lastName).orElse(""),
-//                Optional.ofNullable(this.firstName).orElse("")
-//        );
-//    }
+    private String name;
+    private Short percent;
 
     @Override
     public boolean equals(Object o) {

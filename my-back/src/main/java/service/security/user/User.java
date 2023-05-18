@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Id;
+import org.springframework.data.annotation.Id;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Objects;
@@ -15,6 +15,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class User implements UserDetails {
@@ -27,7 +28,7 @@ public class User implements UserDetails {
     @Indexed(unique = true)
     private String email;
     private String password;
-    private String roles;
+    private String roles = "ROLE_USER";
 
     public User(String username, String email, String password) {
         this.username = username;

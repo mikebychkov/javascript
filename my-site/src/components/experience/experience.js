@@ -2,13 +2,13 @@ import { useEffect, useState } from 'react';
 import './experience.css';
 import DataService from '../services/data-service';
 
-const Experience = () => {
+const Experience = ({token}) => {
 
-	console.log('render experience');
+	// console.debug('render experience');
 
 	const [exp, setExp] = useState([]);
 
-	const { getExperience } = DataService();
+	const { getExperience } = DataService(token);
 
 	useEffect(() => {
 		getExperience()

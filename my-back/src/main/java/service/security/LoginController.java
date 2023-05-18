@@ -1,5 +1,6 @@
 package service.security;
 
+import lombok.extern.log4j.Log4j2;
 import service.security.service.JwtService;
 import service.security.user.UserDTO;
 import lombok.AllArgsConstructor;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
+@Log4j2
 public class LoginController {
 
     private final JwtService jwtService;
@@ -21,6 +23,8 @@ public class LoginController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDTO credentials) {
+
+        log.info(credentials);
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                                                             credentials.getUsername(),

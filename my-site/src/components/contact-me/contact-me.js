@@ -1,9 +1,13 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
+import DataService from '../services/data-service';
+
 import './contact-me.css';
 
-const ContactMe = () => {
+const ContactMe = ({token}) => {
+
+	const { postEmail } = DataService(token);
 
 	const formik = useFormik({
         initialValues: {
@@ -23,7 +27,16 @@ const ContactMe = () => {
 	});
 
 	const onSubmit = body => {
-		console.log('submitting email message:', body);
+		
+		// MAYBE SPINNER HERE
+
+		postEmail(body)
+		.then(r => {
+
+			// ON SUCCESS HERE
+			console.log('POST EMAIL SUCCESS', r);
+
+		});
 	}
 
 	const fargs = fieldArgs(formik);

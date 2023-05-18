@@ -3,13 +3,13 @@ import { useState, useEffect } from 'react';
 import './skills.css';
 import DataService from '../services/data-service';
 
-const Skills = () => {
+const Skills = ({token}) => {
 
-	console.log('render skills');
+	// console.debug('render skills');
 
 	const [skills, setSkills] = useState([]);
 
-	const { getSkills } = DataService();
+	const { getSkills } = DataService(token);
 
 	useEffect(() => {
 		getSkills()

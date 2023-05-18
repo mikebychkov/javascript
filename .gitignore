@@ -1,9 +1,8 @@
-/*/node_modules/
-/*/*/node_modules/
 /**/node_modules/
 *.code-workspace
-/*/target/
-/*/.idea/
+/**/target/
+/**/.idea/
 /nginx/site/
-/jsbackend/mongodb_data/
+/**/mongodb_data/
 .env
+

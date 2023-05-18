@@ -7,8 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ServiceApplication {
 
 	// TODO:
-	// - front-end - FORMIK
-	// - front-end - data-service
+	// - back-end - CRUD
 	// - https://www.baeldung.com/spring-email
 
 	public static void main(String[] args) {
