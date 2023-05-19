@@ -10,7 +10,7 @@ const RequestService = () => {
 
         if (!token) return new Promise(r => r([]));
 
-        console.log('REQUEST:', url, token)
+        console.debug('REQUEST:', url, token)
 
         let rsl = await fetch(url, {
             method: 'GET',
@@ -34,7 +34,7 @@ const RequestService = () => {
 
         if (!token) return new Promise(r => r([]));
 
-        console.log('REQUEST:', url, token)
+        console.debug('REQUEST:', url, token)
 
         let rsl = await fetch(url, {
             method: 'POST',
@@ -59,9 +59,9 @@ const RequestService = () => {
         }
     }
 
-    const postAuth = async (url, token, body) => {
+    const postWithoutAuth = async (url, body) => {
 
-        console.log('REQUEST:', url, token)
+        console.debug('REQUEST:', url)
 
         let rsl = await fetch(url, {
             method: 'POST',
@@ -81,7 +81,28 @@ const RequestService = () => {
         return await rsl.json();
     }
 
-    return { get, post, postAuth };
+    const getWithoutAuth = async (url) => {
+
+        console.debug('REQUEST:', url)
+
+        let rsl = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'Application/json'
+            },
+        }).catch(e => {
+            console.error(`ERROR FETCHING ${url}`, e);
+            return [];
+        });
+
+        if (!rsl.ok) {
+            throw new Error(`Could not fetch: ${url}; response status: ${rsl.status}`);
+        }
+
+        return await rsl.json();
+    }
+
+    return { get, post, postWithoutAuth, getWithoutAuth };
 }
 
 export default RequestService;

@@ -1,13 +1,17 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-
 import DataService from '../services/data-service';
-
+import RequestService from '../services/request-service';
 import './contact-me.css';
+import { useEffect, useState } from 'react';
+import MySpinner from '../spinner/my-spinner';
 
 const ContactMe = ({token}) => {
 
+	const [sendStatus, setSendStatus] = useState('wait');
+	const [ip, setIp] = useState();
 	const { postEmail } = DataService(token);
+	const { getWithoutAuth } = RequestService();
 
 	const formik = useFormik({
         initialValues: {
@@ -23,43 +27,80 @@ const ContactMe = ({token}) => {
 						.min(100, 'Minimum 100 symbols')
 						.max(1000, 'Maximum 1000 symbols')
 		}),
-		onSubmit: values => onSubmit(JSON.stringify(values, null, 2))
+		onSubmit: values => onSubmit(values)
 	});
+	const fargs = fieldArgs(formik);
 
 	const onSubmit = body => {
 		
-		// MAYBE SPINNER HERE
+		setSendStatus('loading');
 
-		postEmail(body)
+		const formatedBody = {
+			address: body.email,
+			message: body.emailmessage,
+			ip: ip
+		};		
+
+		postEmail(JSON.stringify(formatedBody, null, 2))
 		.then(r => {
 
-			// ON SUCCESS HERE
-			console.log('POST EMAIL SUCCESS', r);
+			setSendStatus('success');
+			formik.resetForm();
+
+		}).catch(e => {
+
+			setSendStatus('error');
 
 		});
 	}
 
-	const fargs = fieldArgs(formik);
+	const sendStatusRender = (status) => {
 
+		switch(status) {
+			case 'loading': return (
+				<MySpinner/>
+			);
+			case 'success': return (
+				<span className="success">THANK YOU FOR YOUR MESSAGE</span>
+			);
+			case 'error': return (
+				<span className="error">SOMETHING WENT WRONG</span>
+			);
+			default: return null;
+		}
+	}
+
+	useEffect(() => {
+		getWithoutAuth('https://api.ipify.org/?format=json')
+		.then(res => setIp(res.ip))
+	}, []);
+  
 	return (
 		<div className="contact-me" id="contact-me">
 			<a href="#contact-me"><h2>Contact Me</h2></a>
 			<div className="decor"></div>
 
-			<form onSubmit={formik.handleSubmit}>
-
-				<div className="form-group">
-					<input className="form-control" placeholder="Enter email" { ...fargs('email', 'email') }/>
-					<ValidationError name="email" formik={formik}/>
-				</div>
-				<div className="form-group">
-					<textarea rows="10" className="form-control" placeholder="Enter message" { ...fargs('emailmessage', 'string') } >
-					</textarea> 
-					<ValidationError name="emailmessage" formik={formik}/>
-				</div>
-				<button type="submit" className="btn btn-light">Send Message</button>                    
-
-			</form>
+			{
+				sendStatus==='success' ? (
+					<div className="thanks flip-in-hor-bottom"></div>
+				) : (
+					<form onSubmit={formik.handleSubmit}>
+						<div className="form-group">
+							<input className="form-control" placeholder="Enter email" { ...fargs('email', 'email') }/>
+							<ValidationError name="email" formik={formik}/>
+						</div>
+						<div className="form-group">
+							<textarea rows="10" className="form-control" placeholder="Enter message" { ...fargs('emailmessage', 'string') } >
+							</textarea> 
+							<ValidationError name="emailmessage" formik={formik}/>
+						</div>
+						<div className="submit-group">
+							<button type="submit" className="btn btn-light" disabled={sendStatus==='success'}>Send Message</button>
+							{ sendStatusRender(sendStatus) }   
+						</div>
+					</form>
+				)
+			}
 
 		</div>
 	);

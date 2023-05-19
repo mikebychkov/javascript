@@ -32,9 +32,9 @@ public class SkillDTO {
 
         Skill rsl = new Skill();
 
-        rsl.setId(this.id);
-        rsl.setName(this.name);
-        rsl.setPercent(this.percent);
+        rsl.setId(this.getId());
+        rsl.setName(this.getName());
+        rsl.setPercent(this.getPercent());
 
         return rsl;
     }

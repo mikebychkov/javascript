@@ -8,9 +8,8 @@ const Experience = ({token}) => {
 
 	const [exp, setExp] = useState([]);
 
-	const { getExperience } = DataService(token);
-
 	useEffect(() => {
+		const { getExperience } = DataService(token);
 		getExperience()
 		.then(ex => {
 			setExp(ex);

@@ -60,6 +60,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectDTO> saveAll(List<ProjectDTO> dtoList) {
+
         return projectRepository.saveAll(
                         dtoList.stream()
                                 .map(ProjectDTO::toEntity)

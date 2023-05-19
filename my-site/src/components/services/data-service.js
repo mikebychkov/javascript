@@ -9,14 +9,14 @@ const DataService = (token) => {
     const username = process.env.REACT_APP_BACKEND_USERNAME;
     const password = process.env.REACT_APP_BACKEND_PASSWORD;
 
-    const { get, post, postAuth } = RequestService();
+    const { get, post, postWithoutAuth } = RequestService();
 
     const getToken = async () => {
         const authBody = {
             username: username,
             password: password
         };
-        return await postAuth(baseUrl + '/login', 'auth', JSON.stringify(authBody, null, 2));
+        return await postWithoutAuth(baseUrl + '/login', JSON.stringify(authBody, null, 2));
     }
 
     const getSkills = () => {

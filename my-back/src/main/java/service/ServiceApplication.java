@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ServiceApplication {
 
-	// TODO:
-	// - back-end - CRUD
+	// TODO: RETRIEVE AND SEND EMAILS BY SCHEDULE
 	// - https://www.baeldung.com/spring-email
 
 	public static void main(String[] args) {

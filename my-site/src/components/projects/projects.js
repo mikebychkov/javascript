@@ -8,9 +8,8 @@ const Projects = ({token}) => {
 
 	const [exp, setExp] = useState([]);
 
-	const { getProjects } = DataService(token);
-
 	useEffect(() => {
+		const { getProjects } = DataService(token);
 		getProjects()
 		.then(ex => {
 			setExp(ex);

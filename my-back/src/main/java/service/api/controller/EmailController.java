@@ -1,13 +1,13 @@
 package service.api.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import service.api.dao.email.EmailDTO;
+import service.api.dao.email.EmailService;
 
 @RestController
 @RequestMapping("/email")
@@ -15,13 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 public class EmailController {
 
-//    private final SkillService skillService;
+    private final EmailService emailService;
 
     @PostMapping
-    public ResponseEntity<String> postEmail(@RequestBody JsonNode body) {
+    public EmailDTO postEmail(@RequestBody EmailDTO body) {
 
-        log.info("POST EMAIL: {}", body.toString());
-
-        return ResponseEntity.ok("OK");
+        return emailService.save(body);
     }
 }

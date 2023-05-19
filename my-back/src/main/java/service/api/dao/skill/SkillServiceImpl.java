@@ -59,6 +59,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     public List<SkillDTO> saveAll(List<SkillDTO> dtoList) {
+
         return skillRepository.saveAll(
                     dtoList.stream()
                             .map(SkillDTO::toEntity)
