@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-
 import './skills.css';
 import DataService from '../services/data-service';
 
@@ -19,8 +18,8 @@ const Skills = ({token}) => {
 	}, []);
 
 	return (
-		<div className="skills">
-			<a href="#skills" id="skills"><h2>Skills</h2></a>
+		<div className="skills" id="skills">
+			<a href="#skills"><h2>Skills</h2></a>
 			<div className="decor"></div>
 
 			<div className="skills-container">

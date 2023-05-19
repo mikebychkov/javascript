@@ -3,9 +3,9 @@ import cv from '../../files/cv.pdf';
 
 const About = () => {
 	return (
-		<div className="header-container">
+		<div className="header-container" id="about">
 			<div className="header">
-				<a href="#about" id="about"><h1>Hi,</h1></a>
+				<a href="#about"><h1>Hi,</h1></a>
 				<h2>my name is</h2>
 				<h2>Bychkov Mikhail</h2>
 				<div className="decor"></div>

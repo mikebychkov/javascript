@@ -1,22 +1,20 @@
-import { useEffect, useState } from 'react';
-
 import './app.css';
-
 import Aside from '../aside/aside';
 import Main from '../main/main';
+import DataService from '../services/data-service';
 
 const App = () => {
 
-    // const [activeNav, setActiveNav] = useState("nav-about");
+	const { getToken } = DataService();
+	const token = getToken()
+		.then(json => {
+			return json.token;
+		});
 
 	return (
 		<div className="main-container">
-			{/* 
-			<Aside activeNav={activeNav} setActiveNav={setActiveNav}/>
-			<Main setActiveNav={setActiveNav}/> 
-			*/}
 			<Aside/>
-			<Main/>
+			<Main token={token}/>
 		</div>
 	);
 }

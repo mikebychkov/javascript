@@ -18,8 +18,8 @@ const Projects = ({token}) => {
 	}, []);
 
 	return (
-		<div className="projects">
-			<a href="#projects" id="projects"><h2>Projects</h2></a>
+		<div className="projects" id="projects">
+			<a href="#projects"><h2>Projects</h2></a>
 			<div className="decor"></div>
 
 			<div className="timeline">

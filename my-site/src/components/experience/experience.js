@@ -18,8 +18,8 @@ const Experience = ({token}) => {
 	}, []);
 
 	return (
-		<div className="experience">
-			<a href="#experience" id="experience"><h2>Experience</h2></a>
+		<div className="experience" id="experience">
+			<a href="#experience"><h2>Experience</h2></a>
 			<div className="decor"></div>
 
 			<div className="timeline">

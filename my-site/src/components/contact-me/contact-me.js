@@ -42,8 +42,8 @@ const ContactMe = ({token}) => {
 	const fargs = fieldArgs(formik);
 
 	return (
-		<div className="contact-me">
-			<a href="#contact-me" id="contact-me"><h2>Contact Me</h2></a>
+		<div className="contact-me" id="contact-me">
+			<a href="#contact-me"><h2>Contact Me</h2></a>
 			<div className="decor"></div>
 
 			<form onSubmit={formik.handleSubmit}>

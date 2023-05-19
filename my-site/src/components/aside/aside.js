@@ -1,20 +1,12 @@
+import { Link } from 'react-scroll';
 import './aside.css';
 import photo from '../../img/me.jpg';
 import gitImg from '../../img/icons8-github-64.png';
 import linkedImg from '../../img/icons8-linkedin-64.png';
 import cv from '../../files/cv.pdf';
 
-const Aside = ({activeNav, setActiveNav}) => {
+const Aside = () => {
 	    
-    const navClass = (id) => {
-        // return `nav-link ${activeNav === id ? 'active' : ''}`;
-        return 'nav-link';
-    }
-
-    const navOnClick = (e) => {
-        // setActiveNav(e.target.id);
-    }
-
     return (
         <div className="info">
             <div className="aside">
@@ -28,25 +20,27 @@ const Aside = ({activeNav, setActiveNav}) => {
                     </div>
                 </div>
                 <div className="nav flex-column">
+
                     <li className="nav-item">
-                        <a onClick={navOnClick} className={navClass("nav-about")} href="#about" id="nav-about">About</a>
+                        <Link to="about" smooth={true} duration={500} spy={true} className="nav-link" id="nav-about">About</Link>
                     </li>
                     <li className="nav-item">
-                        <a onClick={navOnClick} className={navClass("nav-skills")} href="#skills" id="nav-skills">Skills</a>
+                        <Link to="skills" smooth={true} duration={500} spy={true} className="nav-link" id="nav-skills">Skills</Link>
                     </li>
                     <li className="nav-item">
-                        <a onClick={navOnClick} className={navClass("nav-experience")} href="#experience" id="nav-experience">Experience</a>
+                        <Link to="experience" smooth={true} duration={500} spy={true} className="nav-link" id="nav-experience">Experience</Link>
                     </li>
                     <li className="nav-item">
-                        <a onClick={navOnClick} className={navClass("nav-projects")} href="#projects" id="nav-projects">Projects</a>
+                        <Link to="projects" smooth={true} duration={500} spy={true} className="nav-link" id="nav-projects">Projects</Link>
                     </li>
                     <li className="nav-item">
-                        <a onClick={navOnClick} className={navClass("nav-contact-me")} href="#contact-me" id="nav-contact-me">Contact Me</a>
-                    </li>
+                        <Link to="contact-me" smooth={true} duration={500} spy={true} className="nav-link" id="nav-contact-me">Contact Me</Link>
+                    </li> 
+
                 </div>
                 <div className="buttons">
                     <a className="btn btn-light" role="button" target="_blank" download="Mikhail-Bychkov-CV" href={cv}>Download CV</a>        
-                    <a className="btn btn-light" role="button" href="#contact-me">Contact Me</a>    
+                    <Link to="contact-me" smooth={true} duration={500} className="btn btn-light">Contact Me</Link>
                 </div>
             </div>
         </div>
