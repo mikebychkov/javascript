@@ -1,10 +1,10 @@
 package service.api.dao.experience;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import service.api.dao.project.Project;
 
 import java.time.LocalDate;
 
@@ -15,8 +15,13 @@ import java.time.LocalDate;
 public class ExperienceDTO {
 
     private String id;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate start;
+
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate end;
+
     private String position;
     private String organization;
     private String description;

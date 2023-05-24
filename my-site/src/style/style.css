@@ -215,23 +215,34 @@ button.btn, a.btn {
 }
 
 .position {
-    height: 150px;
+    /* height: 150px; */
     width: 400px;
     padding: 10px;
     margin: 10px;
     display: flex;    
+    /* background: pink; */
 }
 
 .position .desription {
-    padding-left: 10px;
+    /* padding-left: 10px; */
+    /* background: yellow; */
 }
 
 .position h4, .position p {
     margin: 0;
 }
 
+.position h4 {
+    font-size: 1.25em;
+}
+
 .position p {
     font-size: 1em;
+}
+
+.position i {
+    color: black;
+    font-weight: bold;
 }
 
 .position-bind {
@@ -242,9 +253,10 @@ button.btn, a.btn {
     width: 50px;
     position: relative;
     left: -30px;
+    /* background: grey; */
 }
 
-.timeline span {
+.position span {
     display: block;
 }
 
@@ -255,6 +267,27 @@ button.btn, a.btn {
     padding: 20px 50px 50px 50px;
     height: 100vh;
     background: url(../img/projects.png) 100% 0%/ 40% 100% no-repeat; 
+}
+
+.projects .position h4 {
+    margin-bottom: 5px;
+}
+
+/* MAIN - COURSES ------------------------------------------------ */
+
+.courses {
+    padding: 20px 50px 50px 50px;
+    height: 100vh;
+    background: url(../img/courses.jpg) 100% 0%/ 40% 100% no-repeat; 
+}
+
+.courses .position ul {
+    font-size: 1.2em;
+}
+
+.courses .position h4 {
+    font-size: 1.5em;
+    color: black;
 }
 
 

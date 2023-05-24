@@ -1,12 +1,15 @@
 package service.api.dao.email;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import service.config.exceptionhandling.exceptions.EntityNotFound;
 
+import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +28,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public List<EmailDTO> findByExample(Example<Email> example) {
+    public List<EmailDTO> findByExample(Example<EmailCard> example) {
 
         return emailRepository.findAll(example)
                 .stream()
@@ -52,22 +55,25 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public EmailDTO save(EmailDTO dto) {
 
+        validateEmail(dto);
+
         return Optional.of(emailRepository.save(dto.toEntity()))
                 .map(EmailDTO::of)
                 .orElseThrow();
     }
 
+    private void validateEmail(@Valid EmailDTO dto) {
+
+        List<EmailCard> rsl = emailRepository.findEmailsByIP(dto.getIp(), LocalDate.now());
+        if (rsl.size() >= 5) {
+            throw new RuntimeException("Email allowed count exceeded");
+        }
+    }
+
     @Override
     public List<EmailDTO> saveAll(List<EmailDTO> dtoList) {
 
-        return emailRepository.saveAll(
-                        dtoList.stream()
-                                .map(EmailDTO::toEntity)
-                                .toList()
-                )
-                .stream()
-                .map(EmailDTO::of)
-                .toList();
+        throw new UnsupportedOperationException();
     }
 
     @Override

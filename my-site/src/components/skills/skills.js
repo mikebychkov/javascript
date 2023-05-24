@@ -21,7 +21,7 @@ const Skills = ({token}) => {
 	const startInit = () => {
 		const skillsElem = document.querySelector('#skills');
 		const viewportOffset = skillsElem.getBoundingClientRect();
-		if (viewportOffset.top > -100 && viewportOffset.top < 100) {
+		if (viewportOffset.top > -200 && viewportOffset.top < 200) {
 			setInit(true);
 		}
 	}

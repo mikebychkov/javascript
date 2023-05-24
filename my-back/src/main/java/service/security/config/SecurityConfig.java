@@ -50,20 +50,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("*"));
-        config.setAllowedMethods(List.of("*"));
-        config.setAllowedHeaders(List.of("*"));
-        config.setAllowCredentials(false);
-        config.applyPermitDefaultValues();
-
-        source.registerCorsConfiguration("/**", config);
-        return source;
-    }
+//    @Bean
+//    CorsConfigurationSource corsConfigurationSource() {
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        CorsConfiguration config = new CorsConfiguration();
+//        config.setAllowedOrigins(List.of("*"));
+//        config.setAllowedMethods(List.of("*"));
+//        config.setAllowedHeaders(List.of("*"));
+//        config.setAllowCredentials(false);
+//        config.applyPermitDefaultValues();
+//
+//        source.registerCorsConfiguration("/**", config);
+//        return source;
+//    }
 
     @Autowired
     public void configure(AuthenticationManagerBuilder auth) throws Exception {

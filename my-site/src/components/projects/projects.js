@@ -22,16 +22,18 @@ const Projects = ({token}) => {
 			<div className="decor"></div>
 
 			<div className="timeline">
+
 				{
 					exp.map(ex => <Position key={ex.id} {...ex} />)
 				}
+
 			</div>
 
 		</div>
 	);
 }
 
-const Position = ({start, end, position, organization, description}) => {
+const Position = ({start, end, industry, description, role, technologies, responsibilities}) => {
 
 	return (
 		<div className="position">
@@ -40,9 +42,23 @@ const Position = ({start, end, position, organization, description}) => {
 				<span>-{end}</span>
 			</div>
 			<div className="desription">
-				<h4>{position}</h4>
-				<i>{organization}</i>
-				<p>{description}</p>
+				<h4>{description}</h4>
+
+				<i>Industry:</i>
+				<p>{industry}</p>
+
+				<i>Role:</i>
+				<p>{role}</p>
+
+				<i>Technologies:</i>
+				<p>{technologies}</p>
+
+				<i>Responsibilities:</i> 
+				<ul>			
+					{
+						typeof(responsibilities) === 'object' && responsibilities.length ? responsibilities.map((r,i) => <li key={i}>{r}</li>) : null
+					}				
+				</ul>
 			</div>
 		</div>
 	);

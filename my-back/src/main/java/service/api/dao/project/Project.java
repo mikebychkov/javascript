@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import org.springframework.data.annotation.Id;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Document("projects")
@@ -19,9 +20,11 @@ public class Project {
     private String id;
     private LocalDate start;
     private LocalDate end;
-    private String position;
-    private String organization;
+    private String industry;
     private String description;
+    private String role;
+    private String technologies;
+    private List<String> responsibilities;
 
     @Override
     public boolean equals(Object o) {

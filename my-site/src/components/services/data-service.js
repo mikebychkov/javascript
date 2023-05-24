@@ -29,14 +29,35 @@ const DataService = (token) => {
     const getExperience = () => {
 
         return token.then(t => {
-            return get(baseUrl + '/experience', t);
+            return get(baseUrl + '/experience', t)
+                .then(json => {
+                    return json.map(r => {
+                        r.start = r.start.slice(0,4);
+                        r.end = r.end.slice(0,4);
+                        return r;
+                    })
+                });
         });
     }
 
     const getProjects = () => {
         
         return token.then(t => {
-            return get(baseUrl + '/projects', t);
+            return get(baseUrl + '/projects', t)
+            .then(json => {
+                return json.map(r => {
+                    r.start = r.start.slice(0,4);
+                    r.end = r.end.slice(0,4);
+                    return r;
+                })
+            });
+        });
+    }
+
+    const getCourses = () => {
+        
+        return token.then(t => {
+            return get(baseUrl + '/courses', t);
         });
     }
 
@@ -47,7 +68,7 @@ const DataService = (token) => {
         });
     }
 
-    return { getToken, getSkills, getExperience, getProjects, postEmail };
+    return { getToken, getSkills, getExperience, getProjects, getCourses, postEmail };
 }
 
 export default DataService;

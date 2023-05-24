@@ -34,6 +34,9 @@ const Aside = () => {
                         <Link to="projects" smooth={true} duration={500} spy={true} className="nav-link" id="nav-projects">Projects</Link>
                     </li>
                     <li className="nav-item">
+                        <Link to="courses" smooth={true} duration={500} spy={true} className="nav-link" id="nav-courses">Courses & Certificates</Link>
+                    </li>
+                    <li className="nav-item">
                         <Link to="contact-me" smooth={true} duration={500} spy={true} className="nav-link" id="nav-contact-me">Contact Me</Link>
                     </li> 
 
