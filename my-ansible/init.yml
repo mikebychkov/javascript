@@ -1,0 +1,38 @@
+- name: UPDATE HOSTS
+  hosts: my-do-host
+  become: true
+  tasks:
+
+  - name: APT UPDATE
+    apt:
+      update_cache: yes
+
+  - name: APT UPGRADE
+    apt:
+      upgrade: dist
+
+  - name: INSTALL DOCKER
+    apt:
+      name: docker
+      state: present
+
+  - name: INSTALL DOCKER-COMPOSE
+    apt:
+      name: docker-compose
+      state: present
+
+  - name: DOCKER GROUP PRESENT
+    group:
+      name: docker
+      state: present
+
+  - name: ADD USER TO DOCKER GROUP
+    user:
+      name: root
+      groups: docker
+      append: yes
+
+  - name: INSTALL NGINX
+    apt:
+      name: nginx
+      state: present

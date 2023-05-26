@@ -1,0 +1,29 @@
+- name: UPDATE HOSTS
+  hosts: my-do-host
+  become: true
+  tasks:
+
+  - name: CHECK GNUPG
+    apt:
+      name: gnupg
+      state: present
+
+  - name: ADD KEY
+    apt_key:
+      url: 'https://www.mongodb.org/static/pgp/server-6.0.asc'
+      state: present
+
+  - name: ADD REPO
+    apt_repository:
+      repo: 'deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse'
+      state: present
+      filename: 'mongodb-org-6.0.list'
+
+  - name: APT UPDATE
+    apt:
+      update_cache: yes
+
+  - name: INSTALL MONGOSH
+    apt:
+      name: mongodb-mongosh
+      state: present

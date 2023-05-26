@@ -1,0 +1,1 @@
+my-do-host ansible_host=167.172.103.158 ansible_connection=ssh ansible_user=root
