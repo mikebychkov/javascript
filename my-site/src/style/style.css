@@ -52,8 +52,20 @@ button.btn, a.btn {
     position: fixed; 
     top: 0;
     height: 100vh;
+    min-height: 750px;
     padding: 4px;
     color: darkblue;
+}
+
+@media (max-width: 600px) {
+
+    .main-container {
+        display: block;
+    }   
+    
+    .aside {
+        position: relative;
+    }
 }
 
 .main {    
@@ -74,6 +86,7 @@ button.btn, a.btn {
     height: 300px;
     display: block;
     overflow: hidden;
+    margin: auto;
 }
 
 .photo img {
@@ -99,6 +112,7 @@ button.btn, a.btn {
     display: flex;
     justify-content: space-around;
     flex-flow: row wrap;
+    width: 98%;
 }
 
 .aside .buttons .btn {    
@@ -119,6 +133,13 @@ button.btn, a.btn {
     max-width: 30px;
 } 
 
+@media (max-width: 600px) {
+
+    .nav .nav-item {
+        margin: auto;
+        font-size: 1.5em;
+    }
+}
 
 /* MAIN ---------------------------------------------------------- */
 
@@ -129,6 +150,7 @@ button.btn, a.btn {
 .header {
     padding: 20px 50px 50px 50px;
     height: 100vh;
+    min-height: 650px;
 }
 
 .main h1, .main h2 {
@@ -150,12 +172,24 @@ button.btn, a.btn {
     max-width: 300px;
 } 
 
+@media (max-width: 600px) {
+
+    .header-container {
+        background: url(../img/engineer.jpg) 0% 0% / auto 100% no-repeat;
+    }
+
+    .header {        
+        height: auto;
+    }
+}
+
 
 /* MAIN - SKILLS ------------------------------------------------ */
 
 .skills {
     padding: 20px 50px 50px 50px;
     height: 100vh;
+    min-height: 650px;
     background: url(../img/skills.jpg) 0% 150%/ 100% no-repeat;
 }
 
@@ -170,6 +204,7 @@ button.btn, a.btn {
 .skills .card {
     padding: 10px;
     box-shadow: 2px 2px 5px grey;
+    position: relative;
 }
 
 .skills .skill-percent {
@@ -183,10 +218,12 @@ button.btn, a.btn {
 }
 
 .skills .bar {
-    width: 95%;
+    width: 85%;
     height: 5px;
     background: grey;
     margin: 5px;
+    position: absolute;
+    bottom: 1px;
 }
 
 .skills .progress {
@@ -195,12 +232,24 @@ button.btn, a.btn {
     width: 77%;
 }
 
+@media (max-width: 600px) {
+
+    .skills {
+        height: auto;
+        padding: 10px;
+    }
+
+    .skills-container {
+        grid-auto-rows: auto;
+    }
+}
 
 /* MAIN - EXPERIENCE ------------------------------------------------ */
 
 .experience {
     padding: 20px 50px 50px 50px;
     height: 100vh;
+    min-height: 650px;
     background: url(../img/experience.png) 100% 0%/ 40% 100% no-repeat; 
 }
 
@@ -215,12 +264,29 @@ button.btn, a.btn {
 }
 
 .position {
-    /* height: 150px; */
     width: 400px;
     padding: 10px;
     margin: 10px;
     display: flex;    
     /* background: pink; */
+}
+
+@media (max-width: 600px) {
+
+    .experience {
+        background: none;
+        height: auto;
+        padding: 10px;
+    }
+
+    .timeline {
+        height: auto;
+        width: auto;
+    }
+
+    .position {
+        width: auto;
+    }
 }
 
 .position .desription {
@@ -266,7 +332,17 @@ button.btn, a.btn {
 .projects {
     padding: 20px 50px 50px 50px;
     height: 100vh;
+    min-height: 650px;
     background: url(../img/projects.png) 100% 0%/ 40% 100% no-repeat; 
+}
+
+@media (max-width: 600px) {
+
+    .projects {
+        background: none;
+        height: auto;
+        padding: 10px;
+    }
 }
 
 .projects .position h4 {
@@ -278,11 +354,21 @@ button.btn, a.btn {
 .courses {
     padding: 20px 50px 50px 50px;
     height: 100vh;
+    min-height: 650px;
     background: url(../img/courses.jpg) 100% 0%/ 40% 100% no-repeat; 
 }
 
+@media (max-width: 600px) {
+
+    .courses {
+        height: auto;
+        background: none;
+        padding: 10px;
+    }
+}
+
 .courses .position ul {
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .courses .position h4 {
@@ -296,6 +382,7 @@ button.btn, a.btn {
 .contact-me {
     padding: 20px 50px 50px 50px;
     height: 100vh;
+    min-height: 650px;
     background: url(../img/contactme.png) 100% 100%/ 40% no-repeat;  
 }
 
@@ -303,6 +390,13 @@ button.btn, a.btn {
     margin-top: 30px;
 }
 
+@media (max-width: 600px) {
+
+    .contact-me {
+        height: auto;
+        padding: 10px;
+    }
+}
 
 /* MAIN - LINKS ------------------------------------------------------*/
 
