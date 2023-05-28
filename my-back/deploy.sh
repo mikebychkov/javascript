@@ -1,4 +1,5 @@
 #!/bin/bash
 ./mvnw clean package \
-&& scp -r ./target/ root@167.172.103.158:~/backend/ \
-&& ssh root@167.172.103.158 'cd ~/backend/ && docker-compose down && docker-compose up -d'
+&& scp -P 11033 -r ./target/ root@mike-bychkov.com:~/backend/ \
+#&& ssh -p 11033 root@mike-bychkov.com 'cd ~/backend/ && docker-compose down && docker-compose up -d'
+&& ssh -p 11033 root@mike-bychkov.com 'docker service update --force backend_app'

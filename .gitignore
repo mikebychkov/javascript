@@ -5,4 +5,4 @@
 /nginx/site/
 /**/mongodb_data/
 .env
-
+.env*

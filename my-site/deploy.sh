@@ -1,3 +1,3 @@
 #!/bin/bash
 npm run build \
-&& scp -r ./build/* root@167.172.103.158:/etc/www/frontend/ 
+&& scp -P 11033 -r ./build/* root@mike-bychkov.com:/etc/www/frontend/ 

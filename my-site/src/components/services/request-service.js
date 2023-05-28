@@ -10,7 +10,7 @@ const RequestService = () => {
 
         if (!token) return new Promise(r => r([]));
 
-        console.debug('REQUEST:', url, token)
+        // console.debug('REQUEST:', url, token)
 
         let rsl = await fetch(url, {
             method: 'GET',
@@ -34,7 +34,7 @@ const RequestService = () => {
 
         if (!token) return new Promise(r => r([]));
 
-        console.debug('REQUEST:', url, token)
+        // console.debug('REQUEST:', url, token)
 
         let rsl = await fetch(url, {
             method: 'POST',
@@ -61,7 +61,7 @@ const RequestService = () => {
 
     const postWithoutAuth = async (url, body) => {
 
-        console.debug('REQUEST:', url)
+        // console.debug('REQUEST:', url)
 
         let rsl = await fetch(url, {
             method: 'POST',
@@ -83,7 +83,7 @@ const RequestService = () => {
 
     const getWithoutAuth = async (url) => {
 
-        console.debug('REQUEST:', url)
+        // console.debug('REQUEST:', url)
 
         let rsl = await fetch(url, {
             method: 'GET',
