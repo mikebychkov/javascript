@@ -10,4 +10,7 @@ public interface EmailRepository extends MongoRepository<EmailCard, String> {
 
     @Query("{ 'ip': ?0 , 'date': ?1 }")
     List<EmailCard> findEmailsByIP(String ip, LocalDate date);
+
+    @Query("{ 'date': { $lt: ?0 } }")
+    List<EmailCard> findEmailsOlderThenDate(LocalDate date);
 }

@@ -21,3 +21,6 @@ management:
     web:
       exposure:
         include: health,info,env,httptrace,threaddump,scheduledtasks,metrics,mappings,beans
+
+cron:
+  delete-old-emails: 1 1 1 * * *
