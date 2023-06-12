@@ -3,15 +3,15 @@ import RequestService from "./request-service";
 // process.env.NODE_ENV
 // console.log('process.env.REACT_APP_MY_ENV', process.env.REACT_APP_MY_ENV);
 
-const DataService = (token) => {
+const DataService = (tokenValue) => {
 
     const baseUrl = process.env.REACT_APP_BACKEND_URL;
-    const username = process.env.REACT_APP_BACKEND_USERNAME;
-    const password = process.env.REACT_APP_BACKEND_PASSWORD;
+
+    const token = new Promise(r => r(tokenValue));
 
     const { get, post, postWithoutAuth } = RequestService();
 
-    const getToken = async () => {
+    const getToken = async (username, password) => {
         const authBody = {
             username: username,
             password: password
@@ -68,7 +68,22 @@ const DataService = (token) => {
         });
     }
 
-    return { getToken, getSkills, getExperience, getProjects, getCourses, postEmail };
+    const getEmails = () => {
+
+        return token.then(t => {
+            return get(baseUrl + '/email', t);
+        });
+    }
+
+    const getUsers = () => {
+
+        return token.then(t => {
+            return get(baseUrl + '/users', t);
+        });
+    }
+
+
+    return { getToken, getSkills, getExperience, getProjects, getCourses, postEmail, getEmails, getUsers };
 }
 
 export default DataService;

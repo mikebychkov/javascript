@@ -136,7 +136,7 @@ body {
 .main-content table {
     background: white;
     border-radius: 5px;
-    box-shadow: 3px 3px 3px 3px;
+    box-shadow: 3px 3px 3px;
     border: 1px solid rgba(100,100,100,.5);
 }
 

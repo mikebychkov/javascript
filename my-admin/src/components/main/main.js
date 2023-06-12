@@ -1,274 +1,42 @@
+import { useEffect, useState } from 'react';
 import './main.css';
+import DataTable from '../data-table/data-table';
+import DataService from '../services/data-service';
 
-const Main = () => {
+const Main = ({token, entityName}) => {
+
+	const [data, setData] = useState([]);
+
+	useEffect(() => {
+
+		const {getUsers, getSkills, getProjects, getExperience, getCourses, getEmails} = DataService(token);
+
+		const entityResolver = {
+			users: getUsers,
+			skills: getSkills,
+			projects: getProjects,
+			experience: getExperience,
+			courses: getCourses,
+			emails: getEmails
+		}
+
+		if (entityResolver[entityName]) {
+			entityResolver[entityName]()
+			.then(d => setData(d));
+		}
+
+	}, [entityName]);
+
 	return (
-        <div className="main">
+		<div className="main">
 
-            <div className="header">MY DATA</div>
+			<div className="header">{entityName}</div>
 
-            <div className="main-content">
-				<div className="btn-group">
-					<button type="button" className="btn btn-outline-primary">Add</button>
-					<button type="button" className="btn btn-outline-info" data-toggle="modal" data-target="#myModal">Edit</button>
-					<button type="button" className="btn btn-outline-danger">Delete</button>
-				</div> 
-                <table className="table table-hover">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Firstname</th>
-                        <th>Lastname</th>
-                        <th>Email</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
+			<div className="main-content">
+				<DataTable data={data} entityName={entityName}/>          
+			</div>            
 
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-                      <tr>
-                        <td>
-                            <div className="form-check">
-                                <input type="checkbox" className="form-check-input" value=""/>
-                            </div>
-                        </td>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                      </tr>
-
-                    </tbody>
-                </table>
-            </div>            
-
-        </div>
+		</div>
 	);
 }
 

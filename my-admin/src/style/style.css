@@ -31,14 +31,15 @@ body {
 
 .main-container {
     background: white;
-    /* background: rgba(100,100,100,.1); */
     display: grid;
-    grid-template-columns: 300px auto;
+    grid-template-columns: 300px calc(100vw - 300px);
     transition: all 300ms;
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 .side-min {
-    grid-template-columns: 60px auto;
+    grid-template-columns: 60px calc(100vw - 60px);
 }
 
 
@@ -51,7 +52,6 @@ body {
 }
 
 .sidebar {
-    /* background: white; */
     background: rgba(100,100,100,.1);
     position: fixed;
     height: 100vh;
@@ -71,6 +71,7 @@ body {
     top: 5px;
     font-size: 2em;
     line-height: 40px;
+    text-transform: capitalize;
 }
 
 .header-min {
@@ -125,19 +126,28 @@ body {
 
 .main {
     position: relative;
-    padding-top: 50px;
-    padding-left: 10px;
+    padding: 50px 20px 0 10px;
 }
 
 .main-content {
-    padding: 0 10px 0 0;
+    /* padding: 0 10px 0 0; */
 }
 
 .main-content table {
     background: white;
     border-radius: 5px;
-    box-shadow: 3px 3px 3px 3px;
+    box-shadow: 3px 3px 3px;
     border: 1px solid rgba(100,100,100,.5);
+    width: 100%;    
+}
+
+.main-content table thead {
+    text-transform: capitalize;
+}
+
+.main-content table td {
+    max-width: 400px;
+    overflow: hidden;
 }
 
 .main-content .btn-group {
@@ -153,9 +163,7 @@ body {
     padding: 20px;
     width: 30%;
     margin: 15% 35% 20% 35%;
-    /* background: rgba(100,100,100,.1); */
     background: white;
-    /* border: 1px solid rgba(100,100,100,.1); */
 }
 
 .login-container input {
