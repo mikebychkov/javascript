@@ -1,16 +1,29 @@
 import './delete-form.css';
 import { useEffect } from 'react';
+import RequestState from '../services/request-state';
 
-const DeleteForm = ({setOpen, entityName, entitiesToDelete}) => {
+const DeleteForm = ({setOpen, entityName, entitiesToDelete, requestMethod}) => {
+
+    const {requestState, setRequestState, renderRequestState} = RequestState();
 
     const ents = entitiesToDelete();    
 
     const onSubmit = () => {
 
-        console.log(JSON.stringify(ents, null, 2));
-        
-        // STATUS HERE + BLOCK SUBMIT BUTTON IF RESPONSE OK + CLOSE BY TIMER IF RESPONSE OK
+        setRequestState('loading');
 
+        // console.log(JSON.stringify(ents, null, 2));
+        
+        requestMethod(ents.map(e => e.id))
+        .then(r => {
+            setRequestState('success');
+            setTimeout(() => {
+                closeForm();
+            }, 3000);
+        })
+        .catch(e => {
+            setRequestState('error');
+        });
     }
 
     const closeForm = () => {
@@ -31,6 +44,13 @@ const DeleteForm = ({setOpen, entityName, entitiesToDelete}) => {
             document.body.style.overflow = '';
         }    
     }, []);
+
+    const btnState = () => {
+        if (requestState === 'loading' || requestState === 'success') {
+            return {disabled: true};
+        }
+        return {};
+    }
 
     return (
         <div className="modal fade show" id="myModal">
@@ -56,10 +76,14 @@ const DeleteForm = ({setOpen, entityName, entitiesToDelete}) => {
                     </div>
                     
                     <div className="modal-footer">
-                        <button onClick={onSubmit} type="button" className="btn btn-outline-danger">Delete</button>
+                        <button onClick={onSubmit} type="button" className="btn btn-outline-danger" {...btnState()}>Delete</button>
                         <button onClick={closeForm} type="button" className="btn btn-outline-primary">Close</button>
                     </div>
                     
+                    {
+                        renderRequestState()
+                    }
+
                 </div>
             </div>
         </div>

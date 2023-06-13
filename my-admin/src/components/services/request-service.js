@@ -6,7 +6,7 @@
 
 const RequestService = () => {
 
-    const get = async (url, token) => {
+    const getRequest = async (url, token) => {
 
         if (!token) return new Promise(r => r([]));
 
@@ -30,7 +30,7 @@ const RequestService = () => {
         return await rsl.json();
     }
 
-    const post = async (url, token, body) => {
+    const postRequest = async (url, token, body) => {
 
         if (!token) return new Promise(r => r([]));
 
@@ -50,6 +50,35 @@ const RequestService = () => {
 
         if (!rsl.ok) {
             throw new Error(`Could not post: ${url}; response status: ${rsl.status}`);
+        }
+
+        try {
+            return await rsl.json();
+        } catch (e) {
+            return new Promise(r => r(rsl));
+        }
+    }
+
+    const deleteRequest = async (url, token, ids) => {
+
+        if (!token) return new Promise(r => r([]));
+
+        // console.debug('REQUEST:', url, token)
+
+        let rsl = await fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'Application/json'
+            },
+            body: ids
+        }).catch(e => {
+            console.error(`ERROR FETCHING ${url}`, e);
+            return [];
+        });
+
+        if (!rsl.ok) {
+            throw new Error(`Could not delete: ${url}; response status: ${rsl.status}`);
         }
 
         try {
@@ -102,7 +131,7 @@ const RequestService = () => {
         return await rsl.json();
     }
 
-    return { get, post, postWithoutAuth, getWithoutAuth };
+    return { getRequest, postRequest, deleteRequest, postWithoutAuth, getWithoutAuth };
 }
 
 export default RequestService;

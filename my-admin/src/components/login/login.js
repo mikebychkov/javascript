@@ -1,13 +1,12 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useState } from 'react';
 import './login.css';
 import DataService from '../services/data-service';
-import MySpinner from '../spinner/my-spinner';
+import RequestState from '../services/request-state';
 
 const Login = ({setToken}) => {
 
-    const [loginState, setLoginState] = useState('');
+    const {setRequestState, renderRequestState} = RequestState();
 
     const formik = useFormik({
         initialValues: {
@@ -25,7 +24,7 @@ const Login = ({setToken}) => {
 
     const onSubmit = values => {
 
-        setLoginState('loading');
+        setRequestState('loading');
 
         const { getToken } = DataService();
         getToken(values.username, values.pswd)
@@ -33,17 +32,9 @@ const Login = ({setToken}) => {
                 localStorage.at = json.token;
                 setToken(json.token);
             }).catch(e => {
-                setLoginState('error');
+                setRequestState('error');
                 console.error(e);
             });
-    }
-
-    const renderLoginState = () => {
-        switch(loginState) {
-            case 'loading': return <MySpinner/>;
-            case 'error': return <div className="error">SOMETHING WENT WRONG</div>;
-            default: return null;
-        }
     }
 
     return (
@@ -62,7 +53,7 @@ const Login = ({setToken}) => {
                     <button type="submit" className="btn btn-outline-primary">LogIn</button>
                 </div>
             </form>
-            {renderLoginState()}
+            {renderRequestState()}
         </div>
     );
 }

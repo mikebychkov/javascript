@@ -76,17 +76,17 @@ const resolveEntityTemplate = (entityName = null) => {
     }
 }
 
-const resolveEntityGetMethod = (token, entityName = null) => {
+const resolveEntityRequestMethod = (token, entityName = null) => {
 
-    const {getUsers, getSkills, getProjects, getExperience, getCourses, getEmails} = DataService(token);
+    const ds = DataService(token);
 
     const entityMap = {
-        users: getUsers,
-        skills: getSkills,
-        projects: getProjects,
-        experience: getExperience,
-        courses: getCourses,
-        emails: getEmails
+        users: {get: ds.getUsers, post: ds.postUser, del: ds.deleteUsers},
+        skills: {get: ds.getSkills, post: ds.postSkill, del: ds.deleteSkills},
+        projects: {get: ds.getProjects, post: ds.postProject, del: ds.deleteProjects},
+        experience: {get: ds.getExperience, post: ds.postExperience, del: ds.deleteExperience},
+        courses: {get: ds.getCourses, post: ds.postCourse, del: ds.deleteCourses},
+        emails: {get: ds.getEmails, post: ds.postEmail, del: ds.deleteEmails}
     }
 
     if (entityName) {
@@ -96,4 +96,6 @@ const resolveEntityGetMethod = (token, entityName = null) => {
     }
 }
 
-export { resolveEntityList, resolveEntityTemplate, resolveEntityGetMethod };
+
+
+export { resolveEntityList, resolveEntityTemplate, resolveEntityRequestMethod };

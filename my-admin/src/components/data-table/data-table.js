@@ -4,7 +4,7 @@ import DataForm from '../data-form/data-form';
 import DeleteForm from '../delete-form/delete-form';
 import { resolveEntityTemplate } from '../services/entity-resolve-service';
 
-const DataTable = ({data, entityName}) => {
+const DataTable = ({data, entityName, postRequest, deleteRequest}) => {
 
     const [rows, setRows] = useState([]);
     const [cols, setCols] = useState([]);
@@ -99,13 +99,19 @@ const DataTable = ({data, entityName}) => {
                 </tbody>
             </table>
             {
-                addFormOpen ? <DataForm setOpen={setAddFormOpen} entityName={entityName} entityToEdit={() => resolveEntityTemplate(entityName)}/> : null
+                addFormOpen ? 
+                <DataForm setOpen={setAddFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={() => resolveEntityTemplate(entityName)}/> 
+                : null
             }
             {
-                editFormOpen ? <DataForm setOpen={setEditFormOpen} entityName={entityName} entityToEdit={entityToEdit}/> : null
+                editFormOpen ? 
+                <DataForm setOpen={setEditFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={entityToEdit}/> 
+                : null
             } 
             {
-                deleteFormOpen ? <DeleteForm setOpen={setDeleteFormOpen} entityName={entityName} entitiesToDelete={checkedEntities}/> : null
+                deleteFormOpen ? 
+                <DeleteForm setOpen={setDeleteFormOpen} entityName={entityName} requestMethod={deleteRequest} entitiesToDelete={checkedEntities}/> 
+                : null
             }
        </>
         : null

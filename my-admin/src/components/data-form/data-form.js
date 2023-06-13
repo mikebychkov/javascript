@@ -1,8 +1,11 @@
 import { useFormik } from 'formik';
 import './data-form.css';
 import { useEffect } from 'react';
+import RequestState from '../services/request-state';
 
-const DataForm = ({setOpen, entityName, entityToEdit}) => {
+const DataForm = ({setOpen, entityName, entityToEdit, requestMethod}) => {
+
+    const {requestState, setRequestState, renderRequestState} = RequestState();
 
     const ent = entityToEdit();    
 
@@ -19,10 +22,20 @@ const DataForm = ({setOpen, entityName, entityToEdit}) => {
 
     const onSubmit = values => {
 
-        console.log(JSON.stringify(values, null, 2));
+        setRequestState('loading');
 
-        // STATUS HERE + BLOCK SUBMIT BUTTON IF RESPONSE OK + CLOSE BY TIMER IF RESPONSE OK
+        // console.log(JSON.stringify(values, null, 2));
 
+        requestMethod(JSON.stringify(values, null, 2))
+        .then(r => {
+            setRequestState('success');
+            setTimeout(() => {
+                closeForm();
+            }, 3000);
+        })
+        .catch(e => {
+            setRequestState('error');
+        });
     }
     
     const closeForm = () => {
@@ -43,6 +56,13 @@ const DataForm = ({setOpen, entityName, entityToEdit}) => {
             document.body.style.overflow = '';
         }    
     }, []);
+
+    const btnState = () => {
+        if (requestState === 'loading' || requestState === 'success') {
+            return {disabled: true};
+        }
+        return {};
+    }
 
     return (
         <div className="modal fade show" id="myModal">
@@ -65,11 +85,15 @@ const DataForm = ({setOpen, entityName, entityToEdit}) => {
                         </div>
                         
                         <div className="modal-footer">
-                            <button type="submit" className="btn btn-outline-primary">Update</button>
+                            <button type="submit" className="btn btn-outline-primary" {...btnState()}>Update</button>
                             <button onClick={closeForm} type="button" className="btn btn-outline-primary">Close</button>
                         </div>
-                    
+
                     </form>
+
+                    {
+                        renderRequestState()
+                    }
 
                 </div>
             </div>

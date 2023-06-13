@@ -180,3 +180,19 @@ body {
     display: block;
     background: rgba(0,0,0,.7);
 }
+
+.modal .error {
+    color: red;
+    font-size: 1.2em;
+    margin: 10px auto;
+}
+
+.modal .success {
+    color: green;
+    font-size: 1.2em;
+    margin: 10px auto;
+}
+
+.modal .disable {
+    display: disable;
+}

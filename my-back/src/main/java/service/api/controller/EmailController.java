@@ -27,4 +27,10 @@ public class EmailController {
 
         return emailService.save(body);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteEmails(@PathVariable String id) {
+
+        emailService.delete(id);
+    }
 }
