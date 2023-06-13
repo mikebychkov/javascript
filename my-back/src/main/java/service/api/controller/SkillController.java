@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import service.api.dao.skill.SkillDTO;
 import service.api.dao.skill.SkillService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,13 +23,13 @@ public class SkillController {
     }
 
     @PostMapping
-    public SkillDTO postSkill(@RequestBody SkillDTO body) {
+    public SkillDTO postSkill(@Valid @RequestBody SkillDTO body) {
 
         return skillService.save(body);
     }
 
     @PostMapping("/all")
-    public List<SkillDTO> postSkills(@RequestBody List<SkillDTO> body) {
+    public List<SkillDTO> postSkills(@Valid @RequestBody List<SkillDTO> body) {
 
         return skillService.saveAll(body);
     }
@@ -37,5 +38,11 @@ public class SkillController {
     public void deleteSkill(@PathVariable String id) {
 
         skillService.delete(id);
+    }
+
+    @DeleteMapping
+    public void deleteAll(@RequestBody List<String> ids) {
+
+        skillService.deleteAll(ids);
     }
 }

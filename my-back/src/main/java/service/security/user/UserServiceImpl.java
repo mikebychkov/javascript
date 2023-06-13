@@ -61,15 +61,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User save(UserDTO dto) {
+    public UserDTO save(UserDTO dto) {
 
         User newUser = User.builder()
+                .id(dto.getId())
                 .username(dto.getUsername())
                 .email(dto.getEmail())
                 .password(dto.getPassword())
+                .roles("ROLE_USER")
                 .build();
 
-        return save(newUser);
+        return Optional.of(save(newUser))
+                .map(UserDTO::of)
+                .get();
     }
 
     @Override

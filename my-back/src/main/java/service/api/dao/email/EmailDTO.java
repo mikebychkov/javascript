@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Data
@@ -23,8 +20,8 @@ public class EmailDTO {
     @Email(message = "Must be a valid email address")
     private String address;
 
-    @Min(value = 100, message = "Must be at least 100 chars")
-    @Max(value = 1000, message = "Must not be greater than 1000 chars")
+    @Size(min = 100, message = "Must be at least 100 chars")
+    @Size(max = 1000, message = "Must not be greater than 1000 chars")
     private String message;
 
     @JsonFormat(pattern="yyyy-MM-dd")

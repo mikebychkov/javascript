@@ -8,6 +8,7 @@ import service.api.dao.course.CourseService;
 import service.api.dao.skill.SkillDTO;
 import service.api.dao.skill.SkillService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -24,13 +25,13 @@ public class CourseController {
     }
 
     @PostMapping
-    public CourseDTO post(@RequestBody CourseDTO body) {
+    public CourseDTO post(@Valid @RequestBody CourseDTO body) {
 
         return courseService.save(body);
     }
 
     @PostMapping("/all")
-    public List<CourseDTO> postList(@RequestBody List<CourseDTO> body) {
+    public List<CourseDTO> postList(@Valid @RequestBody List<CourseDTO> body) {
 
         return courseService.saveAll(body);
     }
@@ -39,5 +40,11 @@ public class CourseController {
     public void delete(@PathVariable String id) {
 
         courseService.delete(id);
+    }
+
+    @DeleteMapping
+    public void deleteAll(@RequestBody List<String> ids) {
+
+        courseService.deleteAll(ids);
     }
 }

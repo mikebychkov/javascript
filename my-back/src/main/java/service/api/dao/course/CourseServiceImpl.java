@@ -75,4 +75,10 @@ public class CourseServiceImpl implements CourseService {
 
         courseRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteAll(List<String> ids) {
+
+        courseRepository.deleteAllById(ids);
+    }
 }

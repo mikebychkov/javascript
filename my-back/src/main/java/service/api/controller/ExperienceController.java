@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import service.api.dao.experience.ExperienceDTO;
 import service.api.dao.experience.ExperienceService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,13 +23,13 @@ public class ExperienceController {
     }
 
     @PostMapping
-    public ExperienceDTO postExperience(@RequestBody ExperienceDTO body) {
+    public ExperienceDTO postExperience(@Valid @RequestBody ExperienceDTO body) {
 
         return experienceService.save(body);
     }
 
     @PostMapping("/all")
-    public List<ExperienceDTO> postExperience(@RequestBody List<ExperienceDTO> body) {
+    public List<ExperienceDTO> postExperience(@Valid @RequestBody List<ExperienceDTO> body) {
 
         return experienceService.saveAll(body);
     }
@@ -37,5 +38,11 @@ public class ExperienceController {
     public void deleteExperience(@PathVariable String id) {
 
         experienceService.delete(id);
+    }
+
+    @DeleteMapping
+    public void deleteAll(@RequestBody List<String> ids) {
+
+        experienceService.deleteAll(ids);
     }
 }

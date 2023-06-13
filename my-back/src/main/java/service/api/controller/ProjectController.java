@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import service.api.dao.project.ProjectDTO;
 import service.api.dao.project.ProjectService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,13 +23,13 @@ public class ProjectController {
     }
 
     @PostMapping
-    public ProjectDTO postProject(@RequestBody ProjectDTO body) {
+    public ProjectDTO postProject(@Valid @RequestBody ProjectDTO body) {
 
         return projectService.save(body);
     }
 
     @PostMapping("/all")
-    public List<ProjectDTO> postProjects(@RequestBody List<ProjectDTO> body) {
+    public List<ProjectDTO> postProjects(@Valid @RequestBody List<ProjectDTO> body) {
 
         return projectService.saveAll(body);
     }
@@ -37,5 +38,11 @@ public class ProjectController {
     public void deleteProject(@PathVariable String id) {
 
         projectService.delete(id);
+    }
+
+    @DeleteMapping
+    public void deleteAll(@RequestBody List<String> ids) {
+
+        projectService.deleteAll(ids);
     }
 }

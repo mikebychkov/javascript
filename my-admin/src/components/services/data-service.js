@@ -19,6 +19,15 @@ const DataService = (tokenValue) => {
         return await postWithoutAuth(baseUrl + '/login', JSON.stringify(authBody, null, 2));
     }
 
+    const setIdNullIfEmpty = json => {
+
+        const body = JSON.parse(json);
+        if (!body.id) {
+            body.id = null;
+        }
+        return JSON.stringify(body, null, 2);
+    }
+
 
     // SKILLS
 
@@ -31,8 +40,10 @@ const DataService = (tokenValue) => {
 
     const postSkill = body => {
 
+        const requestBody = setIdNullIfEmpty(body);
+
         return token.then(t => {
-            return postRequest(baseUrl + '/skills', t, body);
+            return postRequest(baseUrl + '/skills', t, requestBody);
         });
     }
 
@@ -62,9 +73,9 @@ const DataService = (tokenValue) => {
 
     const postExperience = body => {
 
-        const requestBody = JSON.parse(body);
-        requestBody.start += '0101';
-        requestBody.end += '0101';
+        const requestBody = JSON.parse(setIdNullIfEmpty(body));
+        requestBody.start += '-01-01';
+        requestBody.end += '-01-01';
 
         return token.then(t => {
             return postRequest(baseUrl + '/experience', t, JSON.stringify(requestBody, null, 2));
@@ -97,9 +108,9 @@ const DataService = (tokenValue) => {
 
     const postProject = body => {
 
-        const requestBody = JSON.parse(body);
-        requestBody.start += '0101';
-        requestBody.end += '0101';
+        const requestBody = JSON.parse(setIdNullIfEmpty(body));
+        requestBody.start += '-01-01';
+        requestBody.end += '-01-01';
 
         return token.then(t => {
             return postRequest(baseUrl + '/projects', t, JSON.stringify(requestBody, null, 2));
@@ -125,8 +136,10 @@ const DataService = (tokenValue) => {
 
     const postCourse = body => {
         
+        const requestBody = setIdNullIfEmpty(body);
+
         return token.then(t => {
-            return postRequest(baseUrl + '/courses', t, body);
+            return postRequest(baseUrl + '/courses', t, requestBody);
         });
     }
 
@@ -149,8 +162,10 @@ const DataService = (tokenValue) => {
 
     const postEmail = body => {
 
+        const requestBody = setIdNullIfEmpty(body);
+
         return token.then(t => {
-            return postRequest(baseUrl + '/email', t, body);
+            return postRequest(baseUrl + '/email', t, requestBody);
         });
     }
 
@@ -173,8 +188,10 @@ const DataService = (tokenValue) => {
 
     const postUser = body => {
 
+        const requestBody = setIdNullIfEmpty(body);
+
         return token.then(t => {
-            return postRequest(baseUrl + '/users', t, body);
+            return postRequest(baseUrl + '/users', t, requestBody);
         });
     }
 

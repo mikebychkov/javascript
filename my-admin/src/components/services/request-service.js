@@ -24,6 +24,7 @@ const RequestService = () => {
         });
 
         if (!rsl.ok) {
+            rsl.json().then(t => console.error(t));
             throw new Error(`Could not fetch: ${url}; response status: ${rsl.status}`);
         }
 
@@ -49,6 +50,7 @@ const RequestService = () => {
         });
 
         if (!rsl.ok) {
+            rsl.json().then(t => console.error(t));
             throw new Error(`Could not post: ${url}; response status: ${rsl.status}`);
         }
 
@@ -78,6 +80,7 @@ const RequestService = () => {
         });
 
         if (!rsl.ok) {
+            rsl.json().then(t => console.error(t));
             throw new Error(`Could not delete: ${url}; response status: ${rsl.status}`);
         }
 
@@ -104,6 +107,7 @@ const RequestService = () => {
         });
 
         if (!rsl.ok) {
+            rsl.json().then(t => console.error(t));
             throw new Error(`Could not post: ${url}; response status: ${rsl.status}`);
         }
 
@@ -125,6 +129,7 @@ const RequestService = () => {
         });
 
         if (!rsl.ok) {
+            rsl.json().then(t => console.error(t));
             throw new Error(`Could not fetch: ${url}; response status: ${rsl.status}`);
         }
 

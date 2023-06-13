@@ -2,7 +2,7 @@ import './delete-form.css';
 import { useEffect } from 'react';
 import RequestState from '../services/request-state';
 
-const DeleteForm = ({setOpen, entityName, entitiesToDelete, requestMethod}) => {
+const DeleteForm = ({setOpen, entityName, entitiesToDelete, requestMethod, setUpdateData}) => {
 
     const {requestState, setRequestState, renderRequestState} = RequestState();
 
@@ -14,9 +14,10 @@ const DeleteForm = ({setOpen, entityName, entitiesToDelete, requestMethod}) => {
 
         // console.log(JSON.stringify(ents, null, 2));
         
-        requestMethod(ents.map(e => e.id))
+        requestMethod(JSON.stringify(ents.map(e => e.id)))
         .then(r => {
             setRequestState('success');
+            setUpdateData(Date.now());
             setTimeout(() => {
                 closeForm();
             }, 3000);

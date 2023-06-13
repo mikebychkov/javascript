@@ -6,6 +6,7 @@ import { resolveEntityRequestMethod } from '../services/entity-resolve-service';
 const Main = ({token, entityName}) => {
 
 	const [data, setData] = useState([]);
+	const [updateData, setUpdateData] = useState(0);
 	const {get, post, del} = resolveEntityRequestMethod(token, entityName);
 
 	useEffect(() => {
@@ -15,7 +16,7 @@ const Main = ({token, entityName}) => {
 			.then(d => setData(d));
 		}
 
-	}, [entityName]);
+	}, [entityName, updateData]);
 
 	return (
 		<div className="main">
@@ -23,7 +24,7 @@ const Main = ({token, entityName}) => {
 			<div className="header">{entityName}</div>
 
 			<div className="main-content">
-				<DataTable data={data} entityName={entityName} postRequest={post} deleteRequest={del}/>          
+				<DataTable data={data} entityName={entityName} postRequest={post} deleteRequest={del} setUpdateData={setUpdateData}/>          
 			</div>            
 
 		</div>

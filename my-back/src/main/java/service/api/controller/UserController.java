@@ -3,12 +3,14 @@ package service.api.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.security.user.User;
 import service.security.user.UserDTO;
 import service.security.user.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -26,6 +28,18 @@ public class UserController {
                 .stream()
                 .map(UserDTO::of)
                 .toList();
+    }
+
+    @PostMapping
+    public UserDTO postUser(@Valid @RequestBody UserDTO body) {
+
+        return userService.save(body);
+    }
+
+    @DeleteMapping
+    public void deleteUser() {
+
+        throw new NotImplementedException();
     }
 
     @PostMapping("/init-admin")

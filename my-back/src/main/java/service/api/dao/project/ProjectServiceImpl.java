@@ -76,4 +76,10 @@ public class ProjectServiceImpl implements ProjectService {
 
         projectRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteAll(List<String> ids) {
+
+        projectRepository.deleteAllById(ids);
+    }
 }

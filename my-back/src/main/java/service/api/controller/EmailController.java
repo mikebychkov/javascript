@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import service.api.dao.email.EmailDTO;
 import service.api.dao.email.EmailService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,7 +24,7 @@ public class EmailController {
     }
 
     @PostMapping
-    public EmailDTO postEmail(@RequestBody EmailDTO body) {
+    public EmailDTO postEmail(@Valid @RequestBody EmailDTO body) {
 
         return emailService.save(body);
     }
@@ -32,5 +33,11 @@ public class EmailController {
     public void deleteEmails(@PathVariable String id) {
 
         emailService.delete(id);
+    }
+
+    @DeleteMapping
+    public void deleteAll(@RequestBody List<String> ids) {
+
+        emailService.deleteAll(ids);
     }
 }

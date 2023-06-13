@@ -76,4 +76,10 @@ public class ExperienceServiceImpl implements ExperienceService {
 
         experienceRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteAll(List<String> ids) {
+
+        experienceRepository.deleteAllById(ids);
+    }
 }

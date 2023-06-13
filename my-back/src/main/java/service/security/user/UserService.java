@@ -9,6 +9,6 @@ public interface UserService {
     User findByUsername(String username);
     List<User> findAll();
     User save(User user);
-    User save(UserDTO dto);
+    UserDTO save(UserDTO dto);
     void deleteById(String id);
 }

@@ -3,15 +3,19 @@ import './data-form.css';
 import { useEffect } from 'react';
 import RequestState from '../services/request-state';
 
-const DataForm = ({setOpen, entityName, entityToEdit, requestMethod}) => {
+const DataForm = ({setOpen, entityName, entityToEdit, requestMethod, setUpdateData}) => {
 
     const {requestState, setRequestState, renderRequestState} = RequestState();
 
-    const ent = entityToEdit();    
+    const ent = entityToEdit();  
+    // console.log(ent);  
 
     const values = {};
-    for (let [key, value] of Object.entries(ent)) {
-        values[key] = value;
+
+    if (ent) {        
+        for (let [key, value] of Object.entries(ent)) {
+            values[key] = value;
+        }    
     }
 
     const formik = useFormik({
@@ -29,6 +33,7 @@ const DataForm = ({setOpen, entityName, entityToEdit, requestMethod}) => {
         requestMethod(JSON.stringify(values, null, 2))
         .then(r => {
             setRequestState('success');
+            setUpdateData(Date.now());
             setTimeout(() => {
                 closeForm();
             }, 3000);
@@ -79,7 +84,7 @@ const DataForm = ({setOpen, entityName, entityToEdit, requestMethod}) => {
                         <div className="modal-body">
 
                         {
-                            Object.entries(ent).filter(([key]) => key !== 'checked').map(([key]) => <Field key={key} name={key} fargs={fargs}/>)
+                            Object.entries(values).filter(([key]) => key !== 'checked').map(([key]) => <Field key={key} name={key} fargs={fargs}/>) 
                         }
                             
                         </div>

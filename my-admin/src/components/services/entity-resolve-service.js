@@ -57,6 +57,7 @@ const resolveEntityTemplate = (entityName = null) => {
         id: '',
         address: '',
         message: '',
+        ip: '',
         date: ''
     };
 

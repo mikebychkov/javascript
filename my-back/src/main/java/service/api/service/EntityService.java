@@ -15,4 +15,5 @@ public interface EntityService<T, D> {
     D save(D dto);
     List<D> saveAll(List<D> dtoList);
     void delete(String id);
+    void deleteAll(List<String> ids);
 }

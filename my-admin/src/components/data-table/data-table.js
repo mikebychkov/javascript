@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import './data-table.css';
 import DataForm from '../data-form/data-form';
 import DeleteForm from '../delete-form/delete-form';
 import { resolveEntityTemplate } from '../services/entity-resolve-service';
 
-const DataTable = ({data, entityName, postRequest, deleteRequest}) => {
+const DataTable = ({data, entityName, postRequest, deleteRequest, setUpdateData}) => {
 
     const [rows, setRows] = useState([]);
     const [cols, setCols] = useState([]);
@@ -80,6 +80,30 @@ const DataTable = ({data, entityName, postRequest, deleteRequest}) => {
         }
     }
 
+    const addFormRender = useMemo(() => {
+        return (
+            addFormOpen ? 
+            <DataForm setOpen={setAddFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={() => resolveEntityTemplate(entityName)} setUpdateData={setUpdateData}/> 
+            : null
+        );
+    }, [addFormOpen]);
+
+    const editFormRender = useMemo(() => {
+        return (
+            editFormOpen ? 
+            <DataForm setOpen={setEditFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={entityToEdit} setUpdateData={setUpdateData}/> 
+            : null  
+        );
+    }, [editFormOpen]);
+
+    const deleteFormRender = useMemo(() => {
+        return (
+            deleteFormOpen ? 
+            <DeleteForm setOpen={setDeleteFormOpen} entityName={entityName} requestMethod={deleteRequest} entitiesToDelete={checkedEntities} setUpdateData={setUpdateData}/> 
+            : null
+        );
+    }, [deleteFormOpen]);
+
     return (
         data.length > 0 ?
         <>
@@ -98,21 +122,9 @@ const DataTable = ({data, entityName, postRequest, deleteRequest}) => {
                     }                    
                 </tbody>
             </table>
-            {
-                addFormOpen ? 
-                <DataForm setOpen={setAddFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={() => resolveEntityTemplate(entityName)}/> 
-                : null
-            }
-            {
-                editFormOpen ? 
-                <DataForm setOpen={setEditFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={entityToEdit}/> 
-                : null
-            } 
-            {
-                deleteFormOpen ? 
-                <DeleteForm setOpen={setDeleteFormOpen} entityName={entityName} requestMethod={deleteRequest} entitiesToDelete={checkedEntities}/> 
-                : null
-            }
+            {addFormRender}
+            {editFormRender} 
+            {deleteFormRender}
        </>
         : null
     );
