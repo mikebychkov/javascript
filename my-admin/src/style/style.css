@@ -27,6 +27,7 @@ body {
     background: none;
 }
 
+
 /* MAIN CONTAINER */
 
 .main-container {
@@ -122,6 +123,7 @@ body {
     padding-right: 5px;
 }
 
+
 /* MAIN WINDOW */
 
 .main {
@@ -169,4 +171,12 @@ body {
 .login-container input {
     border: 1px solid rgba(100,100,100,.5);
     font-size: 1.1em;
+}
+
+
+/* MODAL */
+
+.modal {
+    display: block;
+    background: rgba(0,0,0,.7);
 }

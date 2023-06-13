@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './main.css';
 import DataTable from '../data-table/data-table';
 import DataService from '../services/data-service';
+import { resolveEntityGetMethod } from '../services/entity-resolve-service';
 
 const Main = ({token, entityName}) => {
 
@@ -9,19 +10,10 @@ const Main = ({token, entityName}) => {
 
 	useEffect(() => {
 
-		const {getUsers, getSkills, getProjects, getExperience, getCourses, getEmails} = DataService(token);
+		const entGet = resolveEntityGetMethod(token, entityName);
 
-		const entityResolver = {
-			users: getUsers,
-			skills: getSkills,
-			projects: getProjects,
-			experience: getExperience,
-			courses: getCourses,
-			emails: getEmails
-		}
-
-		if (entityResolver[entityName]) {
-			entityResolver[entityName]()
+		if (entGet) {
+			entGet()
 			.then(d => setData(d));
 		}
 

@@ -1,5 +1,6 @@
 import './aside.css';
 import logoutImg from '../../img/logout.png';
+import { resolveEntityList } from '../services/entity-resolve-service';
 
 const Aside = ({setToken, setEntityName, setSidebar, sidebar}) => {
 
@@ -40,12 +41,13 @@ const Aside = ({setToken, setEntityName, setSidebar, sidebar}) => {
                 <div className={sidebarContentClass}>
 
                     <div className="list-group list-group-flush">
-                        <a onClick={onEntityNameClick} data-entity="users" href="#" className="list-group-item list-group-item-action">Users</a>
-                        <a onClick={onEntityNameClick} data-entity="skills" href="#" className="list-group-item list-group-item-action">Skills</a>
-                        <a onClick={onEntityNameClick} data-entity="experience" href="#" className="list-group-item list-group-item-action">Experience</a>
-                        <a onClick={onEntityNameClick} data-entity="projects" href="#" className="list-group-item list-group-item-action">Projects</a>
-                        <a onClick={onEntityNameClick} data-entity="courses" href="#" className="list-group-item list-group-item-action">Courses</a>
-                        <a onClick={onEntityNameClick} data-entity="emails" href="#" className="list-group-item list-group-item-action">Emails</a>
+
+                        {
+                            resolveEntityList().map(e => {
+                                return <a onClick={onEntityNameClick} data-entity={e} key={e} href="#" className="list-group-item list-group-item-action">{e}</a>;
+                            })
+                        }
+
                     </div> 
 
                 </div>

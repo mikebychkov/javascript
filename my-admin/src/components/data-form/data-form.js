@@ -17,12 +17,16 @@ const DataForm = ({setOpen, entityName, entityToEdit}) => {
     });
     const fargs = fieldArgs(formik);
 
+    const onSubmit = values => {
+
+        console.log(JSON.stringify(values, null, 2));
+
+        // STATUS HERE + BLOCK SUBMIT BUTTON IF RESPONSE OK + CLOSE BY TIMER IF RESPONSE OK
+
+    }
+    
     const closeForm = () => {
         setOpen(false);
-    }
-
-    const onSubmit = values => {
-        console.log(JSON.stringify(values, null, 2));
     }
 
     const onEsc = e => {

@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import './data-table.css';
 import DataForm from '../data-form/data-form';
+import DeleteForm from '../delete-form/delete-form';
+import { resolveEntityTemplate } from '../services/entity-resolve-service';
 
 const DataTable = ({data, entityName}) => {
 
     const [rows, setRows] = useState([]);
     const [cols, setCols] = useState([]);
-    const [dataFormOpen, setDataFormOpen] = useState(false);
+    const [addFormOpen, setAddFormOpen] = useState(false);
+    const [editFormOpen, setEditFormOpen] = useState(false);
+    const [deleteFormOpen, setDeleteFormOpen] = useState(false);
 
     useEffect(() => {
         setRows(data.map(r => {
@@ -56,21 +60,23 @@ const DataTable = ({data, entityName}) => {
     }
 
     const onAdd = () => {
-        console.log('Add Entity');
+
+        if (resolveEntityTemplate(entityName)) {
+            setAddFormOpen(true);
+        }
     }
 
     const onEdit = () => {
 
         if (entityToEdit()) {
-            setDataFormOpen(true);
+            setEditFormOpen(true);
         }
     }
 
     const onDelete = () => {
 
-        const ents = checkedEntities();
-        if (ents.length > 0) {
-            console.log('Delete Entities', ents);
+        if (checkedEntities().length > 0) {
+            setDeleteFormOpen(true);
         }
     }
 
@@ -93,9 +99,15 @@ const DataTable = ({data, entityName}) => {
                 </tbody>
             </table>
             {
-                dataFormOpen ? <DataForm setOpen={setDataFormOpen} entityName={entityName} entityToEdit={entityToEdit}/> : null
+                addFormOpen ? <DataForm setOpen={setAddFormOpen} entityName={entityName} entityToEdit={() => resolveEntityTemplate(entityName)}/> : null
             }
-        </>
+            {
+                editFormOpen ? <DataForm setOpen={setEditFormOpen} entityName={entityName} entityToEdit={entityToEdit}/> : null
+            } 
+            {
+                deleteFormOpen ? <DeleteForm setOpen={setDeleteFormOpen} entityName={entityName} entitiesToDelete={checkedEntities}/> : null
+            }
+       </>
         : null
     );
 }
