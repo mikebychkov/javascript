@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTO {
 
     private String id;
@@ -24,7 +24,7 @@ public class UserDTO {
     @Email(message = "Must be a valid email address")
     private String email;
 
-    @NotBlank(message = "Password not defined")
+//    @NotBlank(message = "Password not defined")
     private String password;
 
     public UserDTO(User user) {

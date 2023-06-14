@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import service.config.exceptionhandling.exceptions.UserNotFound;
 
+import javax.validation.ValidationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,11 +50,12 @@ public class UserServiceImpl implements UserService {
 
         String id = Optional.ofNullable(user.getId()).filter(s -> !s.isBlank()).orElse(null);
 
+        user.setId(id);
+
         if (id != null && user.getPassword().isBlank()) {
             User dbuser = findById(user.getId());
             user.setPassword(dbuser.getPassword());
         } else {
-            user.setId(null);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
 
@@ -62,6 +64,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO save(UserDTO dto) {
+
+        validateUserDTO(dto);
 
         User newUser = User.builder()
                 .id(dto.getId())
@@ -74,6 +78,17 @@ public class UserServiceImpl implements UserService {
         return Optional.of(save(newUser))
                 .map(UserDTO::of)
                 .get();
+    }
+
+    private void validateUserDTO(UserDTO dto) {
+
+        if (dto.getId() == null || dto.getId().isBlank()) {
+
+            if (dto.getPassword() == null || dto.getPassword().isBlank()) {
+
+                throw new ValidationException("Password must be set for new users");
+            }
+        }
     }
 
     @Override

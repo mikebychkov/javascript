@@ -39,7 +39,7 @@ public class UserController {
     @DeleteMapping
     public void deleteUser() {
 
-        throw new NotImplementedException();
+        throw new NotImplementedException("Method not implemented");
     }
 
     @PostMapping("/init-admin")
