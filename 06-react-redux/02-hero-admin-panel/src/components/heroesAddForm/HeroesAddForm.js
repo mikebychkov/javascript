@@ -1,3 +1,10 @@
+import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
+
+import {useHttp} from '../../hooks/http.hook';
+import { useDispatch } from 'react-redux';
+
+import { heroPosting } from '../../actions';
 
 
 // Задача для этого компонента:
@@ -11,8 +18,42 @@
 // данных из фильтров
 
 const HeroesAddForm = () => {
+
+    const dispatch = useDispatch();
+    const {request} = useHttp();
+
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+    const [element, setElement] = useState('');
+
+    const onNameChange = e => {
+        setName(e.target.value);
+    }
+
+    const onDescriptionChange = e => {
+        setDescription(e.target.value);
+    }
+
+    const onElementChange = e => {
+        setElement(e.target.value);
+    }
+
+    const onFormSubmit = e => {
+        e.preventDefault();
+        const hero = {
+            id: uuidv4(),
+            name,
+            description,
+            element 
+        }
+        console.log('SUBMIT', JSON.stringify(hero, null, 2));
+        dispatch(heroPosting(hero));
+        
+        // POST REQUEST HERE
+    }
+
     return (
-        <form className="border p-4 shadow-lg rounded">
+        <form onSubmit={onFormSubmit} className="border p-4 shadow-lg rounded">
             <div className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Имя нового героя</label>
                 <input 
@@ -21,6 +62,8 @@ const HeroesAddForm = () => {
                     name="name" 
                     className="form-control" 
                     id="name" 
+                    value={name}
+                    onChange={onNameChange}
                     placeholder="Как меня зовут?"/>
             </div>
 
@@ -31,6 +74,8 @@ const HeroesAddForm = () => {
                     name="text" 
                     className="form-control" 
                     id="text" 
+                    value={description}
+                    onChange={onDescriptionChange}
                     placeholder="Что я умею?"
                     style={{"height": '130px'}}/>
             </div>
@@ -41,6 +86,8 @@ const HeroesAddForm = () => {
                     required
                     className="form-select" 
                     id="element" 
+                    value={element}
+                    onChange={onElementChange}
                     name="element">
                     <option >Я владею элементом...</option>
                     <option value="fire">Огонь</option>
