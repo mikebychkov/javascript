@@ -69,23 +69,26 @@ const HeroesList = () => {
             arr = arr.filter(h => h.element === activeFilter);
         }
 
-        return arr.map(({id, ...props}) => {
-            return (
-                <CSSTransition timeout={500} classNames="item">
-                    {
-                        deleteStatus === 'loading' && id === deleteItem ? <Spinner key={id}/> 
-                        : <HeroesListItem key={id} {...props} onItemDelete={onItemDelete(id)}/>
-                    }
-                </CSSTransition>
-            );
-        })
+        return (
+            <TransitionGroup>
+                {
+                    arr.map(({id, ...props}) => (
+                        <CSSTransition key={id} timeout={500} classNames="item">
+                            {
+                                deleteStatus === 'loading' && id === deleteItem ? <Spinner key={id}/> 
+                                : <HeroesListItem key={id} {...props} onItemDelete={onItemDelete(id)}/>
+                            }
+                        </CSSTransition>
+                    ))
+                }
+            </TransitionGroup>
+        )
+        
     }
 
     return (
         <ul>
-            <TransitionGroup>
-                {renderHeroesList(heroes)}
-            </TransitionGroup>
+            {renderHeroesList(heroes)}
         </ul>
     )
 }
