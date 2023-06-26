@@ -1,10 +1,12 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { heroesFetched, heroDeleted, filtersFetched } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
+import './HeroesList.css';
 
 
 // Задача для этого компонента:
@@ -68,14 +70,22 @@ const HeroesList = () => {
         }
 
         return arr.map(({id, ...props}) => {
-            if (deleteStatus === 'loading' && id === deleteItem) return <Spinner key={id}/>;
-            return <HeroesListItem key={id} {...props} onItemDelete={onItemDelete(id)}/>
+            return (
+                <CSSTransition timeout={500} classNames="item">
+                    {
+                        deleteStatus === 'loading' && id === deleteItem ? <Spinner key={id}/> 
+                        : <HeroesListItem key={id} {...props} onItemDelete={onItemDelete(id)}/>
+                    }
+                </CSSTransition>
+            );
         })
     }
 
     return (
         <ul>
-            {renderHeroesList(heroes)}
+            <TransitionGroup>
+                {renderHeroesList(heroes)}
+            </TransitionGroup>
         </ul>
     )
 }

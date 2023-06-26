@@ -10,7 +10,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 heroes: action.payload,
-                heroesLoadingStatus: 'idle'
             }
         case 'HERO_DELETED':
             return {
