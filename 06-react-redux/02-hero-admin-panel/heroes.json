@@ -1,29 +1,46 @@
 {
-    "heroes": [
-        {
-            "id": 1,
-            "name": "Первый герой",
-            "description": "Первый герой в рейтинге!",
-            "element": "fire"
-        },
-        {
-            "id": 2,
-            "name": "Неизвестный герой",
-            "description": "Скрывающийся в тени",
-            "element": "wind"
-        },
-        {
-            "id": 3,
-            "name": "Морской герой",
-            "description": "Как аквамен, но не из DC",
-            "element": "water"
-        }
-    ],
-    "filters": [
-        "all",
-        "fire",
-        "water",
-        "wind",
-        "earth"
-    ]
+  "heroes": [
+    {
+      "id": 1,
+      "name": "Первый герой",
+      "description": "Первый герой в рейтинге!",
+      "element": "fire"
+    },
+    {
+      "id": 2,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
+    },
+    {
+      "id": 3,
+      "name": "Человек летучая мышь",
+      "description": "Предводитель водяных ниндзя",
+      "element": "water"
+    },
+    {
+      "id": "92f07e96-495d-4e16-89fc-25ad4c1ce5a5",
+      "name": "Пустынь-мэн",
+      "description": "Сухой человек",
+      "element": "earth"
+    }
+  ],
+  "filters": [
+    {
+      "type": "fire",
+      "name": "Огонь"
+    },
+    {
+      "type": "water",
+      "name": "Вода"
+    },
+    {
+      "type": "wind",
+      "name": "Ветер"
+    },
+    {
+      "type": "earth",
+      "name": "Земля"
+    }
+  ]
 }

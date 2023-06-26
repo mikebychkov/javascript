@@ -1,8 +1,8 @@
-import {useHttp} from '../../hooks/http.hook';
-import { useEffect } from 'react';
+import { useHttp } from '../../hooks/http.hook';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { heroesFetching, heroesFetched, heroesFetchingError, heroDeleting } from '../../actions';
+import { heroesFetched, heroDeleted, filtersFetched } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -13,46 +13,69 @@ import Spinner from '../spinner/Spinner';
 // Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-    const {heroes, heroesLoadingStatus} = useSelector(state => state);
+
     const dispatch = useDispatch();
-    const {request} = useHttp();
+    const { heroes, activeFilter } = useSelector(state => state);
+    const { request, process, clearError } = useHttp();
+
+    const [fetchStatus, setFetchStatus] = useState('');
+    const [deleteStatus, setDeleteStatus] = useState('');
+    const [deleteItem, setDeleteItem] = useState('');
 
     useEffect(() => {
-        dispatch(heroesFetching());
+
+        clearError();
+        setFetchStatus(process);
+
         request("http://localhost:3001/heroes")
             .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
+            .finally(() => setFetchStatus(process));
+
+        request("http://localhost:3001/filters")
+            .then(data => dispatch(filtersFetched(data)));
 
         // eslint-disable-next-line
     }, []);
 
-    if (heroesLoadingStatus === "loading") {
+    const onItemDelete = id => () => {
+
+        clearError();
+        setDeleteStatus(process);
+        setDeleteItem(id);
+
+        request(`http://localhost:3001/heroes/${id}`, 'DELETE')
+            .then(() => dispatch(heroDeleted(id)))
+            .finally(() => {
+                setDeleteStatus(process);
+                setDeleteItem('');
+            });
+    }
+
+    if (fetchStatus === "loading") {
         return <Spinner/>;
-    } else if (heroesLoadingStatus === "error") {
+    } else if (fetchStatus === "error") {
         return <h5 className="text-center mt-5">Ошибка загрузки</h5>
     }
 
-    const onItemDelete = id => () => {
-        console.log('DELETE', id);
-        dispatch(heroDeleting(id));
-        
-        // DELETE REQUEST HERE
-    }
-
     const renderHeroesList = (arr) => {
+
         if (arr.length === 0) {
             return <h5 className="text-center mt-5">Героев пока нет</h5>
         }
 
+        if (activeFilter !== 'all') {
+            arr = arr.filter(h => h.element === activeFilter);
+        }
+
         return arr.map(({id, ...props}) => {
+            if (deleteStatus === 'loading' && id === deleteItem) return <Spinner key={id}/>;
             return <HeroesListItem key={id} {...props} onItemDelete={onItemDelete(id)}/>
         })
     }
 
-    const elements = renderHeroesList(heroes);
     return (
         <ul>
-            {elements}
+            {renderHeroesList(heroes)}
         </ul>
     )
 }
