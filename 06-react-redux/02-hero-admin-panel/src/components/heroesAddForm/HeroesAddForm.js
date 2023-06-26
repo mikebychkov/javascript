@@ -21,7 +21,7 @@ import Spinner from "../spinner/Spinner";
 const HeroesAddForm = () => {
 
     const dispatch = useDispatch();
-    const filters = useSelector(state => state.filters);
+    const filters = useSelector(state => state.f.filters);
 
     const { request, process, clearError, setProcess } = useHttp();
 

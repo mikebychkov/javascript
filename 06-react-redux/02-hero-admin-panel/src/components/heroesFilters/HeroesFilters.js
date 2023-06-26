@@ -13,7 +13,7 @@ import classNames from 'classnames';
 const HeroesFilters = () => {
 
     const dispatch = useDispatch();
-    const { filters, activeFilter } = useSelector(state => state);
+    const { filters, activeFilter } = useSelector(state => state.f);
 
     const filterOnClick = e => {
 

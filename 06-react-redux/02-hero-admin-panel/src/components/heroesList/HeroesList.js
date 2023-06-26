@@ -1,6 +1,7 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { createSelector } from 'reselect';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { heroesFetched, heroDeleted, filtersFetched } from '../../actions';
@@ -17,7 +18,29 @@ import './HeroesList.css';
 const HeroesList = () => {
 
     const dispatch = useDispatch();
-    const { heroes, activeFilter } = useSelector(state => state);
+
+    // const heroes = useSelector(state => {
+    //     console.log('selector heroes');
+    //     if (state.f.activeFilter === 'all') {
+    //         return state.h.heroes
+    //     } else {
+    //         return state.h.heroes.filter(h => h.element === state.f.activeFilter)
+    //     }
+    // });
+
+    const heroSelector = createSelector(
+        state => state.h.heroes,
+        state => state.f.activeFilter,
+        (heroes, activeFilter) => {
+            if (activeFilter === 'all') {
+                return heroes
+            } else {
+                return heroes.filter(h => h.element === activeFilter)
+            }
+        }
+    );
+    const heroes = useSelector(heroSelector);
+
     const { request, process, clearError } = useHttp();
 
     const [fetchStatus, setFetchStatus] = useState('');
@@ -63,10 +86,6 @@ const HeroesList = () => {
 
         if (arr.length === 0) {
             return <h5 className="text-center mt-5">Героев пока нет</h5>
-        }
-
-        if (activeFilter !== 'all') {
-            arr = arr.filter(h => h.element === activeFilter);
         }
 
         return (
