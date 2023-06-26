@@ -23,23 +23,13 @@ const HeroesAddForm = () => {
     const dispatch = useDispatch();
     const filters = useSelector(state => state.f.filters);
 
-    const { request, process, clearError, setProcess } = useHttp();
+    const { request } = useHttp();
+
+    const [fetchStatus, setFetchStatus] = useState('');
 
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [element, setElement] = useState('');
-
-    const onNameChange = e => {
-        setName(e.target.value);
-    }
-
-    const onDescriptionChange = e => {
-        setDescription(e.target.value);
-    }
-
-    const onElementChange = e => {
-        setElement(e.target.value);
-    }
 
     const resetForm = () => {
         setName('');
@@ -57,14 +47,16 @@ const HeroesAddForm = () => {
             element 
         }
 
-        clearError();
+        setFetchStatus('loading');
+
         request(`http://localhost:3001/heroes`, 'POST', JSON.stringify(hero, null, 2))
         .then(() => {
             dispatch(heroPosted(hero));
-            setProcess('success');
+            setFetchStatus('success');
+            resetForm();
         })
+        .catch(() => setFetchStatus('error'));
 
-        resetForm();
     }
 
     const renderForm = () => {
@@ -80,7 +72,7 @@ const HeroesAddForm = () => {
                         className="form-control" 
                         id="name" 
                         value={name}
-                        onChange={onNameChange}
+                        onChange={e => setName(e.target.value)}
                         placeholder="Как меня зовут?"/>
                 </div>
 
@@ -92,7 +84,7 @@ const HeroesAddForm = () => {
                         className="form-control" 
                         id="text" 
                         value={description}
-                        onChange={onDescriptionChange}
+                        onChange={e => setDescription(e.target.value)}
                         placeholder="Что я умею?"
                         style={{"height": '130px'}}/>
                 </div>
@@ -104,7 +96,7 @@ const HeroesAddForm = () => {
                         className="form-select" 
                         id="element" 
                         value={element}
-                        onChange={onElementChange}
+                        onChange={e => setElement(e.target.value)}
                         name="element">
                         <option >Я владею элементом...</option>
                         {
@@ -119,7 +111,7 @@ const HeroesAddForm = () => {
     }
 
     return (
-        process === 'loading' ? <Spinner/> : renderForm()
+        fetchStatus === 'loading' ? <Spinner/> : renderForm()
     );
 }
 

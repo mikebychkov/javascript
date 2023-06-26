@@ -1,8 +1,3 @@
-// export const heroesFetching = () => {
-//     return {
-//         type: 'HEROES_FETCHING'
-//     }
-// }
 
 export const heroesFetched = (heroes) => {
     return {
@@ -10,12 +5,6 @@ export const heroesFetched = (heroes) => {
         payload: heroes
     }
 }
-
-// export const heroesFetchingError = () => {
-//     return {
-//         type: 'HEROES_FETCHING_ERROR'
-//     }
-// }
 
 export const heroDeleted = (id) => {
     return {
@@ -43,4 +32,20 @@ export const activeFilterSet = (filters) => {
         type: 'ACTIVE_FILTER_SET',
         payload: filters
     }
+}
+
+export const fetchData = (request, setStatus) => (dispatch) => {
+
+    setStatus('loading');
+
+    request("http://localhost:3001/heroes")
+        .then(data => {
+            dispatch(heroesFetched(data));
+            setStatus('success');
+        })
+        .catch(() => setStatus('error'))
+
+    request("http://localhost:3001/filters")
+        .then(data => dispatch(filtersFetched(data)));
+ 
 }

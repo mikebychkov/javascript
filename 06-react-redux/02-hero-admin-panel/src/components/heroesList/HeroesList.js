@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { heroesFetched, heroDeleted, filtersFetched } from '../../actions';
+import { heroesFetched, heroDeleted, filtersFetched, fetchData } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import './HeroesList.css';
@@ -41,39 +41,38 @@ const HeroesList = () => {
     );
     const heroes = useSelector(heroSelector);
 
-    const { request, process, clearError } = useHttp();
+    const { request } = useHttp();
 
     const [fetchStatus, setFetchStatus] = useState('');
     const [deleteStatus, setDeleteStatus] = useState('');
-    const [deleteItem, setDeleteItem] = useState('');
 
     useEffect(() => {
 
-        clearError();
-        setFetchStatus(process);
+        // setFetchStatus('loading');
 
-        request("http://localhost:3001/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .finally(() => setFetchStatus(process));
+        // request("http://localhost:3001/heroes")
+        //     .then(data => dispatch(heroesFetched(data)))
+        //     .finally(() => setFetchStatus(process));
 
-        request("http://localhost:3001/filters")
-            .then(data => dispatch(filtersFetched(data)));
+        // request("http://localhost:3001/filters")
+        //     .then(data => dispatch(filtersFetched(data)));
+
+        dispatch(fetchData(request, setFetchStatus));
 
         // eslint-disable-next-line
     }, []);
 
     const onItemDelete = id => () => {
 
-        clearError();
-        setDeleteStatus(process);
-        setDeleteItem(id);
-
+        setDeleteStatus('loading');
+;
         request(`http://localhost:3001/heroes/${id}`, 'DELETE')
-            .then(() => dispatch(heroDeleted(id)))
-            .finally(() => {
-                setDeleteStatus(process);
-                setDeleteItem('');
-            });
+            .then(() => {
+                dispatch(heroDeleted(id));
+                setDeleteStatus('success');
+            })
+            .catch(() => setDeleteStatus('error'));
+
     }
 
     if (fetchStatus === "loading") {
@@ -93,16 +92,12 @@ const HeroesList = () => {
                 {
                     arr.map(({id, ...props}) => (
                         <CSSTransition key={id} timeout={500} classNames="item">
-                            {
-                                deleteStatus === 'loading' && id === deleteItem ? <Spinner key={id}/> 
-                                : <HeroesListItem key={id} {...props} onItemDelete={onItemDelete(id)}/>
-                            }
+                            <HeroesListItem key={id} {...props} onItemDelete={onItemDelete(id)}/>
                         </CSSTransition>
                     ))
                 }
             </TransitionGroup>
-        )
-        
+        )        
     }
 
     return (
