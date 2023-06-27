@@ -1,7 +1,7 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { heroesFetched, heroDeleted, filtersFetched, fetchData } from '../../actions';
