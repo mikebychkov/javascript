@@ -1,10 +1,10 @@
-import { createReducer } from '@reduxjs/toolkit';
+// import { createReducer } from '@reduxjs/toolkit';
 
-import { heroesFetched, heroDeleted, heroPosted } from '../actions/index';
+// import { heroesFetched, heroDeleted, heroPosted } from '../actions/index';
 
-const initialState = {
-    heroes: []
-}
+// const initialState = {
+//     heroes: []
+// }
 
 // const reducer = (state = initialState, action) => {
 //     switch (action.type) {
@@ -30,21 +30,21 @@ const initialState = {
 
 //// CREATE_REDUCER #1
 
-const reducer = createReducer(initialState, builder => {
-    builder
-        .addCase(heroesFetched, (state, action) => {
-            state.heroes = action.payload;
-        })
-        .addCase(heroDeleted, (state, action) => {
-            state.heroes = state.heroes.filter(h => h.id !== action.payload);
-        })
-        .addCase(heroPosted, (state, action) => {
-            state.heroes.push(action.payload);
-        })
-        .addDefaultCase(
-            () => {}
-        )
-});
+// const reducer = createReducer(initialState, builder => {
+//     builder
+//         .addCase(heroesFetched, (state, action) => {
+//             state.heroes = action.payload;
+//         })
+//         .addCase(heroDeleted, (state, action) => {
+//             state.heroes = state.heroes.filter(h => h.id !== action.payload);
+//         })
+//         .addCase(heroPosted, (state, action) => {
+//             state.heroes.push(action.payload);
+//         })
+//         .addDefaultCase(
+//             () => {}
+//         )
+// });
 
 
 //// CREATE_REDUCER #2
@@ -64,4 +64,4 @@ const reducer = createReducer(initialState, builder => {
 //     state => state
 // );
 
-export default reducer;
+// export default reducer;

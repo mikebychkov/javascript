@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {useHttp} from '../../hooks/http.hook';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { heroPosted } from '../../actions';
+import { heroPosted } from '../heroesList/HeroSlice';
 import Spinner from "../spinner/Spinner";
 
 

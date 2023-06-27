@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { heroDeleted, fetchData } from '../../actions';
+import { heroDeleted, fetchHeroes } from './HeroSlice';
+import { fetchFilters } from '../heroesFilters/FilterSlice';
+
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import './HeroesList.css';
@@ -19,15 +21,6 @@ const HeroesList = () => {
 
     const dispatch = useDispatch();
 
-    // const heroes = useSelector(state => {
-    //     console.log('selector heroes');
-    //     if (state.f.activeFilter === 'all') {
-    //         return state.h.heroes
-    //     } else {
-    //         return state.h.heroes.filter(h => h.element === state.f.activeFilter)
-    //     }
-    // });
-
     const heroSelector = createSelector(
         state => state.h.heroes,
         state => state.f.activeFilter,
@@ -40,39 +33,28 @@ const HeroesList = () => {
         }
     );
     const heroes = useSelector(heroSelector);
+    const fetchStatus = useSelector(state => state.h.heroesFetchStatus)
 
-    const { request } = useHttp();
-
-    const [fetchStatus, setFetchStatus] = useState('');
-    const [deleteStatus, setDeleteStatus] = useState('');
 
     useEffect(() => {
 
-        // setFetchStatus('loading');
-
-        // request("http://localhost:3001/heroes")
-        //     .then(data => dispatch(heroesFetched(data)))
-        //     .finally(() => setFetchStatus(process));
-
-        // request("http://localhost:3001/filters")
-        //     .then(data => dispatch(filtersFetched(data)));
-
-        dispatch(fetchData(request, setFetchStatus));
+        dispatch(fetchHeroes());
+        dispatch(fetchFilters());
 
         // eslint-disable-next-line
     }, []);
 
-    const onItemDelete = id => () => {
+    const [deleteStatus, setDeleteStatus] = useState('');
+    const { request } = useHttp();
 
-        setDeleteStatus('loading');
-;
+    const onItemDelete = id => () => {
+        setDeleteStatus('loading');;
         request(`http://localhost:3001/heroes/${id}`, 'DELETE')
             .then(() => {
                 dispatch(heroDeleted(id));
                 setDeleteStatus('success');
             })
             .catch(() => setDeleteStatus('error'));
-
     }
 
     if (fetchStatus === "loading") {
