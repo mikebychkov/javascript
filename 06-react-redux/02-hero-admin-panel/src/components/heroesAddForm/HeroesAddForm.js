@@ -5,6 +5,7 @@ import {useHttp} from '../../hooks/http.hook';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { heroPosted } from '../heroesList/HeroSlice';
+import { selectAll } from '../heroesFilters/FilterSlice';
 import Spinner from "../spinner/Spinner";
 
 
@@ -21,7 +22,7 @@ import Spinner from "../spinner/Spinner";
 const HeroesAddForm = () => {
 
     const dispatch = useDispatch();
-    const filters = useSelector(state => state.f.filters);
+    const filters = useSelector(selectAll);
 
     const { request } = useHttp();
 

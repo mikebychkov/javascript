@@ -27,18 +27,22 @@
   ],
   "filters": [
     {
+      "id": "fire",
       "type": "fire",
       "name": "Огонь"
     },
     {
+      "id": "water",
       "type": "water",
       "name": "Вода"
     },
     {
+      "id": "wind",
       "type": "wind",
       "name": "Ветер"
     },
     {
+      "id": "earth",
       "type": "earth",
       "name": "Земля"
     }

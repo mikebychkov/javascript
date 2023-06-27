@@ -1,10 +1,9 @@
 import { useHttp } from '../../hooks/http.hook';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSelector } from '@reduxjs/toolkit';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import { heroDeleted, fetchHeroes } from './HeroSlice';
+import { heroDeleted, fetchHeroes, heroFilteredSelector } from './HeroSlice';
 import { fetchFilters } from '../heroesFilters/FilterSlice';
 
 import HeroesListItem from "../heroesListItem/HeroesListItem";
@@ -21,18 +20,7 @@ const HeroesList = () => {
 
     const dispatch = useDispatch();
 
-    const heroSelector = createSelector(
-        state => state.h.heroes,
-        state => state.f.activeFilter,
-        (heroes, activeFilter) => {
-            if (activeFilter === 'all') {
-                return heroes
-            } else {
-                return heroes.filter(h => h.element === activeFilter)
-            }
-        }
-    );
-    const heroes = useSelector(heroSelector);
+    const heroes = useSelector(heroFilteredSelector);
     const fetchStatus = useSelector(state => state.h.heroesFetchStatus)
 
 
