@@ -1,5 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 
+import { filtersFetched } from '../components/heroesFilters/FilterSlice';
+
 // export const heroesFetched = (heroes) => {
 //     return {
 //         type: 'HEROES_FETCHED',
@@ -34,7 +36,7 @@ export const heroPosted = createAction('HERO_POSTED');
 //     }
 // }
 
-export const filtersFetched = createAction('FILTERS_FETCHED');
+// export const filtersFetched = createAction('FILTERS_FETCHED');
 
 // export const activeFilterSet = (filters) => {
 //     return {
@@ -43,7 +45,7 @@ export const filtersFetched = createAction('FILTERS_FETCHED');
 //     }
 // }
 
-export const activeFilterSet = createAction('ACTIVE_FILTER_SET');
+// export const activeFilterSet = createAction('ACTIVE_FILTER_SET');
 
 
 export const fetchData = (request, setStatus) => (dispatch) => {

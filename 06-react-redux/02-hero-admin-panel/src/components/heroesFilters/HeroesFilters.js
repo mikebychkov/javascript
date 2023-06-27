@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { activeFilterSet } from '../../actions';
+//import { activeFilterSet } from '../../actions';
+import { activeFilterSet } from './FilterSlice';
 import classNames from 'classnames';
 
 

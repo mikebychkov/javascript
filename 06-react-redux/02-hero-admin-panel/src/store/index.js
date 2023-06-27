@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import heroes from '../reducers/heroes';
-import filters from '../reducers/filters';
+//import filters from '../reducers/filters';
+import filters from '../components/heroesFilters/FilterSlice';
 
 // const store = createStore(
 //         combineReducers({h: heroes, f: filters}),
