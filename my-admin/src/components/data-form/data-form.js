@@ -2,6 +2,9 @@ import { useFormik } from 'formik';
 import './data-form.css';
 import { useEffect } from 'react';
 import RequestState from '../services/request-state';
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from 'react-redux';
+import { entityAdded } from '../redux/entitySlice';
 
 const DataForm = ({setOpen, entityName, entityToEdit, requestMethod, setUpdateData}) => {
 
@@ -24,16 +27,23 @@ const DataForm = ({setOpen, entityName, entityToEdit, requestMethod, setUpdateDa
     });
     const fargs = fieldArgs(formik);
 
+    const dispatch = useDispatch();
+
     const onSubmit = values => {
 
         setRequestState('loading');
+
+        if (!values.id) {
+            values.id = uuidv4();
+        }
 
         // console.log(JSON.stringify(values, null, 2));
 
         requestMethod(JSON.stringify(values, null, 2))
         .then(r => {
             setRequestState('success');
-            setUpdateData(Date.now());
+            // setUpdateData(Date.now());
+            dispatch(entityAdded(values));
             setTimeout(() => {
                 closeForm();
             }, 3000);
@@ -59,7 +69,8 @@ const DataForm = ({setOpen, entityName, entityToEdit, requestMethod, setUpdateDa
         return () => {
             document.removeEventListener('keydown', onEsc);
             document.body.style.overflow = '';
-        }    
+        }  
+    // eslint-disable-next-line  
     }, []);
 
     const btnState = () => {
@@ -82,11 +93,9 @@ const DataForm = ({setOpen, entityName, entityToEdit, requestMethod, setUpdateDa
                     <form onSubmit={formik.handleSubmit}>
 
                         <div className="modal-body">
-
                         {
                             Object.entries(values).filter(([key]) => key !== 'checked').map(([key]) => <Field key={key} name={key} fargs={fargs}/>) 
-                        }
-                            
+                        }                            
                         </div>
                         
                         <div className="modal-footer">

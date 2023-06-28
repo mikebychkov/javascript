@@ -2,21 +2,30 @@ import { useEffect, useState } from 'react';
 import './main.css';
 import DataTable from '../data-table/data-table';
 import { resolveEntityRequestMethod } from '../services/entity-resolve-service';
+import { useDispatch, useSelector } from 'react-redux';
+import { entitiesLoaded } from '../redux/entitySlice';
 
-const Main = ({token, entityName}) => {
+const Main = () => {
 
-	const [data, setData] = useState([]);
-	const [updateData, setUpdateData] = useState(0);
+	const token = useSelector(state => state.e.token);
+	const entityName = useSelector(state => state.e.entityName);
+
+	// const [data, setData] = useState([]);
+	// const [updateData, setUpdateData] = useState(0);
+
 	const {get, post, del} = resolveEntityRequestMethod(token, entityName);
+
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 
 		if (get) {
 			get()
-			.then(d => setData(d));
+			.then(d => dispatch(entitiesLoaded(d)))
+			.catch(e => console.error(e));
 		}
-
-	}, [entityName, updateData]);
+	// eslint-disable-next-line
+	}, [entityName]);
 
 	return (
 		<div className="main">
@@ -24,7 +33,7 @@ const Main = ({token, entityName}) => {
 			<div className="header">{entityName}</div>
 
 			<div className="main-content">
-				<DataTable data={data} entityName={entityName} postRequest={post} deleteRequest={del} setUpdateData={setUpdateData}/>          
+				<DataTable entityName={entityName} postRequest={post} deleteRequest={del}/>          
 			</div>            
 
 		</div>

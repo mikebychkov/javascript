@@ -3,8 +3,14 @@ import './data-table.css';
 import DataForm from '../data-form/data-form';
 import DeleteForm from '../delete-form/delete-form';
 import { resolveEntityTemplate } from '../services/entity-resolve-service';
+import { useSelector } from 'react-redux';
+import { selectAll } from '../redux/entitySlice';
 
-const DataTable = ({data, entityName, postRequest, deleteRequest, setUpdateData}) => {
+const DataTable = ({entityName, postRequest, deleteRequest}) => {
+
+    const data = useSelector(selectAll);
+
+    const setUpdateData = () => {}; // ???
 
     const [rows, setRows] = useState([]);
     const [cols, setCols] = useState([]);
@@ -86,6 +92,7 @@ const DataTable = ({data, entityName, postRequest, deleteRequest, setUpdateData}
             <DataForm setOpen={setAddFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={() => resolveEntityTemplate(entityName)} setUpdateData={setUpdateData}/> 
             : null
         );
+    // eslint-disable-next-line
     }, [addFormOpen]);
 
     const editFormRender = useMemo(() => {
@@ -94,6 +101,7 @@ const DataTable = ({data, entityName, postRequest, deleteRequest, setUpdateData}
             <DataForm setOpen={setEditFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={entityToEdit} setUpdateData={setUpdateData}/> 
             : null  
         );
+    // eslint-disable-next-line
     }, [editFormOpen]);
 
     const deleteFormRender = useMemo(() => {
@@ -102,6 +110,7 @@ const DataTable = ({data, entityName, postRequest, deleteRequest, setUpdateData}
             <DeleteForm setOpen={setDeleteFormOpen} entityName={entityName} requestMethod={deleteRequest} entitiesToDelete={checkedEntities} setUpdateData={setUpdateData}/> 
             : null
         );
+    // eslint-disable-next-line
     }, [deleteFormOpen]);
 
     return (

@@ -1,6 +1,8 @@
 import './delete-form.css';
 import { useEffect } from 'react';
 import RequestState from '../services/request-state';
+import { useDispatch } from 'react-redux';
+import { entitiesDeleted } from '../redux/entitySlice';
 
 const DeleteForm = ({setOpen, entityName, entitiesToDelete, requestMethod, setUpdateData}) => {
 
@@ -8,16 +10,21 @@ const DeleteForm = ({setOpen, entityName, entitiesToDelete, requestMethod, setUp
 
     const ents = entitiesToDelete();    
 
+    const dispatch = useDispatch();
+
     const onSubmit = () => {
 
         setRequestState('loading');
 
         // console.log(JSON.stringify(ents, null, 2));
         
-        requestMethod(JSON.stringify(ents.map(e => e.id)))
+        const ids = ents.map(e => e.id);
+
+        requestMethod(JSON.stringify(ids))
         .then(r => {
             setRequestState('success');
-            setUpdateData(Date.now());
+            // setUpdateData(Date.now());
+            dispatch(entitiesDeleted(ids));
             setTimeout(() => {
                 closeForm();
             }, 3000);
@@ -44,6 +51,7 @@ const DeleteForm = ({setOpen, entityName, entitiesToDelete, requestMethod, setUp
             document.removeEventListener('keydown', onEsc);
             document.body.style.overflow = '';
         }    
+    // eslint-disable-next-line
     }, []);
 
     const btnState = () => {

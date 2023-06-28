@@ -3,8 +3,10 @@ import * as yup from 'yup';
 import './login.css';
 import DataService from '../services/data-service';
 import RequestState from '../services/request-state';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../redux/entitySlice';
 
-const Login = ({setToken}) => {
+const Login = () => {
 
     const {setRequestState, renderRequestState} = RequestState();
 
@@ -22,6 +24,8 @@ const Login = ({setToken}) => {
 
     const fargs = fieldArgs(formik);
 
+    const dispatch = useDispatch();
+
     const onSubmit = values => {
 
         setRequestState('loading');
@@ -30,7 +34,7 @@ const Login = ({setToken}) => {
         getToken(values.username, values.pswd)
             .then(json => {
                 localStorage.at = json.token;
-                setToken(json.token);
+                dispatch(setToken(json.token));
             }).catch(e => {
                 setRequestState('error');
                 console.error(e);

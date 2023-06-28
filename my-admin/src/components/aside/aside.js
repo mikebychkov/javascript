@@ -1,21 +1,26 @@
 import './aside.css';
 import logoutImg from '../../img/logout.png';
 import { resolveEntityList } from '../services/entity-resolve-service';
+import { useDispatch, useSelector } from 'react-redux';
+import { setToken, setEntityName, toggleSidebar } from '../redux/entitySlice';
 
-const Aside = ({setToken, setEntityName, setSidebar, sidebar}) => {
+const Aside = () => {
+
+    const dispatch = useDispatch();
+    const sidebar = useSelector(state => state.e.sidebar);
 
     const onLogout = () => {
         localStorage.removeItem('at');
-        setToken(null);
+        dispatch(setToken(null));
     }
 
     const onEntityNameClick = e => {
         const entityName = e.target.getAttribute('data-entity');
-        setEntityName(entityName);   
+        dispatch(setEntityName(entityName));
     }
 
     const mainButtonOnClick = () => {
-        setSidebar(!sidebar);
+        dispatch(toggleSidebar());
     }
 
     let sidebarClass = 'sidebar';
@@ -39,17 +44,13 @@ const Aside = ({setToken, setEntityName, setSidebar, sidebar}) => {
                 <button onClick={mainButtonOnClick} className="sidebar-main-btn btn btn-outline-primary">...</button>
 
                 <div className={sidebarContentClass}>
-
                     <div className="list-group list-group-flush">
-
                         {
                             resolveEntityList().map(e => {
                                 return <a onClick={onEntityNameClick} data-entity={e} key={e} href="#" className="list-group-item list-group-item-action">{e}</a>;
                             })
                         }
-
                     </div> 
-
                 </div>
 
                 <div className={sidebarBottomClass}>

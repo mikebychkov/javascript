@@ -1,27 +1,28 @@
-import { useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import './app.css';
+
 import Aside from '../aside/aside';
 import Main from '../main/main';
 import Login from '../login/login';
 
 const App = () => {
 
-	const [token, setToken] = useState(localStorage.at);
-	const [entityName, setEntityName] = useState('users');
-	const [sidebar, setSidebar] = useState(true);
+	const token = useSelector(state => state.e.token);
+	const sidebar = useSelector(state => state.e.sidebar);
 
 	let mainContainerClass = 'main-container';
 	if (!sidebar) {
 		mainContainerClass += ' side-min';
-	}
+	}	
 
 	return (
 		token ?
 		<div className={mainContainerClass}>
-			<Aside setToken={setToken} setEntityName={setEntityName} setSidebar={setSidebar} sidebar={sidebar}/>
-			<Main token={token} entityName={entityName}/>
+			<Aside/>
+			<Main/>
 		</div>
-		: <Login setToken={setToken}/>
+		: <Login/>
 	);
 }
 
