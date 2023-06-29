@@ -21,11 +21,8 @@ const entitySlice = createSlice({
         toggleSidebar: (state, action) => {
             state.sidebar = !state.sidebar;
         },
-        entityAdded: (state, action) => {
-            entityAdapter.addOne(state, action.payload);
-        },
-        entityDeleted: (state, action) => {
-            entityAdapter.removeOne(state, action.payload);
+        entityUpdated: (state, action) => {
+            entityAdapter.setOne(state, action.payload);
         },
         entitiesDeleted: (state, action) => {
             entityAdapter.removeMany(state, action.payload);
@@ -38,6 +35,6 @@ const entitySlice = createSlice({
 
 export default entitySlice.reducer;
 
-export const { setToken, setEntityName, toggleSidebar, entityAdded, entityDeleted, entitiesDeleted, entitiesLoaded } = entitySlice.actions;
+export const { setToken, setEntityName, toggleSidebar, entityUpdated, entitiesDeleted, entitiesLoaded } = entitySlice.actions;
 
 export const { selectAll } = entityAdapter.getSelectors(store => store.e);

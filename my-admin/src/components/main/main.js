@@ -10,9 +10,6 @@ const Main = () => {
 	const token = useSelector(state => state.e.token);
 	const entityName = useSelector(state => state.e.entityName);
 
-	// const [data, setData] = useState([]);
-	// const [updateData, setUpdateData] = useState(0);
-
 	const {get, post, del} = resolveEntityRequestMethod(token, entityName);
 
 	const dispatch = useDispatch();
@@ -21,7 +18,7 @@ const Main = () => {
 
 		if (get) {
 			get()
-			.then(d => dispatch(entitiesLoaded(d)))
+			.then(d => dispatch(entitiesLoaded(d.map(e => {return {...e, checked: false}}))))
 			.catch(e => console.error(e));
 		}
 	// eslint-disable-next-line

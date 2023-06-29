@@ -4,14 +4,13 @@ import { useEffect } from 'react';
 import RequestState from '../services/request-state';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
-import { entityAdded } from '../redux/entitySlice';
+import { entityUpdated } from '../redux/entitySlice';
 
 const DataForm = ({setOpen, entityName, entityToEdit, requestMethod, setUpdateData}) => {
 
     const {requestState, setRequestState, renderRequestState} = RequestState();
 
     const ent = entityToEdit();  
-    // console.log(ent);  
 
     const values = {};
 
@@ -42,8 +41,7 @@ const DataForm = ({setOpen, entityName, entityToEdit, requestMethod, setUpdateDa
         requestMethod(JSON.stringify(values, null, 2))
         .then(r => {
             setRequestState('success');
-            // setUpdateData(Date.now());
-            dispatch(entityAdded(values));
+            dispatch(entityUpdated(values));
             setTimeout(() => {
                 closeForm();
             }, 3000);

@@ -1,11 +1,20 @@
 import { useDispatch } from 'react-redux';
 import { setToken } from '../redux/entitySlice';
+import store from '../redux/store';
 
 const RequestService = () => {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const emptyPromise = () => new Promise(r => r([]));
+
+    const responseJSON = async (rsl) => {
+        try {
+            return await rsl.json();
+        } catch (e) {
+            return emptyPromise();
+        }        
+    }
 
     const isOk = (rsl) => {
         if (!rsl.ok) {
@@ -14,8 +23,17 @@ const RequestService = () => {
             } catch (e){}   
             if (rsl.status === 401) {
                 localStorage.removeItem('at');
-                dispatch(setToken(null));
+                store.dispatch(setToken(null));
             }         
+            throw new Error(`Error status: ${rsl.status}`);
+        }        
+    }
+
+    const isOk2 = (rsl) => {
+        if (!rsl.ok) {
+            try {
+                rsl.json().then(t => console.error(t));
+            } catch (e){}        
             throw new Error(`Error status: ${rsl.status}`);
         }        
     }
@@ -39,7 +57,7 @@ const RequestService = () => {
 
         isOk(rsl);
 
-        return await rsl.json();
+        return await responseJSON(rsl);
     }
 
     const postRequest = async (url, token, body) => {
@@ -62,7 +80,7 @@ const RequestService = () => {
 
         isOk(rsl);
 
-        return await rsl.json();
+        return await responseJSON(rsl);
     }
 
     const deleteRequest = async (url, token, ids) => {
@@ -85,7 +103,7 @@ const RequestService = () => {
 
         isOk(rsl);
 
-        return await rsl.json();
+        return responseJSON(rsl);
     }
 
     const postWithoutAuth = async (url, body) => {
@@ -103,9 +121,9 @@ const RequestService = () => {
             return emptyPromise();
         });
 
-        isOk(rsl);
+        isOk2(rsl);
 
-        return await rsl.json();
+        return await responseJSON(rsl);
     }
 
     const getWithoutAuth = async (url) => {
@@ -122,9 +140,9 @@ const RequestService = () => {
             return emptyPromise();
         });
 
-        isOk(rsl);
+        isOk2(rsl);
 
-        return await rsl.json();
+        return await responseJSON(rsl);
     }
 
     return { getRequest, postRequest, deleteRequest, postWithoutAuth, getWithoutAuth };

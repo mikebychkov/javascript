@@ -23,13 +23,13 @@ const DeleteForm = ({setOpen, entityName, entitiesToDelete, requestMethod, setUp
         requestMethod(JSON.stringify(ids))
         .then(r => {
             setRequestState('success');
-            // setUpdateData(Date.now());
             dispatch(entitiesDeleted(ids));
             setTimeout(() => {
                 closeForm();
             }, 3000);
         })
         .catch(e => {
+            console.error(e);
             setRequestState('error');
         });
     }

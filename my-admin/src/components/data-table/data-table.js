@@ -3,26 +3,20 @@ import './data-table.css';
 import DataForm from '../data-form/data-form';
 import DeleteForm from '../delete-form/delete-form';
 import { resolveEntityTemplate } from '../services/entity-resolve-service';
-import { useSelector } from 'react-redux';
-import { selectAll } from '../redux/entitySlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectAll, entityUpdated } from '../redux/entitySlice';
 
 const DataTable = ({entityName, postRequest, deleteRequest}) => {
 
     const data = useSelector(selectAll);
 
-    const setUpdateData = () => {}; // ???
-
-    const [rows, setRows] = useState([]);
     const [cols, setCols] = useState([]);
     const [addFormOpen, setAddFormOpen] = useState(false);
     const [editFormOpen, setEditFormOpen] = useState(false);
     const [deleteFormOpen, setDeleteFormOpen] = useState(false);
 
     useEffect(() => {
-        setRows(data.map(r => {
-            r.checked = false;
-            return r;
-        }));
+
         const cols = [];
         if (data.length > 0) {
             for (const [key] of Object.entries(data[0])) {
@@ -34,21 +28,18 @@ const DataTable = ({entityName, postRequest, deleteRequest}) => {
         setCols(cols);
     }, [data]);
 
-    const rowOnClick = id => {
-        const newData = rows.map(r => {
-            if (r.id === id) {
-                r.checked = !r.checked;
-            }
-            return r;
-        });
-        setRows(newData);
+    const dispatch = useDispatch();
+
+    const rowOnClick = row => {
+
+        dispatch(entityUpdated({...row, checked: !row.checked}))
     }
 
     const entityToEdit = () => {
 
-        for (let i = 0; i < rows.length; i++) {
-            if (rows[i].checked) {
-                return rows[i];
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].checked) {
+                return data[i];
             }
         }
         return null;
@@ -57,9 +48,9 @@ const DataTable = ({entityName, postRequest, deleteRequest}) => {
     const checkedEntities = () => {
 
         const rsl = [];
-        for (let i = 0; i < rows.length; i++) {
-            if (rows[i].checked) {
-                rsl.push(rows[i]);
+        for (let i = 0; i < data.length; i++) {
+            if (data[i].checked) {
+                rsl.push(data[i]);
             }
         }
         return rsl;
@@ -89,7 +80,7 @@ const DataTable = ({entityName, postRequest, deleteRequest}) => {
     const addFormRender = useMemo(() => {
         return (
             addFormOpen ? 
-            <DataForm setOpen={setAddFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={() => resolveEntityTemplate(entityName)} setUpdateData={setUpdateData}/> 
+            <DataForm setOpen={setAddFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={() => resolveEntityTemplate(entityName)}/> 
             : null
         );
     // eslint-disable-next-line
@@ -98,7 +89,7 @@ const DataTable = ({entityName, postRequest, deleteRequest}) => {
     const editFormRender = useMemo(() => {
         return (
             editFormOpen ? 
-            <DataForm setOpen={setEditFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={entityToEdit} setUpdateData={setUpdateData}/> 
+            <DataForm setOpen={setEditFormOpen} entityName={entityName} requestMethod={postRequest} entityToEdit={entityToEdit}/> 
             : null  
         );
     // eslint-disable-next-line
@@ -107,7 +98,7 @@ const DataTable = ({entityName, postRequest, deleteRequest}) => {
     const deleteFormRender = useMemo(() => {
         return (
             deleteFormOpen ? 
-            <DeleteForm setOpen={setDeleteFormOpen} entityName={entityName} requestMethod={deleteRequest} entitiesToDelete={checkedEntities} setUpdateData={setUpdateData}/> 
+            <DeleteForm setOpen={setDeleteFormOpen} entityName={entityName} requestMethod={deleteRequest} entitiesToDelete={checkedEntities}/> 
             : null
         );
     // eslint-disable-next-line
@@ -127,7 +118,7 @@ const DataTable = ({entityName, postRequest, deleteRequest}) => {
                 </thead>
                 <tbody>
                     {
-                        rows.map(r => <DataRow key={r['id']} cols={cols} row={r} rowOnClick={rowOnClick}/>)
+                        data.map(r => <DataRow key={r['id']} cols={cols} row={r} rowOnClick={rowOnClick}/>)
                     }                    
                 </tbody>
             </table>
@@ -154,7 +145,7 @@ const DataHeader = ({cols}) => {
 const DataRow = ({cols, row, rowOnClick}) => {
 
     return (
-        <tr onClick={() => rowOnClick(row.id)}>
+        <tr onClick={() => rowOnClick(row)}>
             <td>
                 <div className="form-check">
                     <input type="checkbox" className="form-check-input" checked={row.checked} readOnly/>
