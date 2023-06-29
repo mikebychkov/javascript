@@ -1,10 +1,15 @@
 import { useFormik } from 'formik';
-import './data-form.css';
 import { useEffect } from 'react';
-import RequestState from '../services/request-state';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
+import DatePicker from "react-datepicker";
+
 import { entityUpdated } from '../redux/entitySlice';
+import RequestState from '../services/request-state';
+import useDate from '../services/use-date';
+
+import './data-form.css';
+import "react-datepicker/dist/react-datepicker.css";
 
 const DataForm = ({setOpen, entityName, entityToEdit, requestMethod, setUpdateData}) => {
 
@@ -92,7 +97,7 @@ const DataForm = ({setOpen, entityName, entityToEdit, requestMethod, setUpdateDa
 
                         <div className="modal-body">
                         {
-                            Object.entries(values).filter(([key]) => key !== 'checked').map(([key]) => <Field key={key} name={key} fargs={fargs}/>) 
+                            Object.entries(values).filter(([key]) => key !== 'checked').map(([key]) => <Field key={key} name={key} fargs={fargs} formik={formik}/>) 
                         }                            
                         </div>
                         
@@ -125,12 +130,29 @@ const fieldArgs = (formik) => {
     });
 }
 
-const Field = ({name, fargs}) => {
+const Field = ({name, fargs, formik}) => {
+
+    const { myDate, setMyDate, formatDate } = useDate(formik.values[name]);
+
+    const onDateChange = date => {
+        setMyDate(date);
+        formik.values[name] = formatDate(date);
+    };
 
     return (
         <div className="form-group">
             <label htmlFor={name}>{name}:</label>
-            <input className="form-control" {...fargs(name, 'string')}/>
+            <div className='d-flex'>
+                <input className="form-control" {...fargs(name, 'string')}/>
+                {
+                    name === 'date' 
+                    ? <DatePicker className='btn btn-outline-dark btn-calendar' 
+                    selected={myDate}
+                    onSelect={onDateChange} 
+                    onChange={onDateChange}/> 
+                    : null
+                }
+            </div>
         </div>        
     );
 }

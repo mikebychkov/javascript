@@ -4,8 +4,6 @@ import DataService from '../services/data-service';
 
 const Skills = ({token}) => {
 
-	// console.debug('render skills');
-
 	const [skills, setSkills] = useState([]);
 	const [init, setInit] = useState(false);
 
@@ -16,7 +14,8 @@ const Skills = ({token}) => {
 		.then(ss => {
 			setSkills(ss);
 		});
-	}, [init]);
+	// eslint-disable-next-line
+	}, [init, token]);
 
 	const startInit = () => {
 		const skillsElem = document.querySelector('#skills');

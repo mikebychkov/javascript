@@ -4,8 +4,6 @@ import DataService from '../services/data-service';
 
 const Projects = ({token}) => {
 	
-	// console.debug('render projects');
-
 	const [exp, setExp] = useState([]);
 
 	useEffect(() => {
@@ -14,7 +12,8 @@ const Projects = ({token}) => {
 		.then(ex => {
 			setExp(ex);
 		});
-	}, []);
+	// eslint-disable-next-line
+	}, [token]);
 
 	return (
 		<div className="projects" id="projects">
@@ -22,11 +21,9 @@ const Projects = ({token}) => {
 			<div className="decor"></div>
 
 			<div className="timeline">
-
 				{
 					exp.map(ex => <Position key={ex.id} {...ex} />)
 				}
-
 			</div>
 
 		</div>

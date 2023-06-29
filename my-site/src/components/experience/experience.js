@@ -4,8 +4,6 @@ import DataService from '../services/data-service';
 
 const Experience = ({token}) => {
 
-	// console.debug('render experience');
-
 	const [exp, setExp] = useState([]);
 
 	useEffect(() => {
@@ -14,7 +12,8 @@ const Experience = ({token}) => {
 		.then(ex => {
 			setExp(ex);
 		});
-	}, []);
+	// eslint-disable-next-line
+	}, [token]);
 
 	return (
 		<div className="experience" id="experience">

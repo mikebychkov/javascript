@@ -4,8 +4,6 @@ import DataService from '../services/data-service';
 
 const Courses = ({token}) => {
 	
-	// console.debug('render projects');
-
 	const [exp, setExp] = useState([]);
 
 	useEffect(() => {
@@ -14,7 +12,8 @@ const Courses = ({token}) => {
 		.then(ex => {
 			setExp(ex);
 		});
-	}, []);
+	// eslint-disable-next-line
+	}, [token]);
 
 	const years = [...new Set(exp.map(c => c.year).sort().reverse())];
 
@@ -24,11 +23,9 @@ const Courses = ({token}) => {
 			<div className="decor"></div>
 
 			<div className="timeline">
-
 				{
 					years.map(y => <Position key={y} year={y} courses={ [...exp.filter(e => e.year === y)] }/>)
 				} 
-
 			</div>
 
 		</div>

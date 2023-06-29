@@ -73,6 +73,7 @@ const ContactMe = ({token}) => {
 	useEffect(() => {
 		getWithoutAuth('https://api.ipify.org/?format=json')
 		.then(res => setIp(res.ip))
+	// eslint-disable-next-line
 	}, []);
   
 	return (

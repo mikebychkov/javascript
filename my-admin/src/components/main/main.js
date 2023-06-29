@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './main.css';
 import DataTable from '../data-table/data-table';
 import { resolveEntityRequestMethod } from '../services/entity-resolve-service';

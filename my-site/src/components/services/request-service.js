@@ -1,14 +1,32 @@
 
-// npm install base-64 --save
-// import {decode as base64_decode, encode as base64_encode} from 'base-64';
-// let encoded = base64_encode('YOUR_DECODED_STRING');
-// let decoded = base64_decode('YOUR_ENCODED_STRING');
-
 const RequestService = () => {
+
+    const emptyPromise = (v = []) => new Promise(r => r(v));
+
+    const isOk = (rsl) => {
+        if (!rsl.ok) {
+            try {
+                rsl.json().then(t => console.error(t));
+            } catch (e){}   
+            throw new Error(`Error status: ${rsl.status}`);
+        }        
+    }
+
+    const responseJSON = async (rsl, fallback = []) => {
+        try {
+            return await rsl.json();
+        } catch (e) {
+            return emptyPromise(fallback);
+        }        
+    }
+
+    const logError = (url) => {
+        console.error(`Error fetching: ${url}`);
+    } 
 
     const get = async (url, token) => {
 
-        if (!token) return new Promise(r => r([]));
+        if (!token) return emptyPromise();
 
         // console.debug('REQUEST:', url, token)
 
@@ -19,20 +37,18 @@ const RequestService = () => {
                 'Content-Type': 'Application/json'
             },
         }).catch(e => {
-            console.error(`ERROR FETCHING ${url}`, e);
+            logError(url);
             return [];
         });
 
-        if (!rsl.ok) {
-            throw new Error(`Could not fetch: ${url}; response status: ${rsl.status}`);
-        }
+        isOk(rsl);
 
-        return await rsl.json();
+        return await responseJSON(rsl);
     }
 
     const post = async (url, token, body) => {
 
-        if (!token) return new Promise(r => r([]));
+        if (!token) return emptyPromise();
 
         // console.debug('REQUEST:', url, token)
 
@@ -44,19 +60,13 @@ const RequestService = () => {
             },
             body: body
         }).catch(e => {
-            console.error(`ERROR FETCHING ${url}`, e);
+            logError(url);
             return [];
         });
 
-        if (!rsl.ok) {
-            throw new Error(`Could not post: ${url}; response status: ${rsl.status}`);
-        }
+        isOk(rsl);
 
-        try {
-            return await rsl.json();
-        } catch (e) {
-            return new Promise(r => r(rsl));
-        }
+        return responseJSON(rsl, rsl);
     }
 
     const postWithoutAuth = async (url, body) => {
@@ -70,15 +80,13 @@ const RequestService = () => {
             },
             body: body
         }).catch(e => {
-            console.error(`ERROR FETCHING ${url}`, e);
+            logError(url);
             return [];
         });
 
-        if (!rsl.ok) {
-            throw new Error(`Could not post: ${url}; response status: ${rsl.status}`);
-        }
+        isOk(rsl);
 
-        return await rsl.json();
+        return await responseJSON(rsl);
     }
 
     const getWithoutAuth = async (url) => {
@@ -91,15 +99,13 @@ const RequestService = () => {
                 'Content-Type': 'Application/json'
             },
         }).catch(e => {
-            console.error(`ERROR FETCHING ${url}`, e);
+            logError(url);
             return [];
         });
 
-        if (!rsl.ok) {
-            throw new Error(`Could not fetch: ${url}; response status: ${rsl.status}`);
-        }
+        isOk(rsl);
 
-        return await rsl.json();
+        return await responseJSON(rsl);
     }
 
     return { get, post, postWithoutAuth, getWithoutAuth };

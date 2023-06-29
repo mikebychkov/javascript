@@ -1,20 +1,27 @@
-import './app.css';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchToken } from '../redux/stateSlice';
+
 import Aside from '../aside/aside';
 import Main from '../main/main';
-import DataService from '../services/data-service';
+
+import './app.css';
 
 const App = () => {
 
-	const { getToken } = DataService();
-	const token = getToken()
-		.then(json => {
-			return json.token;
-		});
+	const dispatch = useDispatch();
+	
+	useEffect(() => {
+
+		dispatch(fetchToken());
+
+	// eslint-disable-next-line
+	}, []);
 
 	return (
 		<div className="main-container">
 			<Aside/>
-			<Main token={token}/>
+			<Main/>
 		</div>
 	);
 }

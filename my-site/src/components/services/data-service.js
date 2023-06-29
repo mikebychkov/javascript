@@ -3,11 +3,13 @@ import RequestService from "./request-service";
 // process.env.NODE_ENV
 // console.log('process.env.REACT_APP_MY_ENV', process.env.REACT_APP_MY_ENV);
 
-const DataService = (token) => {
+const DataService = (tokenValue) => {
 
     const baseUrl = process.env.REACT_APP_BACKEND_URL;
     const username = process.env.REACT_APP_BACKEND_USERNAME;
     const password = process.env.REACT_APP_BACKEND_PASSWORD;
+
+    const token = new Promise(r => r(tokenValue));
 
     const { get, post, postWithoutAuth } = RequestService();
 

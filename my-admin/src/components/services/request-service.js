@@ -1,18 +1,15 @@
-import { useDispatch } from 'react-redux';
 import { setToken } from '../redux/entitySlice';
 import store from '../redux/store';
 
 const RequestService = () => {
 
-    // const dispatch = useDispatch();
+    const emptyPromise = (v = []) => new Promise(r => r(v));
 
-    const emptyPromise = () => new Promise(r => r([]));
-
-    const responseJSON = async (rsl) => {
+    const responseJSON = async (rsl, fallback = []) => {
         try {
             return await rsl.json();
         } catch (e) {
-            return emptyPromise();
+            return emptyPromise(fallback);
         }        
     }
 
@@ -29,14 +26,9 @@ const RequestService = () => {
         }        
     }
 
-    const isOk2 = (rsl) => {
-        if (!rsl.ok) {
-            try {
-                rsl.json().then(t => console.error(t));
-            } catch (e){}        
-            throw new Error(`Error status: ${rsl.status}`);
-        }        
-    }
+    const logError = (url) => {
+        console.error(`Error fetching: ${url}`);
+    } 
 
     const getRequest = async (url, token) => {
 
@@ -51,7 +43,7 @@ const RequestService = () => {
                 'Content-Type': 'Application/json'
             },
         }).catch(e => {
-            console.error(`ERROR FETCHING ${url}`);
+            logError(url);
             return emptyPromise();
         });
 
@@ -74,7 +66,7 @@ const RequestService = () => {
             },
             body: body
         }).catch(e => {
-            console.error(`ERROR FETCHING ${url}`);
+            logError(url);
             return emptyPromise();
         });
 
@@ -97,13 +89,13 @@ const RequestService = () => {
             },
             body: ids
         }).catch(e => {
-            console.error(`ERROR FETCHING ${url}`);
+            logError(url);
             return emptyPromise();
         });
 
         isOk(rsl);
 
-        return responseJSON(rsl);
+        return await responseJSON(rsl);
     }
 
     const postWithoutAuth = async (url, body) => {
@@ -117,11 +109,11 @@ const RequestService = () => {
             },
             body: body
         }).catch(e => {
-            console.error(`ERROR FETCHING ${url}`);
+            logError(url);
             return emptyPromise();
         });
 
-        isOk2(rsl);
+        isOk(rsl);
 
         return await responseJSON(rsl);
     }
@@ -136,11 +128,11 @@ const RequestService = () => {
                 'Content-Type': 'Application/json'
             },
         }).catch(e => {
-            console.error(`ERROR FETCHING ${url}`);
+            logError(url);
             return emptyPromise();
         });
 
-        isOk2(rsl);
+        isOk(rsl);
 
         return await responseJSON(rsl);
     }
