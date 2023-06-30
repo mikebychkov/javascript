@@ -118,26 +118,7 @@ const RequestService = () => {
         return await responseJSON(rsl);
     }
 
-    const getWithoutAuth = async (url) => {
-
-        // console.debug('REQUEST:', url)
-
-        let rsl = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'Application/json'
-            },
-        }).catch(e => {
-            logError(url);
-            return emptyPromise();
-        });
-
-        isOk(rsl);
-
-        return await responseJSON(rsl);
-    }
-
-    return { getRequest, postRequest, deleteRequest, postWithoutAuth, getWithoutAuth };
+    return { getRequest, postRequest, deleteRequest, postWithoutAuth };
 }
 
 export default RequestService;

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import service.api.dao.email.EmailDTO;
 import service.api.dao.email.EmailService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -24,7 +25,17 @@ public class EmailController {
     }
 
     @PostMapping
-    public EmailDTO postEmail(@Valid @RequestBody EmailDTO body) {
+    public EmailDTO postEmail(@Valid @RequestBody EmailDTO body, HttpServletRequest request) {
+
+        String headerIp = request.getHeader("X-Forwarded-For");
+
+        log.info("IP BY FRONT: {}, IP BY HEADER: {}", body.getIp(), headerIp);
+
+        if (body.getIp() == null || body.getIp().contains("error")) {
+            if (headerIp != null) {
+                body.setIp(headerIp);
+            }
+        }
 
         return emailService.save(body);
     }

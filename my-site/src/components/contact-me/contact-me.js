@@ -1,7 +1,6 @@
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import DataService from '../services/data-service';
-import RequestService from '../services/request-service';
 import './contact-me.css';
 import { useEffect, useState } from 'react';
 import MySpinner from '../spinner/my-spinner';
@@ -11,7 +10,6 @@ const ContactMe = ({token}) => {
 	const [sendStatus, setSendStatus] = useState('wait');
 	const [ip, setIp] = useState();
 	const { postEmail } = DataService(token);
-	const { getWithoutAuth } = RequestService();
 
 	const formik = useFormik({
         initialValues: {
@@ -71,8 +69,12 @@ const ContactMe = ({token}) => {
 	}
 
 	useEffect(() => {
-		getWithoutAuth('https://api.ipify.org/?format=json')
-		.then(res => setIp(res.ip))
+
+		fetch('https://api.ipify.org/?format=json')
+			.then(r => r.json())
+			.then(j => setIp(j.ip))
+			.catch(e => setIp('apify error'));
+
 	// eslint-disable-next-line
 	}, []);
   
