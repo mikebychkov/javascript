@@ -203,11 +203,37 @@ const DataService = (tokenValue) => {
     }
 
 
+    // VISITS
+
+    const getVisits = () => {
+
+        return token.then(t => {
+            return getRequest(baseUrl + '/visits', t);
+        });
+    }
+
+    const postVisit = body => {
+
+        const requestBody = setIdNullIfEmpty(body);
+
+        return token.then(t => {
+            return postRequest(baseUrl + '/visits', t, requestBody);
+        });
+    }
+
+    const deleteVisits = ids => {
+
+        return token.then(t => {
+            return deleteRequest(baseUrl + '/visits', t, ids);
+        });
+    }
+
+
     return { 
         getToken, 
-        getSkills, getExperience, getProjects, getCourses, getEmails, getUsers,
-        postSkill, postExperience, postProject, postCourse, postEmail, postUser,
-        deleteSkills, deleteExperience, deleteProjects, deleteCourses, deleteEmails, deleteUsers
+        getSkills, getExperience, getProjects, getCourses, getEmails, getUsers, getVisits,
+        postSkill, postExperience, postProject, postCourse, postEmail, postUser, postVisit,
+        deleteSkills, deleteExperience, deleteProjects, deleteCourses, deleteEmails, deleteUsers, deleteVisits,
     };
 }
 

@@ -9,7 +9,7 @@ const ContactMe = ({token}) => {
 
 	const [sendStatus, setSendStatus] = useState('wait');
 	const [ip, setIp] = useState();
-	const { postEmail } = DataService(token);
+	const { postEmail, postVisit } = DataService(token);
 
 	const formik = useFormik({
         initialValues: {
@@ -78,6 +78,16 @@ const ContactMe = ({token}) => {
 	// eslint-disable-next-line
 	}, []);
   
+	useEffect(() => {
+
+		if (ip) {
+			postVisit(ip)
+				.catch(() => {});
+		};
+
+	// eslint-disable-next-line
+	}, [ip]);
+
 	return (
 		<div className="contact-me" id="contact-me">
 			<a href="#contact-me"><h2>Contact Me</h2></a>

@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import org.springframework.data.annotation.Id;
+import service.api.service.Entity;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -13,7 +15,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Experience {
+public class Experience implements Entity<ExperienceDTO> {
 
     @Id
     private String id;
@@ -22,6 +24,21 @@ public class Experience {
     private String position;
     private String organization;
     private String description;
+
+    @Override
+    public ExperienceDTO toDto() {
+
+        ExperienceDTO rsl = new ExperienceDTO();
+
+        rsl.setId(this.getId());
+        rsl.setStart(this.getStart());
+        rsl.setEnd(this.getEnd());
+        rsl.setPosition(this.getPosition());
+        rsl.setOrganization(this.getOrganization());
+        rsl.setDescription(this.getDescription());
+
+        return rsl;
+    }
 
     @Override
     public boolean equals(Object o) {

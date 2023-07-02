@@ -70,7 +70,18 @@ const DataService = (tokenValue) => {
         });
     }
 
-    return { getToken, getSkills, getExperience, getProjects, getCourses, postEmail };
+    const postVisit = ip => {
+
+        const body = {
+            ip: ip
+        }
+
+        return token.then(t => {
+            return post(baseUrl + '/visits', t, JSON.stringify(body));
+        });
+    }
+
+    return { getToken, getSkills, getExperience, getProjects, getCourses, postEmail, postVisit };
 }
 
 export default DataService;

@@ -1,42 +1,44 @@
-package service.api.dao.skill;
+package service.api.dao.visit;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import service.api.service.Entity;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Document("skills")
+@Document("visits")
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Skill implements Entity<SkillDTO> {
+public class Visit implements Entity<VisitDTO> {
 
     @Id
     private String id;
-    private String name;
-    private Short percent;
+    private String ip;
+    private LocalDateTime date = LocalDateTime.now();
 
     @Override
-    public SkillDTO toDto() {
+    public VisitDTO toDto() {
 
-        SkillDTO rsl = new SkillDTO();
+        VisitDTO rsl = new VisitDTO();
 
         rsl.setId(this.getId());
-        rsl.setName(this.getName());
-        rsl.setPercent(this.getPercent());
+        rsl.setIp(this.getIp());
+        rsl.setDate(this.getDate());
 
-        return rsl;    }
+        return rsl;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Skill skill = (Skill) o;
-        return id.equals(skill.id);
+        Visit visit = (Visit) o;
+        return Objects.equals(id, visit.id);
     }
 
     @Override

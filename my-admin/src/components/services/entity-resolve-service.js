@@ -8,7 +8,8 @@ const resolveEntityList = () => {
         'projects',
         'experience',
         'courses',
-        'emails' 
+        'emails',
+        'visits'
     ];
 }
 
@@ -61,13 +62,20 @@ const resolveEntityTemplate = (entityName = null) => {
         date: ''
     };
 
+    const visit = {
+        id: '',
+        ip: '',
+        date: ''
+    }
+
     const entityMap = { 
         users: user, 
         skills: skill, 
         experience: experience, 
         projects: project, 
         courses: course, 
-        emails: email 
+        emails: email,
+        visits: visit
     };
 
     if (entityName) {
@@ -87,7 +95,8 @@ const resolveEntityRequestMethod = (token, entityName = null) => {
         projects: {get: ds.getProjects, post: ds.postProject, del: ds.deleteProjects},
         experience: {get: ds.getExperience, post: ds.postExperience, del: ds.deleteExperience},
         courses: {get: ds.getCourses, post: ds.postCourse, del: ds.deleteCourses},
-        emails: {get: ds.getEmails, post: ds.postEmail, del: ds.deleteEmails}
+        emails: {get: ds.getEmails, post: ds.postEmail, del: ds.deleteEmails},
+        visits: {get: ds.getVisits, post: ds.postVisit, del: ds.deleteVisits},
     }
 
     if (entityName) {

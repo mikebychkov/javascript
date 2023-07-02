@@ -4,6 +4,8 @@ import lombok.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import org.springframework.data.annotation.Id;
+import service.api.service.Entity;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -14,7 +16,7 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Project {
+public class Project implements Entity<ProjectDTO> {
 
     @Id
     private String id;
@@ -25,6 +27,23 @@ public class Project {
     private String role;
     private String technologies;
     private List<String> responsibilities;
+
+    @Override
+    public ProjectDTO toDto() {
+
+        ProjectDTO rsl = new ProjectDTO();
+
+        rsl.setId(this.getId());
+        rsl.setStart(this.getStart());
+        rsl.setEnd(this.getEnd());
+        rsl.setIndustry(this.getIndustry());
+        rsl.setDescription(this.getDescription());
+        rsl.setRole(this.getRole());
+        rsl.setTechnologies(this.getTechnologies());
+        rsl.setResponsibilities(this.getResponsibilities());
+
+        return rsl;
+    }
 
     @Override
     public boolean equals(Object o) {
