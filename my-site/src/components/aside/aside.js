@@ -11,7 +11,7 @@ const Aside = () => {
         <div className="info">
             <div className="aside">
                 <div className="photo">
-                    <img src={photo}/>
+                    <img src={photo} alt="Profile"/>
                 </div>
                 <div className="links">
                     <div>
