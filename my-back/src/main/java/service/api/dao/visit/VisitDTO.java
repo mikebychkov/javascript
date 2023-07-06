@@ -41,7 +41,6 @@ public class VisitDTO implements EntityDTO<Visit> {
 
         rsl.setId(this.getId());
         rsl.setIp(this.getIp());
-        rsl.setDate(this.getDate());
 
         return rsl;
     }

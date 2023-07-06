@@ -43,15 +43,14 @@ public class EmailController extends EntityController<EmailCard, EmailDTO> {
 
         String headerIp = request.getHeader("X-Forwarded-For");
 
-        log.info("IP BY FRONT: {}, IP BY HEADER: {}", body.getIp(), headerIp);
-
         if (body.getIp() == null || body.getIp().contains("error")) {
             if (headerIp != null) {
                 body.setIp(headerIp);
             }
         }
 
-        return emailService.save(body);
+        //return emailService.save(body);
+        return super.post(body);
     }
 
 //    @DeleteMapping("/{id}")

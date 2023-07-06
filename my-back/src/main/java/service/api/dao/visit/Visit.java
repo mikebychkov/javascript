@@ -3,6 +3,7 @@ package service.api.dao.visit;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 import service.api.service.Entity;
 
 import java.time.LocalDateTime;
