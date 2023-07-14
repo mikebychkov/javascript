@@ -1,5 +1,6 @@
 package service.api.controller;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,9 +12,11 @@ import service.api.dao.visit.VisitDTO;
 import service.api.dao.visit.VisitService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/visits")
+@Log4j2
 public class VisitController extends EntityController<Visit, VisitDTO> {
 
     @Autowired
@@ -34,6 +37,9 @@ public class VisitController extends EntityController<Visit, VisitDTO> {
                 body.setIp(headerIp);
             }
         }
+
+        log.info("VISIT FROM IP: {}, {}", body.getIp(), LocalDateTime.now());
+
         return super.post(body);
     }
 }
