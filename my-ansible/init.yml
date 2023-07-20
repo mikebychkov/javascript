@@ -36,3 +36,8 @@
     apt:
       name: nginx
       state: present
+
+  - name: INSTALL CERTBOT
+    community.general.snap:
+      name: certbot
+      classic: true
