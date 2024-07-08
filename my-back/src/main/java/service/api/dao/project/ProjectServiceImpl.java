@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.api.service.EntityServiceImpl;
 
+import java.util.List;
+
 @Service
 public class ProjectServiceImpl extends EntityServiceImpl<Project, ProjectDTO> implements ProjectService {
 
@@ -12,7 +14,15 @@ public class ProjectServiceImpl extends EntityServiceImpl<Project, ProjectDTO> i
         super(projectRepository);
     }
 
-    //    private final ProjectRepository projectRepository;
+    @Override
+    public List<ProjectDTO> findAll() {
+        return super.findAll().stream().sorted((a,b) -> {
+            if (b.getStart().equals(a.getStart())) return 0;
+            return b.getStart().isAfter(a.getStart()) ? 1 : -1;
+        }).toList();
+    }
+
+//    private final ProjectRepository projectRepository;
 //
 //    @Override
 //    public ProjectDTO findById(String id) {

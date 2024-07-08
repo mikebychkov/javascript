@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProjectDTO implements EntityDTO<Project> {
 
     private String id;
@@ -28,7 +28,7 @@ public class ProjectDTO implements EntityDTO<Project> {
     private String description;
     private String role;
     private String technologies;
-    private List<String> responsibilities;
+    private List<String> responsibilities; // TODO: ADD DESERIALIZER <FROM STRING>
 
     public static ProjectDTO of(Project project) {
 

@@ -24,12 +24,17 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserDTO credentials) {
 
+        return loginLogic(credentials);
+    }
+
+    private ResponseEntity<?> loginLogic(UserDTO credentials) {
+
         log.info(credentials);
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                                                            credentials.getUsername(),
-                                                            credentials.getPassword()
-                                                        );
+                credentials.getUsername(),
+                credentials.getPassword()
+        );
 
         Authentication auth = authenticationManager.authenticate(token);
 

@@ -8,13 +8,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@Profile("!local")
-public class WebConfig implements WebMvcConfigurer {
+@Profile("local")
+public class WebConfigLocal implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://mike-bychkov.com", "https://back.mike-bychkov.com", "https://admin.mike-bychkov.com")
+                .allowedOrigins("http://127.0.0.1:5500", "http://localhost:5500", "http://127.0.0.1:3000", "http://localhost:3000", "https://mike-bychkov.com", "https://back.mike-bychkov.com", "https://admin.mike-bychkov.com")
                 .allowedMethods("GET", "POST", "DELETE")
                 .allowedHeaders("Content-Type", "Authorization", "Accept")
                 //.exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")

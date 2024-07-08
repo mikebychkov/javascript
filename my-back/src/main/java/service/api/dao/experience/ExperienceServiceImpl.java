@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.api.service.EntityServiceImpl;
 
+import java.util.Comparator;
+import java.util.List;
+
 @Service
 public class ExperienceServiceImpl extends EntityServiceImpl<Experience, ExperienceDTO> implements ExperienceService {
 
@@ -12,7 +15,15 @@ public class ExperienceServiceImpl extends EntityServiceImpl<Experience, Experie
         super(experienceRepository);
     }
 
-    //    private final ExperienceRepository experienceRepository;
+    @Override
+    public List<ExperienceDTO> findAll() {
+        return super.findAll().stream().sorted((a,b) -> {
+            if (b.getStart().equals(a.getStart())) return 0;
+            return b.getStart().isAfter(a.getStart()) ? 1 : -1;
+        }).toList();
+    }
+
+//    private final ExperienceRepository experienceRepository;
 //
 //    @Override
 //    public ExperienceDTO findById(String id) {
