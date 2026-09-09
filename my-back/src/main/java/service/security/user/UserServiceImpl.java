@@ -67,12 +67,16 @@ public class UserServiceImpl implements UserService {
 
         validateUserDTO(dto);
 
+        String roles = dto.getId() == null || dto.getId().isBlank()
+                ? "ROLE_USER"
+                : findById(dto.getId()).getRoles();
+
         User newUser = User.builder()
                 .id(dto.getId())
                 .username(dto.getUsername())
                 .email(dto.getEmail())
                 .password(dto.getPassword())
-                .roles("ROLE_USER")
+                .roles(roles)
                 .build();
 
         return Optional.of(save(newUser))

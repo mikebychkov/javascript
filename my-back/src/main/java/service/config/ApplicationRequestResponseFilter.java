@@ -67,7 +67,10 @@ public class ApplicationRequestResponseFilter extends GenericFilterBean {
     private void logRequest(ContentCachingRequestWrapper request) {
         var builder = new StringBuilder();
         Map<String, String[]> params = request.getParameterMap();
+        builder.append("#".repeat(50));
+        builder.append("REQUEST");
         builder.append("Request URL").append(request.getRequestURI()).append(" ||| ");
+        builder.append("Request method: ").append(request.getMethod());
         builder.append("Request params: ");
         params.forEach((key, values) -> builder.append(key).append("=").append(String.join(", ", values)).append("; "));
         builder.append("Request body: ").append(new String(request.getContentAsByteArray()));
@@ -77,6 +80,8 @@ public class ApplicationRequestResponseFilter extends GenericFilterBean {
 
     private void logResponse(ContentCachingResponseWrapper response, Long processingTime) throws IOException {
         var builder = new StringBuilder();
+        builder.append("=".repeat(50));
+        builder.append("RESPONSE");
         builder.append("Processing time: ").append(processingTime).append("ms\n");
         builder.append(headersToString(response.getHeaderNames(), response::getHeader));
         builder.append("Response body: ").append(new String(response.getContentAsByteArray()));
