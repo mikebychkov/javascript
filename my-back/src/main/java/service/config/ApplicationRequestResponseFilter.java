@@ -66,23 +66,26 @@ public class ApplicationRequestResponseFilter extends GenericFilterBean {
 
     private void logRequest(ContentCachingRequestWrapper request) {
         var builder = new StringBuilder();
-        Map<String, String[]> params = request.getParameterMap();
-        builder.append("#".repeat(50));
+        builder.append("#".repeat(50)).append(" | ");
         builder.append("Request URL: ").append(request.getRequestURI()).append(" | ");
         builder.append("Request method: ").append(request.getMethod()).append(" | ");
         builder.append("Request params: ");
+
+        Map<String, String[]> params = request.getParameterMap();
         params.forEach((key, values) -> builder.append(key).append("=").append(String.join(", ", values)).append("; "));
-        builder.append("%nRequest body: ").append(new String(request.getContentAsByteArray()));
+        
+        builder.append("Request body: ").append(new String(request.getContentAsByteArray()));
         builder.append(headersToString(Collections.list(request.getHeaderNames()), request::getHeader));
+        
         log.info("Request: {}", builder);
     }
 
     private void logResponse(ContentCachingResponseWrapper response, Long processingTime) throws IOException {
         var builder = new StringBuilder();
-        builder.append("=".repeat(50));
+        builder.append("=".repeat(50)).append(" | ");
         builder.append("Processing time: ").append(processingTime).append("ms\n");
         builder.append(headersToString(response.getHeaderNames(), response::getHeader));
-        builder.append("%nResponse body: ").append(new String(response.getContentAsByteArray()));
+        builder.append("Response body: ").append(new String(response.getContentAsByteArray()));
         log.info("Response: {}", builder);
         response.copyBodyToResponse();
     }
